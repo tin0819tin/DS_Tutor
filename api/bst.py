@@ -24,11 +24,6 @@ FIRST_PRINT_POS_X  = 50
 PRINT_VERTICAL_GAP  = 20
 PRINT_HORIZONTAL_GAP = 50
 
-class BSTNode():
-    pass
-
-class BST():
-    pass
 # -----------------------------------------------------------
 # Define utility function
 # -----------------------------------------------------------
@@ -77,6 +72,8 @@ class BST():
         self.nextIndex += 1
         
         if self.root == None:
+            if self.nextIndex > 2:
+                clearCmd()
             addCmd("SetText", 0, "Inserting "+value)
             addCmd("CreateCircle", self.nextIndex, value, self.startingX, STARTING_Y)
             addCmd("SetForegroundColor", self.nextIndex, FOREGROUND_COLOR)
@@ -188,10 +185,227 @@ class BST():
 
         
     def find(self, value):
-        pass
+        self.highlightID = self.nextIndex
+        self.nextIndex += 1
+        
+        clearCmd()
+        self.doFind(self.root, value)
+
+    def doFind(self, tree:BSTNode, value):
+        addCmd("SetText", 0, "Searching for " + value)
+
+        if tree != None:
+            addCmd("SetHighlight", tree.graphID, 1)
+
+            if int(tree.value) == int(value):
+                addCmd("SetText", 0, "Searching for " + value + " : " + tree.value + " = " + value + " (Element found!)")
+                addCmd("Step")
+                addCmd("SetText", 0, "Found:" + value)
+                addCmd("SetHighlight", tree.graphID, 0)
+            
+            else:
+                if int(tree.value) > int(value):
+                    addCmd("SetText", 0, "Searching for " + value + " : " + value + " < " + tree.value + " (look to left subtree)")
+                    addCmd("Step")
+                    addCmd("SetHighlight", tree.graphID, 0)
+
+                    if tree.left != None:
+                        addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
+                        addCmd("Move", self.highlightID, tree.left.x, tree.left.y)
+                        addCmd("Step")
+                        addCmd("Delete", self.highlightID)
+                    
+                    self.doFind(tree.left, value)
+                
+                else:
+                    addCmd("SetText", 0, "Searching for " + value + " : " + value + " > " + tree.value + " (look to right subtree)")
+                    addCmd("Step")
+                    addCmd("SetHighlight", tree.graphID, 0)
+
+                    if tree.left != None:
+                        addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
+                        addCmd("Move", self.highlightID, tree.right.x, tree.right.y)
+                        addCmd("Step")
+                        addCmd("Delete", self.highlightID)
+                    
+                    self.doFind(tree.right, value)
+        else:
+            addCmd("SetText", 0, "Searching for "+value+" : " + "< Empty Tree > (Element not found)")
+            addCmd("Step")
+            addCmd("SetText", 0, "Searching for "+value+" : " + " (Element not found)")
+
+
 
     def delete(self, value):
-        pass
+
+        clearCmd()
+        addCmd("SetText", 0, "Deleting "+value)
+        addCmd("Step")
+        addCmd("SetText", 0, "")
+        self.highlightID = self.nextIndex
+        self.nextIndex += 1
+        self.treeDelete(self.root, value)
+        addCmd("SetText", 0, "")
+    
+    def treeDelete(self, tree:BSTNode, value):
+        
+        leftchild = False
+
+        if tree != None:
+            if tree.parent != None and tree.parent.left == tree:
+                leftchild = True
+
+            addCmd("SetHighlight", tree.graphID, 1)
+
+            if int(value) < int(tree.value):
+                addCmd("SetText", 0, value + " < " + tree.value + ".  Looking at left subtree")
+            elif int(value) > int(tree.value):
+                addCmd("SetText", 0, value + " > " + tree.value + ".  Looking at right subtree")
+            else:
+                addCmd("SetText", 0, value + " == " + tree.value + ".  Found node to delete")
+            addCmd("Step")
+            addCmd("SetHighlight", tree.graphID, 0)
+
+            # Start to Delete the Node
+
+            if int(value) == int(tree.value):
+
+                if tree.left == None and tree.right == None: # First Case: Delete Leaf Node
+                    addCmd("SetText", 0, "Node to delete is a leaf.  Delete it.")
+                    addCmd("Delete", tree.graphID)
+
+                    if leftchild and tree.parent != None:
+                        tree.parent.left = None
+                    elif tree.parent != None:
+                        tree.parent.right = None
+                    else:
+                        self.root = None
+
+                    self.resizeTree()
+                    addCmd("Step")
+
+                elif tree.left == None: # Second Case: Node have no left child
+                    addCmd("SetText", 0, "Node to delete has no left child.  \nSet parent of deleted node to right child of deleted node.")
+                    if tree.parent != None:
+                        addCmd("Disconnect", tree.parent.graphID, tree.graphID)
+                        addCmd("Connect",  tree.parent.graphID, tree.right.graphID, LINK_COLOR)
+                        addCmd("Step")
+                        addCmd("Delete", tree.graphID)
+
+                        if leftchild:
+                            tree.parent.left = tree.right
+                        else:
+                            tree.parent.right = tree.right
+
+                        tree.right.parent = tree.parent
+
+                    else:
+                        addCmd("Delete", tree.graphID)
+                        self.root = tree.right
+                        self.root.parent = None
+                    
+                    self.resizeTree()
+                
+                elif tree.right == None: # Third Case: Node have no right child
+                    addCmd("SetText", 0, "Node to delete has no right child.  \nSet parent of deleted node to left child of deleted node.")
+                    if tree.parent != None:
+                        addCmd("Disconnect", tree.parent.graphID, tree.graphID)
+                        addCmd("Connect",  tree.parent.graphID, tree.left.graphID, LINK_COLOR)
+                        addCmd("Step")
+                        addCmd("Delete", tree.graphID)
+
+                        if leftchild:
+                            tree.parent.left = tree.left
+                        else:
+                            tree.parent.right = tree.left
+                            
+                        tree.left.parent = tree.parent
+
+                    else:
+                        addCmd("Delete", tree.graphID)
+                        self.root = tree.left
+                        self.root.parent = None
+                    
+                    self.resizeTree()
+                
+                else: # Fourth Case: Node have both children
+                    addCmd("SetText", 0, "Node to delete has two childern.  \nFind largest node in left subtree.")
+                    
+                    self.highlightID = self.nextIndex
+                    self.nextIndex += 1
+                    addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
+                    tmp = tree.left
+                    addCmd("Move", self.highlightID, tmp.x, tmp.y)
+                    addCmd("Step")
+
+                    while tmp.right != None:
+                        tmp = tmp.right
+                        addCmd("Move", self.highlightID, tmp.x, tmp.y)
+                        addCmd("Step")
+                    
+                    addCmd("SetText", tree.graphID, "")
+                    labelID = self.nextIndex
+                    self.nextIndex += 1
+                    addCmd("CreateLabel", labelID, tmp.value, tmp.x, tmp.y)
+                    tree.value = tmp.value
+                    addCmd("Move", labelID, tree.x, tree.y)
+                    addCmd("SetText", 0, "Copy largest value " + tree.value + " of left subtree into node to delete.")
+                    addCmd("Step")
+
+                    addCmd("SetHighlight", tree.graphID, 0)
+                    addCmd("Delete", labelID)
+                    addCmd("SetText", tree.graphID, tree.value)
+                    addCmd("Delete", self.highlightID)
+                    addCmd("SetText", 0, "Remove node whose value we copied.")
+
+                    if tmp.left == None:
+                        if tmp.parent != tree:
+                            tmp.parent.right = None
+                        else:
+                            tree.left = None
+
+                        addCmd("Delete", tmp.graphID)
+                    
+                    else:
+                        addCmd("Disconnect", tmp.parent.graphID, tmp.graphID)
+                        addCmd("Connect", tmp.parent.graphID, tmp.left.graphID, LINK_COLOR)
+                        addCmd("Step")
+                        addCmd("Delete", tmp.graphID)
+
+                        if tmp.parent != tree:
+                            tmp.parent.right = tmp.left
+                            tmp.left.parent = tmp.parent
+                        else:
+                            tree.left = tmp.left
+                            tmp.left.parent = tree
+                    
+                    self.resizeTree()                    
+                
+
+            elif int(value) < int(tree.value):
+
+                if tree.left != None:
+                    addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
+                    addCmd("Move", self.highlightID, tree.left.x, tree.left.y)
+                    addCmd("Step")
+                    addCmd("Delete", self.highlightID)
+                
+                self.treeDelete(tree.left, value)
+
+            else:
+
+                if tree.right != None:
+                    addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
+                    addCmd("Move", self.highlightID, tree.right.x, tree.right.y)
+                    addCmd("Step")
+                    addCmd("Delete", self.highlightID)
+                
+                self.treeDelete(tree.right, value)
+
+        
+        else:
+            addCmd("SetText", 0, "Elemet "+value+" not found, could not delete")
+        
 
     def print(self):
         pass
@@ -234,19 +448,19 @@ def getInsert(value):
 def getFind(value):
     myTree.find(value)
     # tree = session['tree']
-    return jsonify(myTree.root.value)
+    return json.dumps(AnimationCommands)
 
 @app.route('/bst/delete/<value>', methods=['GET'] )
 def getDelete(value):
     myTree.delete(value)
     # tree = session['tree']
-    return jsonify(myTree.root.value)
+    return json.dumps(AnimationCommands)
 
 @app.route('/bst/print', methods=['GET'] )
 def getPrint():
     myTree.print()
     # tree = session['tree']
-    return jsonify(myTree.root.value)
+    return json.dumps(AnimationCommands)
 
 
 
