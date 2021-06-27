@@ -64,6 +64,8 @@ class BST():
         addCmd("CreateLabel", 0, "", 20, 10, 0)
         self.nextIndex += 1
         self.startingX = CANVAS_WIDTH//2
+        self.first_print_pos_y = CANVAS_HEGHT - 2 * PRINT_VERTICAL_GAP
+        self.print_max = CANVAS_WIDTH - 10
     
     def insert(self, value):
         # TODO: Normalize value
@@ -408,7 +410,52 @@ class BST():
         
 
     def print(self):
-        pass
+        
+        if self.root != None:
+            clearCmd()
+            self.highlightID = self.nextIndex
+            self.nextIndex += 1
+            firstLabel = self.nextIndex
+            addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, self.root.x, self.root.y)
+            self.xPosOfNextLabel, self.yPosOfNextLabel = FIRST_PRINT_POS_X, self.first_print_pos_y
+            self.printTree(self.root)
+            addCmd("Delete", self.highlightID)
+            addCmd("Step")
+
+            for i in range(firstLabel, self.nextIndex):
+                addCmd("Delete", i)
+            
+
+    def printTree(self, tree:BSTNode):
+        addCmd("Step")
+
+        if tree.left != None:
+            addCmd("Move", self.highlightID, tree.left.x, tree.left.y)
+            self.printTree(tree.left)
+            addCmd("Move", self.highlightID, tree.x, tree.y)
+            addCmd("Step")
+        
+        nextLabelID = self.nextIndex
+        self.nextIndex += 1
+
+        addCmd("CreateLabel", nextLabelID, tree.value, tree.x, tree.y)
+        addCmd("SetForegroundColor", nextLabelID, PRINT_COLOR)
+        addCmd("Move", nextLabelID, self.xPosOfNextLabel, self.yPosOfNextLabel)
+        addCmd("Step")
+
+        self.xPosOfNextLabel += PRINT_HORIZONTAL_GAP
+        if self.xPosOfNextLabel > self.print_max:
+            self.xPosOfNextLabel = FIRST_PRINT_POS_X
+            self.yPosOfNextLabel += PRINT_VERTICAL_GAP
+        
+        if tree.right != None:
+            addCmd("Move", self.highlightID, tree.right.x, tree.right.y)
+            self.printTree(tree.right)
+            addCmd("Move", self.highlightID, tree.x, tree.y)
+            addCmd("Step")
+        
+        return
+        
 
 # -----------------------------------------------------------
 # Initialize Flask Backend
