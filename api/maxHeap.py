@@ -2,6 +2,7 @@ from flask import Flask, jsonify, session
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
+import math
 
 
 # -----------------------------------------------------------
@@ -24,6 +25,14 @@ FIRST_PRINT_POS_X  = 50
 PRINT_VERTICAL_GAP  = 20
 PRINT_HORIZONTAL_GAP = 50
 
+ARRAY_ELEM_WIDTH = 30
+ARRAY_ELEM_HEIGHT = 25
+ARRAY_INITIAL_X = 30
+
+ARRAY_Y_POS = 50
+ARRAY_LABEL_Y_POS = 70
+
+ARRAY_SIZE  = 32;   # fixed size
 # -----------------------------------------------------------
 # Define utility function
 # -----------------------------------------------------------
@@ -38,34 +47,214 @@ def clearCmd():
 def normalizeInput(value):
     pass
 
+def Print(x):
+    # print(x)
+    pass
 
 # -----------------------------------------------------------
 # Define maxnHeap class
 # -----------------------------------------------------------
 class maxnHeap():
     
-    def __init__(self, size) -> None:
-        self.array = []
+    def __init__(self, size = ARRAY_SIZE):
         self.size = size
+        self.nextIndex = 0
+        self.HeapXPositions = [0, 450, 250, 650, 150, 350, 550, 750, 100, 200, 300, 400, 500, 600, 700, 800, 75, 125, 175, 225, 275, 325, 375, 425, 475, 525, 575, 625, 675, 725, 775, 825]
+        self.HeapYPositions = [0, 100, 170, 170, 240, 240, 240, 240, 310, 310, 310, 310, 310, 310, 310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
+        self.createArray()
     
     def insert(self, value):
-        pass
+        clearCmd()
+        if self.currentHeapSize >= ARRAY_SIZE - 1:
+            addCmd("SetText", self.descriptLabel1, "Heap Full!")
+            # return self.commands
+            Print(self.arrayData)
+            return
+
+        addCmd("SetText", self.descriptLabel1, "Inserting Element: " + value)	
+        addCmd("Step")
+        addCmd("SetText", self.descriptLabel1, "Inserting Element: ")
+        self.currentHeapSize += 1
+        self.arrayData[self.currentHeapSize] = value
+        addCmd("CreateCircle",self.circleObjs[self.currentHeapSize], "", self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+        addCmd("CreateLabel", self.descriptLabel2, value, 120, 45,  1)
+        if self.currentHeapSize > 1:
+            addCmd("Connect", self.circleObjs[math.floor(self.currentHeapSize / 2)], self.circleObjs[self.currentHeapSize]);				
+        
+        addCmd("Move", self.descriptLabel2, self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize]);
+        addCmd("Step");
+        addCmd("SetText", self.circleObjs[self.currentHeapSize], value);
+        addCmd("delete", self.descriptLabel2);
+        addCmd("SetText", self.arrayRects[self.currentHeapSize], value);
+
+        currentIndex = self.currentHeapSize;
+        parentIndex = math.floor(currentIndex / 2);
+
+        if currentIndex > 1:
+            self.setIndexHighlight(currentIndex, 1)
+            self.setIndexHighlight(parentIndex, 1)
+            addCmd("Step")
+            self.setIndexHighlight(currentIndex, 0)
+            self.setIndexHighlight(parentIndex, 0)
+
+        while currentIndex > 1 and self.arrayData[currentIndex] > self.arrayData[parentIndex]:  # for max heap
+            self.swap(currentIndex, parentIndex);
+            currentIndex = parentIndex;
+            parentIndex = math.floor(parentIndex / 2);
+            if currentIndex > 1:
+                self.setIndexHighlight(currentIndex, 1);
+                self.setIndexHighlight(parentIndex, 1);
+                addCmd("Step");
+                self.setIndexHighlight(currentIndex, 0);
+                self.setIndexHighlight(parentIndex, 0);
+            
+        addCmd("SetText", self.descriptLabel1, "");	
+        #return self.commands;
+        Print(self.arrayData)
+        return
     
     def removeMax(self):
-        pass
+        clearCmd()
+        addCmd("SetText", self.descriptLabel1, "");
+
+        if self.currentHeapSize == 0:
+            addCmd("SetText", self.descriptLabel1, "Heap is empty, cannot remove smallest element");
+            Print(self.arrayData)
+            return
+        
+        addCmd("SetText", self.descriptLabel1, "Removing element:");			
+        addCmd("CreateLabel", self.descriptLabel2, self.arrayData[1],  self.HeapXPositions[1], self.HeapYPositions[1], 0);
+        addCmd("SetText", self.circleObjs[1], "");
+        addCmd("Move", self.descriptLabel2,  120, 40)
+        addCmd("Step");
+        addCmd("Delete", self.descriptLabel2);
+        addCmd("SetText", self.descriptLabel1, "Removing element: " + self.arrayData[1]);
+        self.arrayData[1] = "";
+        
+        if self.currentHeapSize > 1:
+            addCmd("SetText", self.arrayRects[1], "");
+            addCmd("SetText", self.arrayRects[self.currentHeapSize], "");
+            self.swap(1,self.currentHeapSize);
+            addCmd("Delete", self.circleObjs[self.currentHeapSize]);
+            self.currentHeapSize -= 1
+            self.pushDown(1);				
+        else:
+            addCmd("SetText", self.arrayRects[1], "");
+            addCmd("Delete", self.circleObjs[self.currentHeapSize]);
+            self.currentHeapSize -= 1
+        Print(self.arrayData)
+        return
 
     def clear(self):
-        pass
+        while self.currentHeapSize > 0:
+            addCmd("Delete", self.circleObjs[self.currentHeapSize])
+            addCmd("SetText", self.arrayRects[self.currentHeapSize], "")
+            self.arrayData[self.currentHeapSize] = ''   # modified
+            self.currentHeapSize -= 1	
+        Print(self.arrayData)	
+        return
 
     def buildHeap(self):
         pass
 
     def swap(self, idx1, idx2):
-        pass
+        addCmd("SetText", self.arrayRects[idx1], "");
+        addCmd("SetText", self.arrayRects[idx2], "");
+        addCmd("SetText", self.circleObjs[idx1], "");
+        addCmd("SetText", self.circleObjs[idx2], "");
+        addCmd("CreateLabel", self.swapLabel1, self.arrayData[idx1], self.ArrayXPositions[idx1],ARRAY_Y_POS);
+        addCmd("CreateLabel", self.swapLabel2, self.arrayData[idx2], self.ArrayXPositions[idx2],ARRAY_Y_POS);
+        addCmd("CreateLabel", self.swapLabel3, self.arrayData[idx1], self.HeapXPositions[idx1],self.HeapYPositions[idx1]);
+        addCmd("CreateLabel", self.swapLabel4, self.arrayData[idx2], self.HeapXPositions[idx2],self.HeapYPositions[idx2]);
+        addCmd("Move", self.swapLabel1, self.ArrayXPositions[idx2],ARRAY_Y_POS)
+        addCmd("Move", self.swapLabel2, self.ArrayXPositions[idx1],ARRAY_Y_POS)
+        addCmd("Move", self.swapLabel3, self.HeapXPositions[idx2],self.HeapYPositions[idx2])
+        addCmd("Move", self.swapLabel4, self.HeapXPositions[idx1],self.HeapYPositions[idx1])
+        tmp = self.arrayData[idx1];
+        self.arrayData[idx1] = self.arrayData[idx2];
+        self.arrayData[idx2] = tmp;
+        addCmd("Step")
+        addCmd("SetText", self.arrayRects[idx1], self.arrayData[idx1]);
+        addCmd("SetText", self.arrayRects[idx2], self.arrayData[idx2]);
+        addCmd("SetText", self.circleObjs[idx1], self.arrayData[idx1]);
+        addCmd("SetText", self.circleObjs[idx2], self.arrayData[idx2]);
+        addCmd("Delete", self.swapLabel1);
+        addCmd("Delete", self.swapLabel2);
+        addCmd("Delete", self.swapLabel3);
+        addCmd("Delete", self.swapLabel4);
+        return
 
     def pushDown(self, idx):
-        pass
+        while True:
+            if idx*2 > self.currentHeapSize:
+                return
 
+            smallestIndex = 2*idx;
+
+            if idx*2 + 1 <= self.currentHeapSize:
+                self.setIndexHighlight(2*idx, 1)
+                self.setIndexHighlight(2*idx + 1, 1)
+                addCmd("Step")
+                self.setIndexHighlight(2*idx, 0)
+                self.setIndexHighlight(2*idx + 1, 0)
+                if self.arrayData[2*idx + 1] < self.arrayData[2*idx]:
+                    smallestIndex = 2*idx + 1
+                
+            self.setIndexHighlight(idx, 1)
+            self.setIndexHighlight(smallestIndex, 1)
+            addCmd("Step")
+            self.setIndexHighlight(idx, 0)
+            self.setIndexHighlight(smallestIndex, 0)
+
+            if self.arrayData[smallestIndex] > self.arrayData[idx]:
+                self.swap(smallestIndex, idx)
+                idx = smallestIndex
+            else:
+                return
+
+    # other functions
+    def createArray(self):
+        self.arrayData = [''] * ARRAY_SIZE
+        self.arrayLabels =[''] * ARRAY_SIZE
+        self.arrayRects = [''] * ARRAY_SIZE
+        self.circleObjs = [''] * ARRAY_SIZE
+        self.ArrayXPositions = [''] * ARRAY_SIZE
+        self.currentHeapSize = 0
+
+        for i in range(ARRAY_SIZE):
+            self.ArrayXPositions[i] = ARRAY_INITIAL_X + i *ARRAY_ELEM_WIDTH
+            self.arrayLabels[i] = self.nextIndex
+            self.nextIndex += 1
+            self.arrayRects[i] = self.nextIndex
+            self.nextIndex += 1
+            self.circleObjs[i] = self.nextIndex
+            self.nextIndex += 1
+            addCmd("CreateRectangle", self.arrayRects[i], "", ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT, self.ArrayXPositions[i] , ARRAY_Y_POS)
+            addCmd("CreateLabel", self.arrayLabels[i], i,  self.ArrayXPositions[i], ARRAY_LABEL_Y_POS)
+            addCmd("SetForegroundColor", self.arrayLabels[i], "#0000FF")
+        
+        addCmd("SetText", self.arrayRects[0], "-INF")
+        self.swapLabel1 = self.nextIndex
+        self.nextIndex += 1
+        self.swapLabel2 = self.nextIndex
+        self.nextIndex += 1
+        self.swapLabel3 = self.nextIndex
+        self.nextIndex += 1
+        self.swapLabel4 = self.nextIndex
+        self.nextIndex += 1
+        self.descriptLabel1 = self.nextIndex
+        self.nextIndex += 1
+        self.descriptLabel2 = self.nextIndex
+        self.nextIndex += 1
+        addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
+        # self.animationManager.StartNewAnimation(self.commands)
+        # self.animationManager.skipForward()
+        # self.animationManager.clearHistory()
+        
+    def setIndexHighlight(self, index, highlightVal):
+        addCmd("SetHighlight", self.circleObjs[index], highlightVal);
+        addCmd("SetHighlight", self.arrayRects[index], highlightVal);
+        
 
 # -----------------------------------------------------------
 # Initialize Flask Backend
@@ -93,24 +282,24 @@ def create_circle():
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/maxnHeap/insert/<value>' )
+@app.route('/maxHeap/insert/<value>' )
 def getInsert(value):
     myHeap.insert(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/maxnHeap/rMax', methods=['GET'] )
+@app.route('/maxHeap/rMax', methods=['GET'] )
 def getRemoveMax():
     myHeap.removeMax()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/maxnHeap/clear', methods=['GET'] )
+@app.route('/maxHeap/clear', methods=['GET'] )
 def getClear():
     myHeap.clear()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/maxnHeap/build', methods=['GET'] )
+@app.route('/maxHeap/build', methods=['GET'] )
 def getBuild():
     myHeap.buildHeap()
     return json.dumps(AnimationCommands)
