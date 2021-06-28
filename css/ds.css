@@ -1,0 +1,80 @@
+body {
+  background-color: #b8bdc6;
+}
+
+/* navbar */
+
+.mynavbar {
+  background-color: #393e46;
+  padding: 1% 6%;
+}
+
+.navbar-brand {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.navbar-item {
+  padding: 0 18px;
+}
+
+.navbar-item p {
+  margin: auto 0;
+}
+
+.navbar-item p:hover {
+  color: #d65a31;
+}
+
+.nav-link {
+  font-family: "Coming Soon", cursive;
+}
+
+/* canvas */
+
+#canvas {
+  background-color: #d9dce0;
+  border: 3px solid black;
+  text-align: center;
+  margin-top: 4%;
+}
+
+div {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* buttoms */
+
+.btn-dark,
+.btn-dark:active,
+.btn-dark:visited {
+  background-color: #d65a31 !important;
+  border-color: #b8bdc6 !important;
+}
+
+.btn-dark:hover {
+  background-color: #d68331 !important;
+  border-color: #b8bdc6 !important;
+}
+
+/* btns when animation */
+.btns-disable {
+  visibility: hidden;
+}
+
+/* text when animation */
+.text-disable {
+  visibility: hidden;
+}
+.hidden-text-bar {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+}
+
+span {
+  position: relative;
+  bottom: 30px;
+}
