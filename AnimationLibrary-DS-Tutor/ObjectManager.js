@@ -6,21 +6,7 @@ function ObjectManager() {
   this.stage = new createjs.Stage("canvas");
 
   //TODO
-  this.draw = function () {
-    //TODO
-    //亂打的
-    for (var i = 0; i < this.Nodes.length; i++) {
-      this.Nodes[i].draw(this.stage);
-    }
-
-    for (var i = 0; i < this.Edges.length; i++) {
-      if (this.Edges[i].length > 0) {
-        for (var j = 0; j < this.Edges[i].length; j++) {
-          this.Edges[i][j].draw(this.stage);
-        }
-      }
-    }
-  };
+  this.draw = function () {};
 
   this.addNodeObject = function (objectID, objectLabel) {
     if (this.Nodes[objectID] != null && this.Nodes[objectID] != undefined) {
