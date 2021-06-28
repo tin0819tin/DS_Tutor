@@ -1,6 +1,6 @@
 import re
 from urllib.response import addclosehook
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
@@ -278,10 +278,10 @@ class minHeap():
 # -----------------------------------------------------------
 # Initialize Flask Backend
 # -----------------------------------------------------------
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
-CORS(app)
+minH = Blueprint('minH', __name__)
+# app.config['SECRET_KEY'] = os.urandom(24)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+CORS(minH)
 myHeap = minHeap()
 
 
@@ -294,31 +294,31 @@ myHeap = minHeap()
 # 4. Build Heap: /minHeap/build
 # 
 # -----------------------------------------------------------
-@app.route('/', methods=['GET'] )
+@minH.route('/', methods=['GET'] )
 def create_circle():
     objectId, value = "1", "10"
     initX, initY = "0", "0" 
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/minHeap/insert/<value>' )
+@minH.route('/minHeap/insert/<value>' )
 def getInsert(value):
     myHeap.insert(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/minHeap/rMin', methods=['GET'] )
+@minH.route('/minHeap/rMin', methods=['GET'] )
 def getRemoveMin():
     myHeap.removeMin()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/minHeap/clear', methods=['GET'] )
+@minH.route('/minHeap/clear', methods=['GET'] )
 def getClear():
     myHeap.clear()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/minHeap/build', methods=['GET'] )
+@minH.route('/minHeap/build', methods=['GET'] )
 def getBuild():
     myHeap.buildHeap()
     return json.dumps(AnimationCommands)

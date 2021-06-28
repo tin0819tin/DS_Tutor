@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
@@ -99,10 +99,10 @@ class RBTree():
 # -----------------------------------------------------------
 # Initialize Flask Backend
 # -----------------------------------------------------------
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
-CORS(app)
+rbt = Blueprint("rbt", __name__)
+# app.config['SECRET_KEY'] = os.urandom(24)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+CORS(rbt)
 myRBTree = RBTree()
 
 
@@ -115,29 +115,29 @@ myRBTree = RBTree()
 # 4. Print(Inorder): /rbTree/print
 # 
 # -----------------------------------------------------------
-@app.route('/', methods=['GET'] )
+@rbt.route('/', methods=['GET'] )
 def create_circle():
     objectId, value = "1", "10"
     initX, initY = "0", "0" 
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/rbTree/insert/<value>' )
+@rbt.route('/rbTree/insert/<value>' )
 def getInsert(value):
     myRBTree.insert(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/find/<value>', methods=['GET'] )
+@rbt.route('/rbTree/find/<value>', methods=['GET'] )
 def getFind(value):
     myRBTree.find(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/delete/<value>', methods=['GET'] )
+@rbt.route('/rbTree/delete/<value>', methods=['GET'] )
 def getDelete(value):
     myRBTree.delete(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/print', methods=['GET'] )
+@rbt.route('/rbTree/print', methods=['GET'] )
 def getPrint():
     myRBTree.print()
     return json.dumps(AnimationCommands)

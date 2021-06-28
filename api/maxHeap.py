@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
@@ -259,10 +259,10 @@ class maxnHeap():
 # -----------------------------------------------------------
 # Initialize Flask Backend
 # -----------------------------------------------------------
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
-CORS(app)
+maxH = Blueprint('maxH', __name__)
+# app.config['SECRET_KEY'] = os.urandom(24)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+CORS(maxH)
 myHeap = maxnHeap()
 
 
@@ -275,31 +275,31 @@ myHeap = maxnHeap()
 # 4. Build Heap: /maxnHeap/build
 # 
 # -----------------------------------------------------------
-@app.route('/', methods=['GET'] )
+@maxH.route('/', methods=['GET'] )
 def create_circle():
     objectId, value = "1", "10"
     initX, initY = "0", "0" 
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/maxHeap/insert/<value>' )
+@maxH.route('/maxHeap/insert/<value>' )
 def getInsert(value):
     myHeap.insert(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/maxHeap/rMax', methods=['GET'] )
+@maxH.route('/maxHeap/rMax', methods=['GET'] )
 def getRemoveMax():
     myHeap.removeMax()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/maxHeap/clear', methods=['GET'] )
+@maxH.route('/maxHeap/clear', methods=['GET'] )
 def getClear():
     myHeap.clear()
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/maxHeap/build', methods=['GET'] )
+@maxH.route('/maxHeap/build', methods=['GET'] )
 def getBuild():
     myHeap.buildHeap()
     return json.dumps(AnimationCommands)
