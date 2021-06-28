@@ -106,12 +106,27 @@ function AnimationManager(objectManager, document, dataStructure) {
               parseInt(nextCommand[2]),
               parseInt(nextCommand[3])
             );
-            //remove attach line first?
             //use tweenjs to draw animation in 500ms (this.tweenjsAniamtionTime)
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
               this.animatedObjects.stage,
               this.tweenjsAnimationTime
             );
+
+            //remove all attach line
+            // open or not
+            //which is better visualization?
+            // ----------
+            if (
+              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                null &&
+              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                undefined
+            ) {
+              this.animatedObjects.BackEdges[
+                parseInt(nextCommand[1])
+              ][0].remove(this.animatedObjects.stage);
+            }
+            // ----------
           }
           // the target is highlight circle
           else {
@@ -284,7 +299,8 @@ function AnimationManager(objectManager, document, dataStructure) {
                 this.animatedObjects.Edges[i][j].draw(
                   this.animatedObjects.stage
                 );
-              } else if (this.animatedObjects.Edges[i][j].onScene == true) {
+              } else {
+                //redraw
                 this.animatedObjects.Edges[i][j].remove(
                   this.animatedObjects.stage
                 );
@@ -399,6 +415,7 @@ function AnimationManager(objectManager, document, dataStructure) {
       tweenjsAnimationTime = "";
       console.log(res + res2 + x);
     }
+    res2 = await this.drawConnection();
     console.log("Finish animation!");
     this.insertMode = false;
     this.deleteMode = false;

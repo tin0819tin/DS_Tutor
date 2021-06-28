@@ -7,8 +7,16 @@ var Line = function (fromNode, toNode) {
   this.onScene = false;
   this.toBeRemoved = false;
 
-  this.line = new createjs.Shape();
-  this.line.graphics.setStrokeStyle(3).beginStroke("rgba(0,0,0,1)");
+  var line = new createjs.Shape();
+  line.graphics.setStrokeStyle(3).beginStroke("rgba(0,0,0,1)");
+  var from_x = this.fromNode.x;
+  var from_y = this.fromNode.y;
+  var to_x = this.toNode.x;
+  var to_y = this.toNode.y;
+  line.graphics.moveTo(from_x, from_y);
+  line.graphics.lineTo(to_x, to_y);
+  line.graphics.endStroke();
+  this.line = line;
 };
 
 Line.prototype.setColor = function (hexString) {
@@ -17,9 +25,16 @@ Line.prototype.setColor = function (hexString) {
 
 Line.prototype.draw = function (stage) {
   this.onScene = true;
-  this.line.graphics.moveTo(this.fromNode.x, this.fromNode.y);
-  this.line.graphics.lineTo(this.toNode.x, this.toNode.y);
-  this.line.graphics.endStroke();
+  var line = new createjs.Shape();
+  line.graphics.setStrokeStyle(3).beginStroke("rgba(0,0,0,1)");
+  var from_x = this.fromNode.x;
+  var from_y = this.fromNode.y;
+  var to_x = this.toNode.x;
+  var to_y = this.toNode.y;
+  line.graphics.moveTo(from_x, from_y);
+  line.graphics.lineTo(to_x, to_y);
+  line.graphics.endStroke();
+  this.line = line;
   stage.addChildAt(this.line, 0);
   stage.update();
 };
