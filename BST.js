@@ -67,8 +67,8 @@ $(function () {
 
 // Cool();
 
-var stage = new createjs.Stage("canvas");
-node = new AnimatedHighlightCircle(2, 500, 250);
-node.draw(stage);
-node.setXY(800, 250);
-node.move(stage, 1000);
+// var stage = new createjs.Stage("canvas");
+// node = new AnimatedHighlightCircle(2, 500, 250);
+// node.draw(stage);
+// node.setXY(800, 250);
+// node.move(stage, 1000);
