@@ -199,7 +199,7 @@ function AnimationManager(objectManager, document) {
 
   //parse flask returned array of commands
   this.StartNewAnimation = async function (commands) {
-    //enable back btns bar
+    //disable btns bar
     this.disableBtns();
 
     //initialize
