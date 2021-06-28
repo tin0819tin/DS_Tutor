@@ -1,6 +1,6 @@
 var server = "http://127.0.0.1:5000";
 var OM = new ObjectManager();
-var AM = new AnimationManager(OM, document);
+var AM = new AnimationManager(OM, document, "BST");
 
 // ---- insert buttom event listener ----
 $(function () {
@@ -14,6 +14,7 @@ $(function () {
       //console.log(data);
       $("#insert-value").val("");
       var commands = JSON.parse(data);
+      AM.insertMode = true;
       AM.StartNewAnimation(commands);
     });
   });
@@ -31,6 +32,7 @@ $(function () {
       //console.log(data);
       $("#delete-value").val("");
       var commands = JSON.parse(data);
+      AM.deleteMode = true;
       AM.StartNewAnimation(commands);
     });
   });
@@ -48,6 +50,7 @@ $(function () {
       //console.log(data);
       $("#find-value").val("");
       var commands = JSON.parse(data);
+      AM.findMode = true;
       AM.StartNewAnimation(commands);
     });
   });
@@ -63,6 +66,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
+      AM.printMode = true;
       AM.StartNewAnimation(commands);
     });
   });

@@ -1,8 +1,14 @@
-function AnimationManager(objectManager, document) {
+function AnimationManager(objectManager, document, dataStructure) {
   // Holder for all animated objects.
   // All animation is done by manipulating objects in\
   // this container
   this.animatedObjects = objectManager;
+  this.dataStructure = dataStructure;
+
+  this.insertMode = false;
+  this.deleteMode = false;
+  this.findMode = false;
+  this.printMode = false;
 
   //this.commads store input array of commands from flask
   //AnimationBlocks store processed commands, array of array of command string
@@ -21,6 +27,7 @@ function AnimationManager(objectManager, document) {
   this.NodesNullList = [];
   this.EdgesNullList = [];
   this.BackEdgesNullList = [];
+  this.printNullList = [];
 
   //TODO
   this.startNextBlock = async function (commandsBlock) {
@@ -124,15 +131,39 @@ function AnimationManager(objectManager, document) {
           /* 
           [1]: objectID
           [2]: objectLabel
+          [3]: x
+          [4]: y
           */
-          this.animatedObjects.addLabelObject(
-            parseInt(nextCommand[1]),
-            nextCommand[2]
-          );
-          //draw
-          this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-            this.animatedObjects.stage
-          );
+
+          // if create status rectangle
+          if (parseInt(nextCommand[1]) == 0) {
+            this.animatedObjects.addLabelObject(
+              parseInt(nextCommand[1]),
+              nextCommand[2]
+            );
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
+            );
+          }
+          // else do same thing as create node
+          else {
+            this.animatedObjects.addNodeObject(
+              parseInt(nextCommand[1]),
+              parseInt(nextCommand[2])
+            );
+            if (nextCommand.length > 4) {
+              this.animatedObjects.setNodePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[3]),
+                parseInt(nextCommand[4])
+              );
+            }
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
+            );
+          }
         } else if (nextCommand[0].toUpperCase() == "SETTEXT") {
           //record & draw
           /*
@@ -168,7 +199,6 @@ function AnimationManager(objectManager, document) {
           [3]: x
           [4]: y
           */
-          // ID一定是奇數嗎？
 
           this.animatedObjects.addHighlightCircle(parseInt(nextCommand[1]));
           if (nextCommand.length > 4) {
@@ -225,6 +255,12 @@ function AnimationManager(objectManager, document) {
               );
               this.NodesNullList.push(parseInt(nextCommand[1]));
             } else if (this.deleteCase == 2) {
+            } else if (this.deleteCase == 3) {
+            } else if (this.deleteCase == 4) {
+            } else if (this.deleteCase == 0) {
+              if (this.printMode == true) {
+                this.printNullList.push(parseInt(nextCommand[1]));
+              }
             }
           }
         }
@@ -296,6 +332,23 @@ function AnimationManager(objectManager, document) {
     });
   };
 
+  this.clearPrintNodes = function () {
+    return new Promise((resolve) => {
+      if (this.printNullList.length > 0) {
+        for (var i = 0; i < this.printNullList.length; i++) {
+          var objectID = this.printNullList[i];
+          this.animatedObjects.Nodes[objectID].remove(
+            this.animatedObjects.stage
+          );
+          this.animatedObjects.Nodes[objectID] = null;
+        }
+      }
+      //init
+      this.printNullList = [];
+      resolve("");
+    });
+  };
+
   this.sleep = function (ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
@@ -330,6 +383,10 @@ function AnimationManager(objectManager, document) {
     console.log("Animation blocks after process:");
     console.log(this.AnimationBlocks);
 
+    //clear previous print nodes
+    var clearPrint = await this.clearPrintNodes();
+    clearPrint = "";
+
     //use for-loop + await to do each blocks of animations
     for (var x = 0; x < this.AnimationBlocks.length; x++) {
       var delay1 = await this.delay(this.blocksInterval);
@@ -343,6 +400,10 @@ function AnimationManager(objectManager, document) {
       console.log(res + res2 + x);
     }
     console.log("Finish animation!");
+    this.insertMode = false;
+    this.deleteMode = false;
+    this.findMode = false;
+    this.printMode = false;
     //enable back btns bar
     this.enableBtns();
   };
