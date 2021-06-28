@@ -5,6 +5,7 @@ var Line = function (fromNode, toNode) {
 
   this.color = "#000";
   this.onScene = false;
+  this.toBeRemoved = false;
 
   this.line = new createjs.Shape();
   this.line.graphics.setStrokeStyle(3).beginStroke("rgba(0,0,0,1)");
