@@ -1,8 +1,8 @@
-var AnimatedHighlightCircle = function (objectID, init_x, init_y) {
-  //create & set
+var AnimatedHighlightCircle = function (objectID) {
+  //create
   this.objectID = objectID;
-  this.x = init_x;
-  this.y = init_y;
+  this.x = 0;
+  this.y = 0;
   this.radius = 20;
 
   //circle
@@ -25,6 +25,8 @@ AnimatedHighlightCircle.prototype.setXY = function (new_x, new_y) {
 //draw
 
 AnimatedHighlightCircle.prototype.draw = function (stage) {
+  this.highlightCircle.x = this.x;
+  this.highlightCircle.y = this.y;
   stage.addChild(this.highlightCircle);
   stage.update();
 };

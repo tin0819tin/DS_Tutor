@@ -27,11 +27,11 @@ function AnimationManager(objectManager, document) {
         if (nextCommand[0].toUpperCase() == "CREATECIRCLE") {
           //record
           /*
-        [1]: objectID
-        [2]: label
-        [3]: x
-        [4]: y
-        */
+          [1]: objectID
+          [2]: label
+          [3]: x
+          [4]: y
+          */
           this.animatedObjects.addNodeObject(
             parseInt(nextCommand[1]),
             parseInt(nextCommand[2])
@@ -95,6 +95,16 @@ function AnimationManager(objectManager, document) {
           }
           // the target is highlight circle
           else {
+            this.animatedObjects.setCirclePosition(
+              parseInt(nextCommand[1]),
+              parseInt(nextCommand[2]),
+              parseInt(nextCommand[3])
+            );
+            //use tweenjs to draw animation in 500ms this.tweenjsAniamtionTime)
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
+              this.animatedObjects.stage,
+              this.tweenjsAnimationTime
+            );
           }
         } else if (nextCommand[0].toUpperCase() == "CREATELABEL") {
           //record
@@ -121,16 +131,39 @@ function AnimationManager(objectManager, document) {
             this.animatedObjects.stage
           );
         } else if (nextCommand[0].toUpperCase() == "CREATEHIGHLIGHTCIRCLE") {
-          //TODO
-          //or don't do
+          //record
+          /*
+          [1]: objectID
+          [3]: x
+          [4]: y
+          */
+          if (parseInt(nextCommand[1]) % 2 != 0) {
+            this.animatedObjects.addHighlightCircle(parseInt(nextCommand[1]));
+            if (nextCommand.length > 4) {
+              this.animatedObjects.setCirclePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[3]),
+                parseInt(nextCommand[4])
+              );
+            }
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
+            );
+          }
         } else if (nextCommand[0].toUpperCase() == "DELETE") {
-          //TODO
+          /*
+          [1]: objectID
+          */
           //if target is highlight circle
           if (parseInt(nextCommand[1]) % 2 != 0) {
+            this.animatedObjects.removeHighlightCircle(
+              parseInt(nextCommand[1])
+            );
           }
-          //TODO
           //if target is node
           else {
+            //TODO
           }
         }
 

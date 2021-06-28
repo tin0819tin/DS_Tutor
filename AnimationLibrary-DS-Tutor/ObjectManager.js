@@ -46,16 +46,20 @@ function ObjectManager() {
     this.Nodes[objectID] = newLabel;
   };
 
+  //not used
   this.pulsehighlight;
 
+  //not used
   this.addHighlightNode = function (node) {
     this.highlightList.push(node);
   };
 
+  //not used
   this.clearHighlightList = function () {
     this.highlightList = [];
   };
 
+  //not used
   //highlight all nodes in this.highlightList //used in OM.draw()
   this.sequenceHighlight = function (ArrayOfNodes, stage) {
     var i = 0;
@@ -91,5 +95,35 @@ function ObjectManager() {
     }
     this.Edges[objectIDfrom].push(l);
     this.BackEdges[objectIDto].push(l);
+  };
+
+  //for highlightCircle
+  this.addHighlightCircle = function (objectID) {
+    if (this.Nodes[objectID] != null && this.Nodes[objectID] != undefined) {
+      throw (
+        "addHighlightCircle: Object with same ID (" +
+        String(objectID) +
+        ") already Exists!"
+      );
+    }
+    var newHighlightCircle = new AnimatedHighlightCircle(objectID);
+    this.Nodes[objectID] = newHighlightCircle;
+  };
+
+  this.removeHighlightCircle = function (objectID) {
+    if (this.Nodes[objectID] == null || this.Nodes[objectID] == undefined) {
+      throw (
+        "removeHighlightCircle: Object with same ID (" +
+        String(objectID) +
+        ") already does not Exists!"
+      );
+    }
+
+    this.Nodes[objectID].remove(this.stage);
+    this.Nodes[objectID] = null;
+  };
+
+  this.setCirclePosition = function (objectID, new_x, new_y) {
+    this.Nodes[objectID].setXY(new_x, new_y);
   };
 }
