@@ -8,8 +8,7 @@ A web app for data structure visualization and tutoring.
 source api/bin/activate 
 
 # Set Flask variables
-cd api
-export FLASK_APP=bst.py
+export FLASK_APP=main.py
 
 # Run Flask Backend
 flask run --reload --debugger

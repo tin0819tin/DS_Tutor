@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
@@ -461,10 +461,11 @@ class BST():
 # -----------------------------------------------------------
 # Initialize Flask Backend
 # -----------------------------------------------------------
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
-CORS(app)
+# app = Flask(__name__)
+bst = Blueprint('bst', __name__)
+# app.config['SECRET_KEY'] = os.urandom(24)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+CORS(bst)
 myTree = BST()
 
 
@@ -477,14 +478,14 @@ myTree = BST()
 # 4. Print(Inorder): /bst/print
 # 
 # -----------------------------------------------------------
-@app.route('/', methods=['GET'] )
+@bst.route('/', methods=['GET'] )
 def create_circle():
     objectId, value = "1", "10"
     initX, initY = "0", "0" 
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/bst/insert/<value>' )
+@bst.route('/bst/insert/<value>' )
 def getInsert(value):
     myTree.insert(value)
     # session['tree'] = 'TREE'
@@ -492,19 +493,19 @@ def getInsert(value):
     # AnimationCommands.append("Send second command")
     return json.dumps(AnimationCommands)
 
-@app.route('/bst/find/<value>', methods=['GET'] )
+@bst.route('/bst/find/<value>', methods=['GET'] )
 def getFind(value):
     myTree.find(value)
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/bst/delete/<value>', methods=['GET'] )
+@bst.route('/bst/delete/<value>', methods=['GET'] )
 def getDelete(value):
     myTree.delete(value)
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
-@app.route('/bst/print', methods=['GET'] )
+@bst.route('/bst/print', methods=['GET'] )
 def getPrint():
     myTree.print()
     # tree = session['tree']
