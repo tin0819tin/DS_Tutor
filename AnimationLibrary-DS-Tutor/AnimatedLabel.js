@@ -2,9 +2,9 @@ function AnimatedLabel(objectID, objectLabel) {
   this.objectID = objectID;
   this.label = objectLabel; //show text
   this.x = 0;
-  this.y = 470;
+  this.y = 450;
   this.width = 1000;
-  this.height = 30;
+  this.height = 50;
   this.onScene = true; // useless, always on scene
 
   this.backgroundColor = "rgba(255, 255, 255, 0.5)";
@@ -26,7 +26,7 @@ function AnimatedLabel(objectID, objectLabel) {
     textAlign: "center",
     textBaseline: "middle",
     x: this.width / 2,
-    y: 500 - this.height / 2,
+    y: 500 - this.height / 2 - 10,
   });
   this.text = text;
 
@@ -54,7 +54,7 @@ function AnimatedLabel(objectID, objectLabel) {
       textAlign: "center",
       textBaseline: "middle",
       x: this.width / 2,
-      y: 500 - this.height / 2,
+      y: 500 - this.height / 2 - 10,
     });
     this.text = text;
 
