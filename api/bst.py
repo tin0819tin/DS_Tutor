@@ -135,8 +135,8 @@ class BST():
                 tree.right = node 
                 node.parent = tree
                 addCmd("Connect", tree.graphID, node.graphID, LINK_COLOR)
-                # node.x, node.y = tree.x + WIDTH_DELTA//2, tree.y + WIDTH_DELTA
-                # addCmd("Move", node.graphID, node.x, node.y)
+                node.x, node.y = tree.x + WIDTH_DELTA//2, tree.y + WIDTH_DELTA
+                addCmd("Move", node.graphID, node.x, node.y)
 
             else:
                 addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y)
@@ -149,6 +149,7 @@ class BST():
     def resizeTree(self):
         startingPoint = self.startingX
 
+        self.resizeWidth(self.root)
         if self.root != None:
             if self.root.leftWidth > startingPoint:
                 startingPoint = self.root.leftWidth
@@ -162,8 +163,8 @@ class BST():
     def resizeWidth(self, tree:BSTNode):
         if tree == None:
             return 0
-        tree.leftWidth = max(self.resizeTree(tree.left), WIDTH_DELTA//2)
-        tree.rightWidth = max(self.resizeTree(tree.right), WIDTH_DELTA//2)
+        tree.leftWidth = max(self.resizeWidth(tree.left), WIDTH_DELTA//2)
+        tree.rightWidth = max(self.resizeWidth(tree.right), WIDTH_DELTA//2)
         return tree.leftWidth + tree.rightWidth
     
 
