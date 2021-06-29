@@ -114,6 +114,8 @@ function AnimationManager(objectManager, document, dataStructure) {
             );
 
             //remove all attach backedge
+            //---------------------------
+            // just for better visualization, not actually delete it, turn of this part won't affect
             if (
               this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
                 null &&
@@ -124,6 +126,7 @@ function AnimationManager(objectManager, document, dataStructure) {
                 parseInt(nextCommand[1])
               ][0].remove(this.animatedObjects.stage);
             }
+            //---------------------------
           }
 
           // the target is highlight circle
@@ -183,10 +186,23 @@ function AnimationManager(objectManager, document, dataStructure) {
           [1]: objectID
           [2]: new text
           */
-          this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-            nextCommand[2],
-            this.animatedObjects.stage
-          );
+          // target is status line
+          if (parseInt(nextCommand[1]) == 0) {
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+              nextCommand[2],
+              this.animatedObjects.stage
+            );
+          }
+          // target is Node
+          else {
+            if (nextCommand[2] == "") {
+              nextCommand[2] = "0";
+            }
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+              parseInt(nextCommand[2]),
+              this.animatedObjects.stage
+            );
+          }
 
           // detect which delete case?
           if (nextCommand[2].includes("Node to delete has two child") == true) {
@@ -240,7 +256,7 @@ function AnimationManager(objectManager, document, dataStructure) {
           //if target is node
           else {
             //TODO
-            /*
+            /* For BST
             case1: delete leaf
             case2: delete node has no left child (one right child)
             case3: delete node has no right child (one left child)
@@ -288,7 +304,47 @@ function AnimationManager(objectManager, document, dataStructure) {
               );
               this.NodesNullList.push(parseInt(nextCommand[1]));
             } else if (this.deleteCase == 4) {
-              //TODO
+              //case4
+              //remove attach line from stage
+              //remove attach line by set toBeRemoved = true in both Edges & BackEdges
+              if (
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  null &&
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  undefined
+              ) {
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].toBeRemoved = true;
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].remove(this.animatedObjects.stage);
+              }
+              if (
+                this.animatedObjects.Edges[parseInt(nextCommand[1])] != null &&
+                this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                  undefined
+              ) {
+                for (
+                  var j = 0;
+                  j <
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])].length;
+                  j++
+                ) {
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                    j
+                  ].toBeRemoved = true;
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                    j
+                  ].remove(this.animatedObjects.stage);
+                }
+              }
+
+              //remove node from stage & Nodes
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+                this.animatedObjects.stage
+              );
+              this.NodesNullList.push(parseInt(nextCommand[1]));
             } else if (this.deleteCase == 0) {
               if (this.printMode == true) {
                 this.printNullList.push(parseInt(nextCommand[1]));

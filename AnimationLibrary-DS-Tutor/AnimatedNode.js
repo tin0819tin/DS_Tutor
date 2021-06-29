@@ -77,6 +77,33 @@ AnimatedNode.prototype.setTextColor = function (hexString) {
   this.node = node;
 };
 
+AnimatedNode.prototype.setText = function (newText, stage) {
+  stage.removeChild(this.node);
+  this.objectLabel = newText;
+
+  var text = new createjs.Text(
+    this.objectLabel.toString(),
+    "15px Arial",
+    this.textColor
+  );
+  text.set({
+    textAlign: "center",
+    textBaseline: "middle",
+  });
+  this.text = text;
+
+  var node = new createjs.Container();
+  node.addChild(this.circle, this.text);
+  this.node = node;
+
+  //update
+  this.onScene = true;
+  this.node.x = this.x;
+  this.node.y = this.y;
+  stage.addChild(this.node);
+  stage.update();
+};
+
 AnimatedNode.prototype.highlight = function (stage, node, highlightCircle, ms) {
   node.addChild(highlightCircle);
   stage.update();
