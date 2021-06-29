@@ -17,9 +17,6 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.blocksInterval = 250;
   this.tweenjsAnimationTime = 500;
 
-  //handle delete case
-  this.deleteCase = 0;
-
   //set NULL list
   this.NodesNullList = [];
   this.EdgesNullList = [];
@@ -203,24 +200,6 @@ function AnimationManager(objectManager, document, dataStructure) {
               this.animatedObjects.stage
             );
           }
-
-          // detect which delete case?
-          if (nextCommand[2].includes("Node to delete has two child") == true) {
-            this.deleteCase = 4;
-          } else if (
-            nextCommand[2].includes("Node to delete is a leaf.") == true
-          ) {
-            this.deleteCase = 1;
-          } else if (
-            nextCommand[2].includes("Node to delete has no left child.") == true
-          ) {
-            this.deleteCase = 2;
-          } else if (
-            nextCommand[2].includes("Node to delete has no right child.") ==
-            true
-          ) {
-            this.deleteCase = 3;
-          }
         } else if (nextCommand[0].toUpperCase() == "CREATEHIGHLIGHTCIRCLE") {
           //record
           /*
@@ -255,56 +234,8 @@ function AnimationManager(objectManager, document, dataStructure) {
           }
           //if target is node
           else {
-            //TODO
-            /* For BST
-            case1: delete leaf
-            case2: delete node has no left child (one right child)
-            case3: delete node has no right child (one left child)
-            case4: delete node has 2 children
-            */
-            if (this.deleteCase == 1) {
-              //remove attach edge from stage & marked toBeRemoved true
-              if (
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                  null &&
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                  undefined
-              ) {
-                this.animatedObjects.BackEdges[
-                  parseInt(nextCommand[1])
-                ][0].remove(this.animatedObjects.stage);
-                this.animatedObjects.BackEdges[
-                  parseInt(nextCommand[1])
-                ][0].toBeRemoved = true;
-              }
-
-              //remove from BackEdges list
-              this.BackEdgesNullList.push(parseInt(nextCommand[1]));
-              //remove from Edges list
-              /*
-                Do it in drawConnection function by detect toBeRemoved == true
-              */
-
-              //remove node and set null
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
-                this.animatedObjects.stage
-              );
-              this.NodesNullList.push(parseInt(nextCommand[1]));
-            } else if (this.deleteCase == 3 || this.deleteCase == 2) {
-              //case 2 or 3
-              //mark "ONE" attach "Edges" toBeRemoved = true, delte from BackEdges & Edges
-              //because only one child (left or right), only need to mark one edge!
-              this.animatedObjects.Edges[
-                parseInt(nextCommand[1])
-              ][0].toBeRemoved = true;
-
-              //remove node and set null
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
-                this.animatedObjects.stage
-              );
-              this.NodesNullList.push(parseInt(nextCommand[1]));
-            } else if (this.deleteCase == 4) {
-              //case4
+            if (this.printMode == false) {
+              //BST: case 1234
               //remove attach line from stage
               //remove attach line by set toBeRemoved = true in both Edges & BackEdges
               if (
@@ -345,10 +276,8 @@ function AnimationManager(objectManager, document, dataStructure) {
                 this.animatedObjects.stage
               );
               this.NodesNullList.push(parseInt(nextCommand[1]));
-            } else if (this.deleteCase == 0) {
-              if (this.printMode == true) {
-                this.printNullList.push(parseInt(nextCommand[1]));
-              }
+            } else if (this.printMode == true) {
+              this.printNullList.push(parseInt(nextCommand[1]));
             }
           }
         } else if (nextCommand[0].toUpperCase() == "DISCONNECT") {
@@ -492,8 +421,6 @@ function AnimationManager(objectManager, document, dataStructure) {
     //initialize
     this.AnimationBlocks = [];
     var block = [];
-    //for BST
-    this.deleteCase = 0;
 
     //if printMode on, insert "SetText<;>0<;>" at the front of command
     //to clear status line
@@ -518,7 +445,10 @@ function AnimationManager(objectManager, document, dataStructure) {
     console.log(this.AnimationBlocks);
 
     //clear previous print nodes for BST
-    if (this.dataStructure.toUpperCase() == "BST") {
+    if (
+      this.dataStructure.toUpperCase() == "BST" ||
+      this.dataStructure.toUpperCase() == "RBT"
+    ) {
       var clearPrint = await this.clearPrintNodes();
       clearPrint = "";
     }
