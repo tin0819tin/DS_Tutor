@@ -107,6 +107,34 @@ h1 {
   color: #d65a31;
 }
 
+/* Body 2 */
+
+#Test {
+  text-align: center;
+  background-color: #b8bdc6;
+  padding: 16% 15%;
+}
+
+#Test .btn-dark,
+#Test .btn-dark:active,
+#Test .btn-dark:visited {
+  background-color: #d65a31 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Test .btn-dark:hover {
+  background-color: #d68331 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Test h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 900;
+  font-size: 5rem;
+  margin-bottom: 5%;
+  color: #fff;
+}
+
 /* footer */
 #footer {
   background-color: #393e46;
