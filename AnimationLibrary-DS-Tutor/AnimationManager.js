@@ -248,12 +248,19 @@ function AnimationManager(objectManager, document, dataStructure) {
             */
             if (this.deleteCase == 1) {
               //remove attach edge from stage & marked toBeRemoved true
-              this.animatedObjects.BackEdges[
-                parseInt(nextCommand[1])
-              ][0].remove(this.animatedObjects.stage);
-              this.animatedObjects.BackEdges[
-                parseInt(nextCommand[1])
-              ][0].toBeRemoved = true;
+              if (
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  null &&
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  undefined
+              ) {
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].remove(this.animatedObjects.stage);
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].toBeRemoved = true;
+              }
 
               //remove from BackEdges list
               this.BackEdgesNullList.push(parseInt(nextCommand[1]));
@@ -267,15 +274,46 @@ function AnimationManager(objectManager, document, dataStructure) {
                 this.animatedObjects.stage
               );
               this.NodesNullList.push(parseInt(nextCommand[1]));
-            } else if (this.deleteCase == 2) {
-            } else if (this.deleteCase == 3) {
+            } else if (this.deleteCase == 3 || this.deleteCase == 2) {
+              //case 2 or 3
+              //mark "ONE" attach "Edges" toBeRemoved = true, delte from BackEdges & Edges
+              //because only one child (left or right), only need to mark one edge!
+              this.animatedObjects.Edges[
+                parseInt(nextCommand[1])
+              ][0].toBeRemoved = true;
+
+              //remove node and set null
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+                this.animatedObjects.stage
+              );
+              this.NodesNullList.push(parseInt(nextCommand[1]));
             } else if (this.deleteCase == 4) {
+              //TODO
             } else if (this.deleteCase == 0) {
               if (this.printMode == true) {
                 this.printNullList.push(parseInt(nextCommand[1]));
               }
             }
           }
+        } else if (nextCommand[0].toUpperCase() == "DISCONNECT") {
+          /*
+          [1]: fromNode
+          [2]: toNode
+          */
+          //find that edge and mark toBeRemoved & remove from stage
+          this.animatedObjects.BackEdges[
+            parseInt(nextCommand[2])
+          ][0].toBeRemoved = true;
+          this.animatedObjects.BackEdges[parseInt(nextCommand[2])][0].remove(
+            this.animatedObjects.stage
+          );
+
+          //remove from BackEdges list
+          this.BackEdgesNullList.push(parseInt(nextCommand[2]));
+          //removed from Edges list
+          /*
+            Do it in drawConnection function by detect toBeRemoved == true
+          */
         }
 
         i = i + 1;
@@ -285,6 +323,7 @@ function AnimationManager(objectManager, document, dataStructure) {
   };
 
   this.drawConnection = function () {
+    // update all edges
     return new Promise((resolve) => {
       for (var i = 0; i < this.animatedObjects.Edges.length; i++) {
         if (
@@ -309,6 +348,20 @@ function AnimationManager(objectManager, document, dataStructure) {
             } else if (this.animatedObjects.Edges[i][j].toBeRemoved == true) {
               //remove edge in Edge list
               this.animatedObjects.Edges[i].splice(j, 1);
+            }
+          }
+        }
+      }
+      //update BackEdges
+      for (var i = 0; i < this.animatedObjects.BackEdges.length; i++) {
+        if (
+          this.animatedObjects.BackEdges[i] != null &&
+          this.animatedObjects.BackEdges[i] != undefined
+        ) {
+          for (var j = 0; j < this.animatedObjects.BackEdges[i].length; j++) {
+            if (this.animatedObjects.BackEdges[i][j].toBeRemoved == true) {
+              //remove from BackEdges list
+              this.animatedObjects.BackEdges[i].splice(j, 1);
             }
           }
         }
@@ -346,6 +399,7 @@ function AnimationManager(objectManager, document, dataStructure) {
     });
   };
 
+  //for BST & RBT
   this.clearPrintNodes = function () {
     return new Promise((resolve) => {
       if (this.printNullList.length > 0) {
@@ -382,6 +436,7 @@ function AnimationManager(objectManager, document, dataStructure) {
     //initialize
     this.AnimationBlocks = [];
     var block = [];
+    //for BST
     this.deleteCase = 0;
 
     //if printMode on, insert "SetText<;>0<;>" at the front of command
@@ -403,12 +458,14 @@ function AnimationManager(objectManager, document, dataStructure) {
       this.AnimationBlocks.push(block);
     }
 
-    console.log("Animation blocks after process:");
+    console.log("Animation blocks after processing:");
     console.log(this.AnimationBlocks);
 
-    //clear previous print nodes
-    var clearPrint = await this.clearPrintNodes();
-    clearPrint = "";
+    //clear previous print nodes for BST
+    if (this.dataStructure.toUpperCase() == "BST") {
+      var clearPrint = await this.clearPrintNodes();
+      clearPrint = "";
+    }
 
     //use for-loop + await to do each blocks of animations
     for (var x = 0; x < this.AnimationBlocks.length; x++) {
