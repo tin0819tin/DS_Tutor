@@ -5,14 +5,11 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.animatedObjects = objectManager;
   this.dataStructure = dataStructure;
 
-  this.insertMode = false;
-  this.deleteMode = false;
-  this.findMode = false;
+  //use for Print btns
   this.printMode = false;
+  this.printNullList = [];
 
-  //this.commads store input array of commands from flask
   //AnimationBlocks store processed commands, array of array of command string
-  this.commands = [];
   this.AnimationBlocks = [];
 
   //interval between blocks
@@ -27,8 +24,8 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.NodesNullList = [];
   this.EdgesNullList = [];
   this.BackEdgesNullList = [];
-  this.printNullList = [];
 
+  //to do each block animation
   //TODO
   this.startNextBlock = async function (commandsBlock) {
     return new Promise((resolve) => {
@@ -36,6 +33,10 @@ function AnimationManager(objectManager, document, dataStructure) {
       var i = 0;
 
       //while loop, do all commands
+
+      // --------------------------
+      // the for loop inside must not use "i" for parameter, will cause bug
+      // --------------------------
 
       while (i < commandsBlock.length) {
         var nextCommand = commandsBlock[i].split("<;>");
@@ -112,10 +113,7 @@ function AnimationManager(objectManager, document, dataStructure) {
               this.tweenjsAnimationTime
             );
 
-            //remove all attach line
-            // open or not
-            //which is better visualization?
-            // ----------
+            //remove all attach backedge
             if (
               this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
                 null &&
@@ -126,8 +124,8 @@ function AnimationManager(objectManager, document, dataStructure) {
                 parseInt(nextCommand[1])
               ][0].remove(this.animatedObjects.stage);
             }
-            // ----------
           }
+
           // the target is highlight circle
           else {
             this.animatedObjects.setCirclePosition(
@@ -190,7 +188,7 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.animatedObjects.stage
           );
 
-          //which delete case?
+          // detect which delete case?
           if (nextCommand[2].includes("Node to delete has two child") == true) {
             this.deleteCase = 4;
           } else if (
@@ -256,14 +254,14 @@ function AnimationManager(objectManager, document, dataStructure) {
               this.animatedObjects.BackEdges[
                 parseInt(nextCommand[1])
               ][0].toBeRemoved = true;
+
               //remove from BackEdges list
-              // var removeEdge =
-              //   this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0];
               this.BackEdgesNullList.push(parseInt(nextCommand[1]));
               //remove from Edges list
               /*
                 Do it in drawConnection function by detect toBeRemoved == true
               */
+
               //remove node and set null
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
                 this.animatedObjects.stage
@@ -365,6 +363,8 @@ function AnimationManager(objectManager, document, dataStructure) {
     });
   };
 
+  // for delay time between blocks
+  // -----------
   this.sleep = function (ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
@@ -372,6 +372,7 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.delay = async function (ms) {
     return this.sleep(ms).then((v) => "start block ");
   };
+  // -----------
 
   //parse flask returned array of commands
   this.StartNewAnimation = async function (commands) {
@@ -379,10 +380,16 @@ function AnimationManager(objectManager, document, dataStructure) {
     this.disableBtns();
 
     //initialize
-    this.commands = commands;
     this.AnimationBlocks = [];
     var block = [];
     this.deleteCase = 0;
+
+    //if printMode on, insert "SetText<;>0<;>" at the front of command
+    //to clear status line
+    if (this.printMode == true) {
+      commands.splice(0, 0, "SetText<;>0<;>");
+    }
+
     //parse commands, separated by "STEP<;>"
     for (var i = 0; i < commands.length; i++) {
       if (commands[i] == "Step<;>") {
@@ -407,6 +414,7 @@ function AnimationManager(objectManager, document, dataStructure) {
     for (var x = 0; x < this.AnimationBlocks.length; x++) {
       var delay1 = await this.delay(this.blocksInterval);
       console.log(delay1 + x);
+
       var res = await this.startNextBlock(this.AnimationBlocks[x]);
       var settingSomethingNull = await this.setNULL();
       var tweenjsAnimationTime = await this.delay(this.tweenjsAnimationTime);
@@ -415,11 +423,9 @@ function AnimationManager(objectManager, document, dataStructure) {
       tweenjsAnimationTime = "";
       console.log(res + res2 + x);
     }
-    res2 = await this.drawConnection();
     console.log("Finish animation!");
-    this.insertMode = false;
-    this.deleteMode = false;
-    this.findMode = false;
+
+    //init
     this.printMode = false;
     //enable back btns bar
     this.enableBtns();

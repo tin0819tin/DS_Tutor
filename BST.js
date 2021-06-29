@@ -14,7 +14,6 @@ $(function () {
       //console.log(data);
       $("#insert-value").val("");
       var commands = JSON.parse(data);
-      AM.insertMode = true;
       AM.StartNewAnimation(commands);
     });
   });
@@ -32,7 +31,6 @@ $(function () {
       //console.log(data);
       $("#delete-value").val("");
       var commands = JSON.parse(data);
-      AM.deleteMode = true;
       AM.StartNewAnimation(commands);
     });
   });
@@ -50,7 +48,6 @@ $(function () {
       //console.log(data);
       $("#find-value").val("");
       var commands = JSON.parse(data);
-      AM.findMode = true;
       AM.StartNewAnimation(commands);
     });
   });
