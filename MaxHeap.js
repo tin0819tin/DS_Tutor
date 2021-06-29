@@ -1,12 +1,12 @@
 var server = "http://127.0.0.1:5000";
 var OM = new ObjectManager();
-var AM = new AnimationManager(OM, document, "BST");
+var AM = new AnimationManager(OM, document, "MAXH");
 AM.DIYMode = true;
 
 // ---- insert buttom event listener ----
 $(function () {
   $("#insert").click(function () {
-    var appdir = "/bst/insert/";
+    var appdir = "/maxHeap/insert/";
     var n = parseInt($("#insert-value").val());
     $.ajax({
       type: "GET",
@@ -20,52 +20,52 @@ $(function () {
   });
 });
 
-// ---- delete buttom event listener ----
+// ---- rMax buttom event listener ----
 $(function () {
-  $("#delete").click(function () {
-    var appdir = "/bst/delete/";
-    var n = parseInt($("#delete-value").val());
+  $("#rMax").click(function () {
+    var appdir = "/maxHeap/rMax";
     $.ajax({
       type: "GET",
-      url: server + appdir + n,
+      url: server + appdir,
     }).done(function (data) {
       //console.log(data);
       $("#delete-value").val("");
       var commands = JSON.parse(data);
-      AM.StartNewAnimation(commands);
+      console.log(commands);
+      //AM.StartNewAnimation(commands);
     });
   });
 });
 
-// ---- find buttom event listener ----
+// ---- clear buttom event listener ----
 $(function () {
-  $("#find").click(function () {
-    var appdir = "/bst/find/";
-    var n = parseInt($("#find-value").val());
+  $("#clear").click(function () {
+    var appdir = "/maxHeap/find";
     $.ajax({
       type: "GET",
-      url: server + appdir + n,
+      url: server + appdir,
     }).done(function (data) {
       //console.log(data);
       $("#find-value").val("");
       var commands = JSON.parse(data);
-      AM.StartNewAnimation(commands);
+      console.log(commands);
+      //AM.StartNewAnimation(commands);
     });
   });
 });
 
-// ---- print buttom event listener ----
+// ---- build buttom event listener ----
 $(function () {
-  $("#print").click(function () {
-    var appdir = "/bst/print";
+  $("#build").click(function () {
+    var appdir = "/maxHeap/build";
     $.ajax({
       type: "GET",
       url: server + appdir,
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      AM.printMode = true;
-      AM.StartNewAnimation(commands);
+      console.log(commands);
+      //AM.StartNewAnimation(commands);
     });
   });
 });

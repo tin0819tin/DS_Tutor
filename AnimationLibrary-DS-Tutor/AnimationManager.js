@@ -3,9 +3,12 @@ function AnimationManager(objectManager, document, dataStructure) {
   // All animation is done by manipulating objects in\
   // this container
   this.animatedObjects = objectManager;
-  this.dataStructure = dataStructure;
 
-  //use for Print btns
+  // "BST", "MAXH", "MINH", "RBT"
+  this.dataStructure = dataStructure;
+  this.DIYMode = false;
+
+  //use for Print btns in BST, RBT
   this.printMode = false;
   this.printNullList = [];
 
@@ -184,7 +187,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [2]: new text
           */
           // target is status line
-          if (parseInt(nextCommand[1]) == 0) {
+          if (
+            (parseInt(nextCommand[1]) == 0 && this.dataStructure == "BST") ||
+            (parseInt(nextCommand[1]) == 100 && this.dataStructure == "MAXH")
+          ) {
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
               nextCommand[2],
               this.animatedObjects.stage
@@ -416,8 +422,9 @@ function AnimationManager(objectManager, document, dataStructure) {
   //parse flask returned array of commands
   this.StartNewAnimation = async function (commands) {
     //disable btns bar
-    this.disableBtns();
-
+    if (this.DIYMode == true) {
+      this.disableBtns();
+    }
     //initialize
     this.AnimationBlocks = [];
     var block = [];
@@ -470,8 +477,11 @@ function AnimationManager(objectManager, document, dataStructure) {
 
     //init
     this.printMode = false;
-    //enable back btns bar
-    this.enableBtns();
+
+    if (this.DIYMode == true) {
+      //enable back btns bar
+      this.enableBtns();
+    }
   };
 
   this.disableBtns = function () {

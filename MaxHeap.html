@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>BST</title>
+    <title>MaxHeap</title>
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -22,7 +22,7 @@
     <!-- nav-bar -->
     <div class="mynavbar">
       <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="">Binary Search Tree</a>
+        <a class="navbar-brand" href="">Max Heap</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -60,16 +60,14 @@
       <input type="text" size="5" id="insert-value" />
       <button id="insert" class="btn btn-dark">Insert</button>
 
-      <!-- delete -->
-      <input type="text" size="5" id="delete-value" />
-      <button id="delete" class="btn btn-dark">Delete</button>
+      <!-- Remove Max -->
+      <button id="rMax" class="btn btn-dark">Remove Max</button>
 
-      <!-- find -->
-      <input type="text" size="5" id="find-value" />
-      <button id="find" class="btn btn-dark">Find</button>
+      <!-- clear -->
+      <button id="clear" class="btn btn-dark">Clear</button>
 
-      <!-- print -->
-      <button id="print" class="btn btn-dark">Print</button>
+      <!-- build -->
+      <button id="build" class="btn btn-dark">Build</button>
     </div>
     <div id="hidden-text" class="hidden-text-bar text-disable">
       <span id="animation-text"></span>
@@ -87,6 +85,6 @@
     <script src="AnimationLibrary-DS-Tutor/AnimatedHighlightCircle.js"></script>
     <script src="AnimationLibrary-DS-Tutor/ObjectManager.js"></script>
     <script src="AnimationLibrary-DS-Tutor/AnimationManager.js"></script>
-    <script src="BST.js"></script>
+    <script src="MaxHeap.js"></script>
   </body>
 </html>
