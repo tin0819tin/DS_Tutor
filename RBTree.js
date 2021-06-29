@@ -1,12 +1,12 @@
 var server = "http://127.0.0.1:5000";
 var OM = new ObjectManager();
-var AM = new AnimationManager(OM, document, "MAXH");
+var AM = new AnimationManager(OM, document, "RBT");
 AM.DIYMode = true;
 
 // ---- insert buttom event listener ----
 $(function () {
   $("#insert").click(function () {
-    var appdir = "/maxHeap/insert/";
+    var appdir = "/rbTree/insert/";
     var n = parseInt($("#insert-value").val());
     $.ajax({
       type: "GET",
@@ -20,50 +20,52 @@ $(function () {
   });
 });
 
-// ---- rMax buttom event listener ----
+// ---- delete buttom event listener ----
 $(function () {
-  $("#rMax").click(function () {
-    var appdir = "/maxHeap/rMax";
+  $("#delete").click(function () {
+    var appdir = "/rbTree/delete/";
+    var n = parseInt($("#delete-value").val());
     $.ajax({
       type: "GET",
-      url: server + appdir,
+      url: server + appdir + n,
     }).done(function (data) {
       //console.log(data);
+      $("#delete-value").val("");
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
 
-// ---- clear buttom event listener ----
+// ---- find buttom event listener ----
 $(function () {
-  $("#clear").click(function () {
-    var appdir = "/maxHeap/clear";
+  $("#find").click(function () {
+    var appdir = "/rbTree/find/";
+    var n = parseInt($("#find-value").val());
     $.ajax({
       type: "GET",
-      url: server + appdir,
+      url: server + appdir + n,
     }).done(function (data) {
       //console.log(data);
+      $("#find-value").val("");
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
 
-// ---- build buttom event listener ----
+// ---- print buttom event listener ----
 $(function () {
-  $("#build").click(function () {
-    var appdir = "/maxHeap/build";
+  $("#print").click(function () {
+    var appdir = "/rbTree/print";
     $.ajax({
       type: "GET",
       url: server + appdir,
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.printMode = true;
+      AM.StartNewAnimation(commands);
     });
   });
 });
