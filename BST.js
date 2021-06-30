@@ -69,3 +69,33 @@ $(function () {
     });
   });
 });
+
+// ---- clear buttom event listener ----
+$(function () {
+  $("#clear").click(function () {
+    var appdir = "/bst/clear";
+    $.ajax({
+      type: "GET",
+      url: server + appdir,
+    }).done(function (data) {
+      //console.log(data);
+      var commands = JSON.parse(data);
+      AM.StartNewAnimation(commands);
+    });
+  });
+});
+
+// ---- build buttom event listener ----
+$(function () {
+  $("#build").click(function () {
+    var appdir = "/bst/build";
+    $.ajax({
+      type: "GET",
+      url: server + appdir,
+    }).done(function (data) {
+      //console.log(data);
+      var commands = JSON.parse(data);
+      AM.StartNewAnimation(commands);
+    });
+  });
+});

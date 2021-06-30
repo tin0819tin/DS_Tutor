@@ -122,9 +122,16 @@ function AnimationManager(objectManager, document, dataStructure) {
               this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
                 undefined
             ) {
-              this.animatedObjects.BackEdges[
-                parseInt(nextCommand[1])
-              ][0].remove(this.animatedObjects.stage);
+              if (
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                  null &&
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                  undefined
+              ) {
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].remove(this.animatedObjects.stage);
+              }
             }
             //---------------------------
           }
@@ -232,58 +239,71 @@ function AnimationManager(objectManager, document, dataStructure) {
           */
           //if target is highlight circle
           if (
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode == false
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])] == null ||
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])] == undefined
           ) {
-            this.animatedObjects.removeHighlightCircle(
-              parseInt(nextCommand[1])
+            console.log(
+              "Delete: ObjectID: " + nextCommand[1] + " doesn't exist"
             );
-          }
-          //if target is node
-          else {
-            if (this.printMode == false) {
-              //BST: case 1234
-              //remove attach line from stage
-              //remove attach line by set toBeRemoved = true in both Edges & BackEdges
-              if (
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                  null &&
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                  undefined
-              ) {
-                this.animatedObjects.BackEdges[
-                  parseInt(nextCommand[1])
-                ][0].toBeRemoved = true;
-                this.animatedObjects.BackEdges[
-                  parseInt(nextCommand[1])
-                ][0].remove(this.animatedObjects.stage);
-              }
-              if (
-                this.animatedObjects.Edges[parseInt(nextCommand[1])] != null &&
-                this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
-                  undefined
-              ) {
-                for (
-                  var j = 0;
-                  j <
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])].length;
-                  j++
-                ) {
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])][
-                    j
-                  ].toBeRemoved = true;
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])][
-                    j
-                  ].remove(this.animatedObjects.stage);
-                }
-              }
-
-              //remove node from stage & Nodes
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
-                this.animatedObjects.stage
+          } else {
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
+              false
+            ) {
+              this.animatedObjects.removeHighlightCircle(
+                parseInt(nextCommand[1])
               );
-              this.NodesNullList.push(parseInt(nextCommand[1]));
-            } else if (this.printMode == true) {
-              this.printNullList.push(parseInt(nextCommand[1]));
+            }
+            //if target is node
+            else {
+              if (this.printMode == false) {
+                //BST: case 1234
+                //remove attach line from stage
+                //remove attach line by set toBeRemoved = true in both Edges & BackEdges
+                if (
+                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                    null &&
+                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                    undefined &&
+                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] != []
+                ) {
+                  this.animatedObjects.BackEdges[
+                    parseInt(nextCommand[1])
+                  ][0].toBeRemoved = true;
+                  this.animatedObjects.BackEdges[
+                    parseInt(nextCommand[1])
+                  ][0].remove(this.animatedObjects.stage);
+                }
+                if (
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                    null &&
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                    undefined &&
+                  this.animatedObjects.Edges[parseInt(nextCommand[1])] != []
+                ) {
+                  for (
+                    var j = 0;
+                    j <
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])].length;
+                    j++
+                  ) {
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                      j
+                    ].toBeRemoved = true;
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                      j
+                    ].remove(this.animatedObjects.stage);
+                  }
+                }
+
+                //remove node from stage & Nodes
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+                  this.animatedObjects.stage
+                );
+                this.NodesNullList.push(parseInt(nextCommand[1]));
+              } else if (this.printMode == true) {
+                this.printNullList.push(parseInt(nextCommand[1]));
+              }
             }
           }
         } else if (nextCommand[0].toUpperCase() == "DISCONNECT") {
@@ -319,7 +339,8 @@ function AnimationManager(objectManager, document, dataStructure) {
       for (var i = 0; i < this.animatedObjects.Edges.length; i++) {
         if (
           this.animatedObjects.Edges[i] != null &&
-          this.animatedObjects.Edges[i] != undefined
+          this.animatedObjects.Edges[i] != undefined &&
+          this.animatedObjects.Edges[i] != []
         ) {
           for (var j = 0; j < this.animatedObjects.Edges[i].length; j++) {
             if (this.animatedObjects.Edges[i][j].toBeRemoved == false) {
@@ -347,7 +368,8 @@ function AnimationManager(objectManager, document, dataStructure) {
       for (var i = 0; i < this.animatedObjects.BackEdges.length; i++) {
         if (
           this.animatedObjects.BackEdges[i] != null &&
-          this.animatedObjects.BackEdges[i] != undefined
+          this.animatedObjects.BackEdges[i] != undefined &&
+          this.animatedObjects.BackEdges[i] != []
         ) {
           for (var j = 0; j < this.animatedObjects.BackEdges[i].length; j++) {
             if (this.animatedObjects.BackEdges[i][j].toBeRemoved == true) {
