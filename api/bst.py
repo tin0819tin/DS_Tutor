@@ -456,6 +456,20 @@ class BST():
             addCmd("Step")
         
         return
+    
+    def build(self):
+        clearCmd()
+        
+
+    def clear(self):
+        clearCmd()
+
+        while self.nextIndex > 0:
+            addCmd("Delete", self.nextIndex)
+            self.nextIndex -= 1
+        self.root = None
+        self.nextIndex += 1
+
         
 
 # -----------------------------------------------------------
@@ -476,6 +490,8 @@ myTree = BST()
 # 2. Find: /bst/find/<value>
 # 3. Delete: /bst/delete/<value>
 # 4. Print(Inorder): /bst/print
+# 5. Build: /bst/build
+# 6. Clear: /bst/clear
 # 
 # -----------------------------------------------------------
 @bst.route('/', methods=['GET'] )
@@ -511,6 +527,17 @@ def getPrint():
     # tree = session['tree']
     return json.dumps(AnimationCommands)
 
+@bst.route('/bst/build', methods=['GET'] )
+def getBuild():
+    myTree.build()
+    # tree = session['tree']
+    return json.dumps(AnimationCommands)
+
+@bst.route('/bst/clear', methods=['GET'] )
+def getClear():
+    myTree.clear()
+    # tree = session['tree']
+    return json.dumps(AnimationCommands)
 
 
 # if __name__ == "__main__":
