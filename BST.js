@@ -80,6 +80,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
+      AM.clearMode = true;
       AM.StartNewAnimation(commands);
     });
   });

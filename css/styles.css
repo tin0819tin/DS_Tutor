@@ -84,6 +84,16 @@ h1 {
 }
 
 /* Body */
+
+#data-structures h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 900;
+  font-size: 4rem;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+  color: #fff;
+}
+
 #data-structures {
   text-align: center;
   background-color: #b8bdc6;

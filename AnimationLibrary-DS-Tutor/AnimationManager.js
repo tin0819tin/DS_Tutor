@@ -12,6 +12,9 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.printMode = false;
   this.printNullList = [];
 
+  //use for clear function
+  this.clearMode = false;
+
   //AnimationBlocks store processed commands, array of array of command string
   this.AnimationBlocks = [];
 
@@ -264,15 +267,23 @@ function AnimationManager(objectManager, document, dataStructure) {
                   this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
                     null &&
                   this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                    undefined &&
-                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] != []
+                    undefined
                 ) {
-                  this.animatedObjects.BackEdges[
-                    parseInt(nextCommand[1])
-                  ][0].toBeRemoved = true;
-                  this.animatedObjects.BackEdges[
-                    parseInt(nextCommand[1])
-                  ][0].remove(this.animatedObjects.stage);
+                  if (
+                    this.animatedObjects.BackEdges[
+                      parseInt(nextCommand[1])
+                    ][0] != null &&
+                    this.animatedObjects.BackEdges[
+                      parseInt(nextCommand[1])
+                    ][0] != undefined
+                  ) {
+                    this.animatedObjects.BackEdges[
+                      parseInt(nextCommand[1])
+                    ][0].toBeRemoved = true;
+                    this.animatedObjects.BackEdges[
+                      parseInt(nextCommand[1])
+                    ][0].remove(this.animatedObjects.stage);
+                  }
                 }
                 if (
                   this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
@@ -320,11 +331,18 @@ function AnimationManager(objectManager, document, dataStructure) {
           );
 
           //remove from BackEdges list
-          this.BackEdgesNullList.push(parseInt(nextCommand[2]));
           //removed from Edges list
           /*
             Do it in drawConnection function by detect toBeRemoved == true
           */
+        } else if (nextCommand[0].toUpperCase() == "SETBACKGROUNDCOLOR") {
+          if (this.dataStructure.toUpperCase() == "RBT") {
+            //TODO
+          }
+        } else if (nextCommand[0].toUpperCase() == "SETFOREGROUNDCOLOR") {
+          if (this.dataStructure.toUpperCase() == "RBT") {
+            //TODO
+          }
         }
 
         i = i + 1;
@@ -451,9 +469,9 @@ function AnimationManager(objectManager, document, dataStructure) {
     this.AnimationBlocks = [];
     var block = [];
 
-    //if printMode on, insert "SetText<;>0<;>" at the front of command
+    //if printMode or clearMode on, insert "SetText<;>0<;>" at the front of command
     //to clear status line
-    if (this.printMode == true) {
+    if (this.printMode == true || this.clearMode == true) {
       commands.splice(0, 0, "SetText<;>0<;>");
     }
 
