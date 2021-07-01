@@ -6,6 +6,7 @@ var AnimatedNode = function (objectID, objectLabel) {
   this.radius = 20;
   this.onScene = false; // is it on canvas ready?
   this.isNode = true;
+  this.isRect = false;
 
   this.nodeColor = "#D65A31";
   this.textColor = "#fff";

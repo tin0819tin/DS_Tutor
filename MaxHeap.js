@@ -30,8 +30,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
@@ -46,8 +45,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
@@ -62,8 +60,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });

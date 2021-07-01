@@ -5,6 +5,7 @@ var AnimatedHighlightCircle = function (objectID) {
   this.y = 0;
   this.radius = 20;
   this.isNode = false;
+  this.isRect = false;
 
   //circle
   var highlight = new createjs.Shape();
