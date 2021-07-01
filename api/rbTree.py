@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
 import os, json
@@ -63,7 +63,7 @@ class RBNode():
 
     def __init__(self, key, id, initialX, initialY):
         self.value = key
-        self.graphID = id
+        self.graphicID = id
         self.x = initialX
         self.y = initialY
         self.blackLevel = 0
@@ -180,7 +180,7 @@ class RBTree():
         
         nextLabelID = self.nextIndex
         self.nextIndex += 1
-        addCmd("CreateLabel", nextLabelID, tree.data, tree.x, tree.y)
+        addCmd("CreateLabel", nextLabelID, tree.value, tree.x, tree.y)
         addCmd("SetForegroundColor", nextLabelID, PRINT_COLOR)
         addCmd("Move", nextLabelID, self.xPosOfNextLabel, self.yPosOfNextLabel)
         addCmd("Step")
@@ -202,14 +202,14 @@ class RBTree():
         addCmd("SetText", 0, "Searchiing for "+value)
         if tree != None and not tree.phantomLeaf:
             addCmd("SetHighlight", tree.graphicID, 1)
-            if (tree.data == value):
+            if (tree.value == value):
                 addCmd("SetText", 0, "Searching for "+value+" : " + value + " = " + value + " (Element found!)")
                 addCmd("Step")
                 addCmd("SetText", 0, "Found:"+value)
                 addCmd("SetHighlight", tree.graphicID, 0)
             else:
-                if tree.data > value:
-                    addCmd("SetText", 0, "Searching for "+value+" : " + value + " < " + tree.data + " (look to left subtree)")
+                if tree.value > value:
+                    addCmd("SetText", 0, "Searching for "+value+" : " + value + " < " + tree.value + " (look to left subtree)")
                     addCmd("Step")
                     addCmd("SetHighlight", tree.graphicID, 0)
                     if tree.left != None:
@@ -219,7 +219,7 @@ class RBTree():
                         addCmd("Delete", self.highlightID)
                     self.findRecursive(tree.left, value)
                 else:
-                    addCmd("SetText", 0, " Searching for "+value+" : " + value + " > " + tree.data + " (look to right subtree)")			
+                    addCmd("SetText", 0, " Searching for "+value+" : " + value + " > " + tree.value + " (look to right subtree)")			
                     addCmd("Step")
                     addCmd("SetHighlight", tree.graphicID, 0)
                     if tree.right != None:
@@ -306,16 +306,16 @@ class RBTree():
         addCmd("SetHighlight", tree.graphicID, 1)
         addCmd("SetHighlight", elem.graphicID, 1)
 
-        if (elem.data < tree.data):
-            addCmd("SetText", 0, elem.data + " < " + tree.data + ".  Looking at left subtree")
+        if (elem.value < tree.value):
+            addCmd("SetText", 0, elem.value + " < " + tree.value + ".  Looking at left subtree")
         else:
-            addCmd("SetText",  0, elem.data + " >= " + tree.data + ".  Looking at right subtree")		
+            addCmd("SetText",  0, elem.value + " >= " + tree.value + ".  Looking at right subtree")		
 
         addCmd("Step")
         addCmd("SetHighlight", tree.graphicID , 0)
         addCmd("SetHighlight", elem.graphicID, 0)
 
-        if elem.data < tree.data:
+        if elem.value < tree.value:
             if tree.left == None or tree.left.phantomLeaf:
                 addCmd("SetText", 0, "Found null tree (or phantom leaf), inserting element")
 
@@ -448,16 +448,16 @@ class RBTree():
                 leftchild = tree.parent.left == tree
             
             addCmd("SetHighlight", tree.graphicID, 1)
-            if valueToDelete < tree.data:
-                addCmd("SetText", 0, valueToDelete + " < " + tree.data + ".  Looking at left subtree")
-            elif valueToDelete > tree.data:
-                addCmd("SetText", 0, valueToDelete + " > " + tree.data + ".  Looking at right subtree")
+            if valueToDelete < tree.value:
+                addCmd("SetText", 0, valueToDelete + " < " + tree.value + ".  Looking at left subtree")
+            elif valueToDelete > tree.value:
+                addCmd("SetText", 0, valueToDelete + " > " + tree.value + ".  Looking at right subtree")
             else:
-                addCmd("SetText", 0, valueToDelete + " == " + tree.data + ".  Found node to delete")
+                addCmd("SetText", 0, valueToDelete + " == " + tree.value + ".  Found node to delete")
             addCmd("Step")
             addCmd("SetHighlight", tree.graphicID, 0)
             
-            if valueToDelete == tree.data:
+            if valueToDelete == tree.value:
                 needFix = tree.blackLevel > 0
                 if ((tree.left == None) or tree.left.phantomLeaf)  and ((tree.right == None) or tree.right.phantomLeaf):
                     addCmd("SetText",  0, "Node to delete is a leaf.  Delete it.")
@@ -587,16 +587,16 @@ class RBTree():
                     addCmd("SetText", tree.graphicID, " ")
                     labelID = self.nextIndex
                     self.nextIndex += 1
-                    addCmd("CreateLabel", labelID, tmp.data, tmp.x, tmp.y)
+                    addCmd("CreateLabel", labelID, tmp.value, tmp.x, tmp.y)
                     addCmd("SetForegroundColor", labelID, BLUE)
-                    tree.data = tmp.data
+                    tree.value = tmp.value
                     addCmd("Move", labelID, tree.x, tree.y)
                     addCmd("SetText", 0, "Copy largest value of left subtree into node to delete.")								
                     
                     addCmd("Step")
                     addCmd("SetHighlight", tree.graphicID, 0)
                     addCmd("Delete", labelID)
-                    addCmd("SetText", tree.graphicID, tree.data)
+                    addCmd("SetText", tree.graphicID, tree.value)
                     addCmd("Delete", self.highlightID)				
                     addCmd("SetText", 0, "Remove node whose value we copied.")									
                     
@@ -668,7 +668,7 @@ class RBTree():
 
                     tmp = tmp.parent;
                     
-            elif valueToDelete < tree.data:
+            elif valueToDelete < tree.value:
                 if tree.left != None:
                     addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, tree.x, tree.y)
                     addCmd("Move", self.highlightID, tree.left.x, tree.left.y)
@@ -889,7 +889,7 @@ class RBTree():
     def getHeight(self, tree):
         if tree == None:
             return 0
-	    return tree.height  # unreachable bug?
+        return tree.height
         
     def fixLeftNull(self, tree):
         treeNodeID = self.nextIndex
@@ -940,11 +940,12 @@ class RBTree():
 # -----------------------------------------------------------
 # Initialize Flask Backend
 # -----------------------------------------------------------
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
-CORS(app)
-myRBTree = RBTree()
+# app = Flask(__name__)
+# app.config['SECRET_KEY'] = os.urandom(24)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+rbt = Blueprint('rbt', __name__)
+CORS(rbt)
+myRBTree = RBTree(1000, 500)
 
 
 # -----------------------------------------------------------
@@ -956,29 +957,29 @@ myRBTree = RBTree()
 # 4. Print(Inorder): /rbTree/print
 # 
 # -----------------------------------------------------------
-@app.route('/', methods=['GET'] )
+@rbt.route('/', methods=['GET'] )
 def create_circle():
     objectId, value = "1", "10"
     initX, initY = "0", "0" 
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@app.route('/rbTree/insert/<value>' )
+@rbt.route('/rbTree/insert/<value>' )
 def getInsert(value):
     myRBTree.insert(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/find/<value>', methods=['GET'] )
+@rbt.route('/rbTree/find/<value>', methods=['GET'] )
 def getFind(value):
     myRBTree.find(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/delete/<value>', methods=['GET'] )
+@rbt.route('/rbTree/delete/<value>', methods=['GET'] )
 def getDelete(value):
     myRBTree.delete(value)
     return json.dumps(AnimationCommands)
 
-@app.route('/rbTree/print', methods=['GET'] )
+@rbt.route('/rbTree/print', methods=['GET'] )
 def getPrint():
     myRBTree.print()
     return json.dumps(AnimationCommands)
