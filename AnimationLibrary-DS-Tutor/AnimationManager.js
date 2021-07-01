@@ -760,7 +760,17 @@ function AnimationManager(objectManager, document, dataStructure) {
     //if printMode or clearMode on, insert "SetText<;>0<;>" at the front of command
     //to clear status line
     if (this.printMode == true || this.clearMode == true) {
-      commands.splice(0, 0, "SetText<;>0<;>");
+      //Tree
+      if (
+        this.dataStructure.toUpperCase() == "BST" ||
+        this.dataStructure.toUpperCase() == "RBT"
+      ) {
+        commands.splice(0, 0, "SetText<;>0<;>");
+      }
+      //Heap
+      else {
+        commands.splice(0, 0, "SetText<;>100<;>");
+      }
     }
 
     //parse commands, separated by "STEP<;>"
