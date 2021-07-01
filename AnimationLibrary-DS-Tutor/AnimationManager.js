@@ -103,7 +103,11 @@ function AnimationManager(objectManager, document, dataStructure) {
           [1]: objectID of fromNode 
           [2]: objectID of toNode
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
             this.animatedObjects.connectEdge(
               parseInt(nextCommand[1]),
               parseInt(nextCommand[2])
