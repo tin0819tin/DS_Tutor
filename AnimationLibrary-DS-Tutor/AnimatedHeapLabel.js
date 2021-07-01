@@ -10,7 +10,7 @@ function AnimatedHeapLabel(objectID, objectLabel) {
 
   var text = new createjs.Text(
     this.label.toString(),
-    "18px Haettenschweiler",
+    "15px Haettenschweiler",
     this.textColor
   );
   text.set({
@@ -25,7 +25,7 @@ function AnimatedHeapLabel(objectID, objectLabel) {
     this.onScene = true;
     var text = new createjs.Text(
       this.label.toString(),
-      "18px Haettenschweiler",
+      "15px Haettenschweiler",
       this.textColor
     );
     text.set({
@@ -73,7 +73,7 @@ function AnimatedHeapLabel(objectID, objectLabel) {
 
     var text = new createjs.Text(
       this.label.toString(),
-      "18px Haettenschweiler",
+      "15px Haettenschweiler",
       this.textColor
     );
     text.set({
