@@ -53,127 +53,7 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
-          this.animatedObjects.addNodeObject(
-            parseInt(nextCommand[1]),
-            parseInt(nextCommand[2])
-          );
-          if (nextCommand.length > 4) {
-            this.animatedObjects.setNodePosition(
-              parseInt(nextCommand[1]),
-              parseInt(nextCommand[3]),
-              parseInt(nextCommand[4])
-            );
-          }
-          //draw
-          this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-            this.animatedObjects.stage
-          );
-        } else if (nextCommand[0].toUpperCase() == "CONNECT") {
-          //record
-          /*
-          [1]: objectID of fromNode 
-          [2]: objectID of toNode
-          */
-          this.animatedObjects.connectEdge(
-            parseInt(nextCommand[1]),
-            parseInt(nextCommand[2])
-          );
-          //draw later in drawConnection
-        } else if (nextCommand[0].toUpperCase() == "SETHIGHLIGHT") {
-          //record & draw
-          /*
-          [1]: objectID
-          */
-          if (parseInt(nextCommand[2]) == 1) {
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
-              this.animatedObjects.stage,
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].node,
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])]
-                .highlightCircle,
-              this.blocksInterval + 250
-            );
-          }
-        } else if (nextCommand[0].toUpperCase() == "MOVE") {
-          //record
-          /*
-          [1]: objectID
-          [2]: new_x
-          [3]: new_y
-          */
-
-          // if the target is node object
-          if (
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode == true
-          ) {
-            this.animatedObjects.setNodePosition(
-              parseInt(nextCommand[1]),
-              parseInt(nextCommand[2]),
-              parseInt(nextCommand[3])
-            );
-            //use tweenjs to draw animation in 500ms (this.tweenjsAniamtionTime)
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
-              this.animatedObjects.stage,
-              this.tweenjsAnimationTime
-            );
-
-            //remove all attach backedge
-            //---------------------------
-            // just for better visualization, not actually delete it, turn of this part won't affect
-            if (
-              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                null &&
-              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                undefined
-            ) {
-              if (
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
-                  null &&
-                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
-                  undefined
-              ) {
-                this.animatedObjects.BackEdges[
-                  parseInt(nextCommand[1])
-                ][0].remove(this.animatedObjects.stage);
-              }
-            }
-            //---------------------------
-          }
-
-          // the target is highlight circle
-          else {
-            this.animatedObjects.setCirclePosition(
-              parseInt(nextCommand[1]),
-              parseInt(nextCommand[2]),
-              parseInt(nextCommand[3])
-            );
-            //use tweenjs to draw animation in 500ms this.tweenjsAniamtionTime)
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
-              this.animatedObjects.stage,
-              this.tweenjsAnimationTime
-            );
-          }
-        } else if (nextCommand[0].toUpperCase() == "CREATELABEL") {
-          //record
-          /* 
-          [1]: objectID
-          [2]: objectLabel
-          [3]: x
-          [4]: y
-          */
-
-          // if create status rectangle
-          if (parseInt(nextCommand[1]) == 0) {
-            this.animatedObjects.addLabelObject(
-              parseInt(nextCommand[1]),
-              nextCommand[2]
-            );
-            //draw
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-              this.animatedObjects.stage
-            );
-          }
-          // else do same thing as create node
-          else {
+          if (this.dataStructure.toUpperCase() == "BST") {
             this.animatedObjects.addNodeObject(
               parseInt(nextCommand[1]),
               parseInt(nextCommand[2])
@@ -189,6 +69,211 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
               this.animatedObjects.stage
             );
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            if (nextCommand[2] == "") {
+              this.animatedObjects.addNodeObject(
+                parseInt(nextCommand[1]),
+                nextCommand[2]
+              );
+            } else {
+              this.animatedObjects.addNodeObject(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2])
+              );
+            }
+
+            if (nextCommand.length > 4) {
+              this.animatedObjects.setNodePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[3]),
+                parseInt(nextCommand[4])
+              );
+            }
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
+            );
+          }
+        } else if (nextCommand[0].toUpperCase() == "CONNECT") {
+          //record
+          /*
+          [1]: objectID of fromNode 
+          [2]: objectID of toNode
+          */
+          if (this.dataStructure.toUpperCase() == "BST") {
+            this.animatedObjects.connectEdge(
+              parseInt(nextCommand[1]),
+              parseInt(nextCommand[2])
+            );
+            //draw later in drawConnection
+          }
+        } else if (nextCommand[0].toUpperCase() == "SETHIGHLIGHT") {
+          //record & draw
+          /*
+          [1]: objectID
+          */
+          if (this.dataStructure.toUpperCase() == "BST") {
+            if (parseInt(nextCommand[2]) == 1) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
+                this.animatedObjects.stage,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].node,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                  .highlightCircle,
+                this.blocksInterval + 250
+              );
+            }
+          }
+        } else if (nextCommand[0].toUpperCase() == "MOVE") {
+          //record
+          /*
+          [1]: objectID
+          [2]: new_x
+          [3]: new_y
+          */
+          if (this.dataStructure.toUpperCase() == "BST") {
+            // if the target is node object
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
+              true
+            ) {
+              this.animatedObjects.setNodePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2]),
+                parseInt(nextCommand[3])
+              );
+              //use tweenjs to draw animation in 500ms (this.tweenjsAniamtionTime)
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
+                this.animatedObjects.stage,
+                this.tweenjsAnimationTime
+              );
+
+              //remove all attach backedge
+              //---------------------------
+              // just for better visualization, not actually delete it, turn of this part won't affect
+              if (
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  null &&
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                  undefined
+              ) {
+                if (
+                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                    null &&
+                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                    undefined
+                ) {
+                  this.animatedObjects.BackEdges[
+                    parseInt(nextCommand[1])
+                  ][0].remove(this.animatedObjects.stage);
+                }
+              }
+              //---------------------------
+            }
+
+            // the target is highlight circle
+            else {
+              this.animatedObjects.setCirclePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2]),
+                parseInt(nextCommand[3])
+              );
+              //use tweenjs to draw animation in 500ms this.tweenjsAniamtionTime)
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
+                this.animatedObjects.stage,
+                this.tweenjsAnimationTime
+              );
+            }
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            //move heap label object
+            this.animatedObjects.setNodePosition(
+              parseInt(nextCommand[1]),
+              parseInt(nextCommand[2]),
+              parseInt(nextCommand[3])
+            );
+            //use tweenjs to draw animation in 500ms (this.tweenjsAniamtionTime)
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].move(
+              this.animatedObjects.stage,
+              this.tweenjsAnimationTime
+            );
+          }
+        } else if (nextCommand[0].toUpperCase() == "CREATELABEL") {
+          //record
+          /* 
+          [1]: objectID
+          [2]: objectLabel
+          [3]: x
+          [4]: y
+          */
+          if (this.dataStructure.toUpperCase() == "BST") {
+            // if create status rectangle
+            if (parseInt(nextCommand[1]) == 0) {
+              this.animatedObjects.addLabelObject(
+                parseInt(nextCommand[1]),
+                nextCommand[2]
+              );
+              //draw
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                this.animatedObjects.stage
+              );
+            }
+            // else do same thing as create node
+            else {
+              this.animatedObjects.addNodeObject(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2])
+              );
+              if (nextCommand.length > 4) {
+                this.animatedObjects.setNodePosition(
+                  parseInt(nextCommand[1]),
+                  parseInt(nextCommand[3]),
+                  parseInt(nextCommand[4])
+                );
+              }
+              //draw
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                this.animatedObjects.stage
+              );
+            }
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            if (parseInt(nextCommand[1]) == 100) {
+              //status line
+              //record
+              this.animatedObjects.addLabelObject(
+                parseInt(nextCommand[1]),
+                nextCommand[2]
+              );
+              //draw
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                this.animatedObjects.stage
+              );
+            } else {
+              // heap label
+              //record
+              this.animatedObjects.addHeapLabelObject(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2])
+              );
+              if (nextCommand.length > 4) {
+                this.animatedObjects.setNodePosition(
+                  parseInt(nextCommand[1]),
+                  parseInt(nextCommand[3]),
+                  parseInt(nextCommand[4])
+                );
+              }
+              //draw
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                this.animatedObjects.stage
+              );
+            }
           }
         } else if (nextCommand[0].toUpperCase() == "SETTEXT") {
           //record & draw
@@ -196,25 +281,42 @@ function AnimationManager(objectManager, document, dataStructure) {
           [1]: objectID
           [2]: new text
           */
-          // target is status line
-          if (
-            (parseInt(nextCommand[1]) == 0 && this.dataStructure == "BST") ||
-            (parseInt(nextCommand[1]) == 100 && this.dataStructure == "MAXH")
-          ) {
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-              nextCommand[2],
-              this.animatedObjects.stage
-            );
-          }
-          // target is Node
-          else {
-            if (nextCommand[2] == "") {
-              nextCommand[2] = "0";
+          if (this.dataStructure.toUpperCase() == "BST") {
+            // target is status line
+            if (parseInt(nextCommand[1]) == 0) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                nextCommand[2],
+                this.animatedObjects.stage
+              );
             }
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-              parseInt(nextCommand[2]),
-              this.animatedObjects.stage
-            );
+            // target is Node
+            else {
+              if (nextCommand[2] == "") {
+                nextCommand[2] = "0";
+              }
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                parseInt(nextCommand[2]),
+                this.animatedObjects.stage
+              );
+            }
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            //if target is status line
+            if (parseInt(nextCommand[1]) == 100) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                nextCommand[2],
+                this.animatedObjects.stage
+              );
+            }
+            // if target is Heap Rect or Heap Label
+            else {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                nextCommand[2],
+                this.animatedObjects.stage
+              );
+            }
           }
         } else if (nextCommand[0].toUpperCase() == "CREATEHIGHLIGHTCIRCLE") {
           //record
@@ -223,118 +325,133 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
-
-          this.animatedObjects.addHighlightCircle(parseInt(nextCommand[1]));
-          if (nextCommand.length > 4) {
-            this.animatedObjects.setCirclePosition(
-              parseInt(nextCommand[1]),
-              parseInt(nextCommand[3]),
-              parseInt(nextCommand[4])
+          if (this.dataStructure.toUpperCase() == "BST") {
+            this.animatedObjects.addHighlightCircle(parseInt(nextCommand[1]));
+            if (nextCommand.length > 4) {
+              this.animatedObjects.setCirclePosition(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[3]),
+                parseInt(nextCommand[4])
+              );
+            }
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
             );
           }
-          //draw
-          this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-            this.animatedObjects.stage
-          );
         } else if (nextCommand[0].toUpperCase() == "DELETE") {
           /*
           [1]: objectID
           */
-          //if target is highlight circle
-          if (
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])] == null ||
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])] == undefined
-          ) {
-            console.log(
-              "Delete: ObjectID: " + nextCommand[1] + " doesn't exist"
-            );
-          } else {
+          if (this.dataStructure.toUpperCase() == "BST") {
+            //if target is highlight circle
             if (
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
-              false
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] == null ||
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] == undefined
             ) {
-              this.animatedObjects.removeHighlightCircle(
-                parseInt(nextCommand[1])
+              console.log(
+                "Delete: ObjectID: " + nextCommand[1] + " doesn't exist"
               );
-            }
-            //if target is node
-            else {
-              if (this.printMode == false) {
-                //BST: case 1234
-                //remove attach line from stage
-                //remove attach line by set toBeRemoved = true in both Edges & BackEdges
-                if (
-                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                    null &&
-                  this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
-                    undefined
-                ) {
-                  if (
-                    this.animatedObjects.BackEdges[
-                      parseInt(nextCommand[1])
-                    ][0] != null &&
-                    this.animatedObjects.BackEdges[
-                      parseInt(nextCommand[1])
-                    ][0] != undefined
-                  ) {
-                    this.animatedObjects.BackEdges[
-                      parseInt(nextCommand[1])
-                    ][0].toBeRemoved = true;
-                    this.animatedObjects.BackEdges[
-                      parseInt(nextCommand[1])
-                    ][0].remove(this.animatedObjects.stage);
-                  }
-                }
-                if (
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
-                    null &&
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
-                    undefined &&
-                  this.animatedObjects.Edges[parseInt(nextCommand[1])] != []
-                ) {
-                  for (
-                    var j = 0;
-                    j <
-                    this.animatedObjects.Edges[parseInt(nextCommand[1])].length;
-                    j++
-                  ) {
-                    this.animatedObjects.Edges[parseInt(nextCommand[1])][
-                      j
-                    ].toBeRemoved = true;
-                    this.animatedObjects.Edges[parseInt(nextCommand[1])][
-                      j
-                    ].remove(this.animatedObjects.stage);
-                  }
-                }
-
-                //remove node from stage & Nodes
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
-                  this.animatedObjects.stage
+            } else {
+              if (
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
+                false
+              ) {
+                this.animatedObjects.removeHighlightCircle(
+                  parseInt(nextCommand[1])
                 );
-                this.NodesNullList.push(parseInt(nextCommand[1]));
-              } else if (this.printMode == true) {
-                this.printNullList.push(parseInt(nextCommand[1]));
+              }
+              //if target is node
+              else {
+                if (this.printMode == false) {
+                  //BST: case 1234
+                  //remove attach line from stage
+                  //remove attach line by set toBeRemoved = true in both Edges & BackEdges
+                  if (
+                    this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                      null &&
+                    this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                      undefined
+                  ) {
+                    if (
+                      this.animatedObjects.BackEdges[
+                        parseInt(nextCommand[1])
+                      ][0] != null &&
+                      this.animatedObjects.BackEdges[
+                        parseInt(nextCommand[1])
+                      ][0] != undefined
+                    ) {
+                      this.animatedObjects.BackEdges[
+                        parseInt(nextCommand[1])
+                      ][0].toBeRemoved = true;
+                      this.animatedObjects.BackEdges[
+                        parseInt(nextCommand[1])
+                      ][0].remove(this.animatedObjects.stage);
+                    }
+                  }
+                  if (
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                      null &&
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                      undefined &&
+                    this.animatedObjects.Edges[parseInt(nextCommand[1])] != []
+                  ) {
+                    for (
+                      var j = 0;
+                      j <
+                      this.animatedObjects.Edges[parseInt(nextCommand[1])]
+                        .length;
+                      j++
+                    ) {
+                      this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                        j
+                      ].toBeRemoved = true;
+                      this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                        j
+                      ].remove(this.animatedObjects.stage);
+                    }
+                  }
+
+                  //remove node from stage & Nodes
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+                    this.animatedObjects.stage
+                  );
+                  this.NodesNullList.push(parseInt(nextCommand[1]));
+                } else if (this.printMode == true) {
+                  this.printNullList.push(parseInt(nextCommand[1]));
+                }
               }
             }
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            //delete heap label (or node?)
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+              this.animatedObjects.stage
+            );
+            this.NodesNullList.push(parseInt(nextCommand[1]));
           }
         } else if (nextCommand[0].toUpperCase() == "DISCONNECT") {
           /*
           [1]: fromNode
           [2]: toNode
           */
-          //find that edge and mark toBeRemoved & remove from stage
-          this.animatedObjects.BackEdges[
-            parseInt(nextCommand[2])
-          ][0].toBeRemoved = true;
-          this.animatedObjects.BackEdges[parseInt(nextCommand[2])][0].remove(
-            this.animatedObjects.stage
-          );
+          if (this.dataStructure.toUpperCase() == "BST") {
+            //find that edge and mark toBeRemoved & remove from stage
+            this.animatedObjects.BackEdges[
+              parseInt(nextCommand[2])
+            ][0].toBeRemoved = true;
+            this.animatedObjects.BackEdges[parseInt(nextCommand[2])][0].remove(
+              this.animatedObjects.stage
+            );
 
-          //remove from BackEdges list
-          //removed from Edges list
-          /*
+            //remove from BackEdges list
+            //removed from Edges list
+            /*
             Do it in drawConnection function by detect toBeRemoved == true
           */
+          }
         } else if (nextCommand[0].toUpperCase() == "SETBACKGROUNDCOLOR") {
           if (this.dataStructure.toUpperCase() == "RBT") {
             //TODO
@@ -342,6 +459,33 @@ function AnimationManager(objectManager, document, dataStructure) {
         } else if (nextCommand[0].toUpperCase() == "SETFOREGROUNDCOLOR") {
           if (this.dataStructure.toUpperCase() == "RBT") {
             //TODO
+          }
+        } else if (nextCommand[0].toUpperCase() == "CREATERECTANGLE") {
+          /*
+          [1]: objectID
+          [2]: label
+          [3]: width
+          [4]: height
+          [5]: x
+          [6]: y
+          */
+          if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            //record
+            this.animatedObjects.addRectangleObject(
+              parseInt(nextCommand[1]),
+              nextCommand[2],
+              parseInt(nextCommand[3]),
+              parseInt(nextCommand[4]),
+              parseInt(nextCommand[5]),
+              parseInt(nextCommand[6])
+            );
+            //draw
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+              this.animatedObjects.stage
+            );
           }
         }
 

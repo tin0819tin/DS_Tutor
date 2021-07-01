@@ -24,12 +24,37 @@ function ObjectManager() {
     this.Nodes[objectID].setXY(newX, newY);
   };
 
+  this.addRectangleObject = function (
+    objectID,
+    objectLabel,
+    width,
+    height,
+    x,
+    y
+  ) {
+    if (this.Nodes[objectID] != null || this.Nodes[objectID] != undefined) {
+      throw new Error("addRectangleObject:Object with same ID already Exists!");
+    }
+    var newRect = new AnimatedRect(objectID, objectLabel, width, height, x, y);
+    this.Nodes[objectID] = newRect;
+  };
+
   this.addLabelObject = function (objectID, objectLabel) {
     if (this.Nodes[objectID] != null && this.Nodes[objectID] != undefined) {
       throw new Error("addLabelObject: Object Already Exists!");
     }
     var newLabel = new AnimatedLabel(objectID, objectLabel);
     this.Nodes[objectID] = newLabel;
+  };
+
+  this.addHeapLabelObject = function (objectID, objectLabel) {
+    if (this.Nodes[objectID] != null || this.Nodes[objectID] != undefined) {
+      throw new Error(
+        "addHeapLabelObject: Object with same ID already Exists!"
+      );
+    }
+    var newHeapLabel = new AnimatedHeapLabel(objectID, objectLabel);
+    this.Nodes[objectID] = newHeapLabel;
   };
 
   //not used
