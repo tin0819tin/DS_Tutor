@@ -30,6 +30,10 @@ def MaxHeap():
 def RBTree():
     return render_template('RBTree.html')
 
+@app.route('/tutor')
+def Tutor():
+    return render_template('Tutor.html')
+
 app.register_blueprint(bst)
 app.register_blueprint(minH)
 app.register_blueprint(maxH)
