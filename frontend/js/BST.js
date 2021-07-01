@@ -3,6 +3,22 @@ var OM = new ObjectManager();
 var AM = new AnimationManager(OM, document, "BST");
 AM.DIYMode = true;
 
+if (window.performance) {
+  console.info("window.performance works fine on this browser");
+}
+console.info(performance.navigation.type);
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+  console.info( "This page is reloaded" );
+  fetch('http://127.0.0.1:5000/bst/reset').then(function(response) {
+			return response.json();
+		  })
+		  .then(function(myJson) {
+			console.log(myJson);
+		  });
+} else {
+  console.info( "This page is not reloaded");
+}
+
 // ---- insert buttom event listener ----
 $(function () {
   $("#insert").click(function () {
