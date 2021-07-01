@@ -376,7 +376,7 @@ class RBTree():
                 return
 
             uncle = self.findUncle(tree);
-            print(uncle)
+            # print(uncle)
             if self.blackLevel(uncle) == 0:
                 addCmd("SetText", 0, "Node and parent are both red.  Uncle of node is red -- push blackness down from grandparent")
                 addCmd("Step")
@@ -953,7 +953,7 @@ class RBTree():
         else:
             return grandPar.left
 
-    def blackLevel(tree):
+    def blackLevel(self, tree):
         if tree == None:
             return 1
         else:
