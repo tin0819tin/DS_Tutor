@@ -208,7 +208,7 @@ class RBTree():
                 addCmd("SetText", 0, "Found:"+value)
                 addCmd("SetHighlight", tree.graphicID, 0)
             else:
-                if tree.value > value:
+                if float(tree.value) > float(value):
                     addCmd("SetText", 0, "Searching for "+value+" : " + value + " < " + tree.value + " (look to left subtree)")
                     addCmd("Step")
                     addCmd("SetHighlight", tree.graphicID, 0)
@@ -306,7 +306,7 @@ class RBTree():
         addCmd("SetHighlight", tree.graphicID, 1)
         addCmd("SetHighlight", elem.graphicID, 1)
 
-        if (elem.value < tree.value):
+        if (float(elem.value) < float(tree.value)):
             addCmd("SetText", 0, elem.value + " < " + tree.value + ".  Looking at left subtree")
         else:
             addCmd("SetText",  0, elem.value + " >= " + tree.value + ".  Looking at right subtree")		
@@ -315,7 +315,7 @@ class RBTree():
         addCmd("SetHighlight", tree.graphicID , 0)
         addCmd("SetHighlight", elem.graphicID, 0)
 
-        if elem.value < tree.value:
+        if float(elem.value) < float(tree.value):
             if tree.left == None or tree.left.phantomLeaf:
                 addCmd("SetText", 0, "Found null tree (or phantom leaf), inserting element")
 
@@ -448,9 +448,9 @@ class RBTree():
                 leftchild = tree.parent.left == tree
             
             addCmd("SetHighlight", tree.graphicID, 1)
-            if valueToDelete < tree.value:
+            if float(valueToDelete) < float(tree.value):
                 addCmd("SetText", 0, valueToDelete + " < " + tree.value + ".  Looking at left subtree")
-            elif valueToDelete > tree.value:
+            elif float(valueToDelete) > float(tree.value):
                 addCmd("SetText", 0, valueToDelete + " > " + tree.value + ".  Looking at right subtree")
             else:
                 addCmd("SetText", 0, valueToDelete + " == " + tree.value + ".  Found node to delete")
@@ -668,7 +668,7 @@ class RBTree():
 
                     tmp = tmp.parent;
                     
-            elif valueToDelete < tree.value:
+            elif float(valueToDelete) < float(tree.value):
                 if tree.left != None:
                     addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, tree.x, tree.y)
                     addCmd("Move", self.highlightID, tree.left.x, tree.left.y)
