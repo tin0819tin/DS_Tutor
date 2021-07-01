@@ -71,9 +71,12 @@ class maxnHeap():
         self.HeapYPositions = [0, 100, 170, 170, 240, 240, 240, 240, 310, 310, 310, 310, 310, 310,
                                310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         self.createArray()
+        self.first = True
 
     def insert(self, value):
-        clearCmd()
+        if not self.first:
+            clearCmd()
+        self.first = False
         if self.currentHeapSize >= ARRAY_SIZE - 1:
             addCmd("SetText", self.descriptLabel1, "Heap Full!")
             # return self.commands
