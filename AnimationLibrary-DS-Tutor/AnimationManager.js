@@ -351,10 +351,16 @@ function AnimationManager(objectManager, document, dataStructure) {
             }
             // if target is Heap Rect or Heap Label
             else {
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-                nextCommand[2],
-                this.animatedObjects.stage
-              );
+              if (
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])] !=
+                  undefined
+              ) {
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                  nextCommand[2],
+                  this.animatedObjects.stage
+                );
+              }
             }
           }
         } else if (nextCommand[0].toUpperCase() == "CREATEHIGHLIGHTCIRCLE") {
@@ -466,11 +472,15 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.dataStructure.toUpperCase() == "MAXH"
           ) {
             //delete heap label (or node?)
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
-              this.animatedObjects.stage
-            );
-            this.NodesNullList.push(parseInt(nextCommand[1]));
-
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != undefined
+            ) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].remove(
+                this.animatedObjects.stage
+              );
+              this.NodesNullList.push(parseInt(nextCommand[1]));
+            }
             //remove & set edges toBeRemove=true
             if (
               this.animatedObjects.Edges[parseInt(nextCommand[1])] != null &&

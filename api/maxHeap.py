@@ -140,7 +140,7 @@ class maxnHeap():
         addCmd("CreateLabel", self.descriptLabel2,
                self.arrayData[1],  self.HeapXPositions[1], self.HeapYPositions[1], 0)
         addCmd("SetText", self.circleObjs[1], "")
-        addCmd("Move", self.descriptLabel2,  120, 40)
+        addCmd("Move", self.descriptLabel2,  600, 460)
         addCmd("Step")
         addCmd("Delete", self.descriptLabel2)
         addCmd("SetText", self.descriptLabel1,
