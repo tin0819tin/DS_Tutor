@@ -30,8 +30,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
@@ -46,8 +45,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
@@ -62,20 +60,7 @@ $(function () {
     }).done(function (data) {
       //console.log(data);
       var commands = JSON.parse(data);
-      console.log(commands);
-      //AM.StartNewAnimation(commands);
+      AM.StartNewAnimation(commands);
     });
   });
 });
-
-// ------ test ----------
-// var stage = new createjs.Stage("canvas");
-// var rect = new AnimatedRect(0, "-INF", 30, 25, 30, 50);
-// var text = new AnimatedHeapLabel(1, 1, 30, 70);
-// var rect2 = new AnimatedRect(2, "", 30, 25, 60, 50);
-// var text2 = new AnimatedHeapLabel(4, 2, 60, 70);
-// text.draw(stage);
-// rect.draw(stage);
-// text2.draw(stage);
-// rect2.draw(stage);
-// rect.setText("123", stage);

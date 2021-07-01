@@ -92,7 +92,7 @@ class minHeap():
         self.arrayData[self.currentHeapSize] = value
         addCmd("CreateCircle", self.circleObjs[self.currentHeapSize], "",
                self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
-        addCmd("CreateLabel", self.descriptLabel2, value, 120, 45,  1)
+        addCmd("CreateLabel", self.descriptLabel2, value, 600, 460,  1)
         if self.currentHeapSize > 1:
             addCmd("Connect", self.circleObjs[math.floor(
                 self.currentHeapSize / 2)], self.circleObjs[self.currentHeapSize])

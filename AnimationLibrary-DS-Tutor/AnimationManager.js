@@ -470,6 +470,48 @@ function AnimationManager(objectManager, document, dataStructure) {
               this.animatedObjects.stage
             );
             this.NodesNullList.push(parseInt(nextCommand[1]));
+
+            //remove & set edges toBeRemove=true
+            if (
+              this.animatedObjects.Edges[parseInt(nextCommand[1])] != null &&
+              this.animatedObjects.Edges[parseInt(nextCommand[1])] !=
+                undefined &&
+              this.animatedObjects.Edges[parseInt(nextCommand[1])] != []
+            ) {
+              for (
+                var j = 0;
+                j < this.animatedObjects.Edges[parseInt(nextCommand[1])].length;
+                j++
+              ) {
+                this.animatedObjects.Edges[parseInt(nextCommand[1])][
+                  j
+                ].toBeRemoved = true;
+                this.animatedObjects.Edges[parseInt(nextCommand[1])][j].remove(
+                  this.animatedObjects.stage
+                );
+              }
+            }
+            //remove & set back edges toBeRemove=true
+            if (
+              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                null &&
+              this.animatedObjects.BackEdges[parseInt(nextCommand[1])] !=
+                undefined
+            ) {
+              if (
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                  null &&
+                this.animatedObjects.BackEdges[parseInt(nextCommand[1])][0] !=
+                  undefined
+              ) {
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].toBeRemoved = true;
+                this.animatedObjects.BackEdges[
+                  parseInt(nextCommand[1])
+                ][0].remove(this.animatedObjects.stage);
+              }
+            }
           }
         } else if (nextCommand[0].toUpperCase() == "DISCONNECT") {
           /*
