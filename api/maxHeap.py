@@ -113,7 +113,7 @@ class maxnHeap():
             self.setIndexHighlight(parentIndex, 0)
 
         # for max heap
-        while currentIndex > 1 and self.arrayData[currentIndex] > self.arrayData[parentIndex]:
+        while currentIndex > 1 and float(self.arrayData[currentIndex]) > float(self.arrayData[parentIndex]):
             self.swap(currentIndex, parentIndex)
             currentIndex = parentIndex
             parentIndex = math.floor(parentIndex / 2)
@@ -225,7 +225,7 @@ class maxnHeap():
                 addCmd("Step")
                 self.setIndexHighlight(2*idx, 0)
                 self.setIndexHighlight(2*idx + 1, 0)
-                if self.arrayData[2*idx + 1] < self.arrayData[2*idx]:
+                if float(self.arrayData[2*idx + 1]) < float(self.arrayData[2*idx]):
                     smallestIndex = 2*idx + 1
 
             self.setIndexHighlight(idx, 1)
@@ -234,7 +234,7 @@ class maxnHeap():
             self.setIndexHighlight(idx, 0)
             self.setIndexHighlight(smallestIndex, 0)
 
-            if self.arrayData[smallestIndex] > self.arrayData[idx]:
+            if float(self.arrayData[smallestIndex]) > float(self.arrayData[idx]):
                 self.swap(smallestIndex, idx)
                 idx = smallestIndex
             else:
