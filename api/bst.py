@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, session, Blueprint
 from flask_cors import CORS
 from datetime import timedelta
-import os, json
+import os, json, random
 
 
 # -----------------------------------------------------------
@@ -98,6 +98,35 @@ class BST():
             self.resizeTree()
         
         addCmd("SetText", 0, "")
+    
+    def build_insert(self, value):
+
+        self.highlightID = self.nextIndex
+        self.nextIndex += 1
+        
+        if self.root == None:
+            addCmd("SetText", 0, "Inserting "+value)
+            addCmd("CreateCircle", self.nextIndex, value, self.startingX, STARTING_Y)
+            addCmd("SetForegroundColor", self.nextIndex, FOREGROUND_COLOR)
+            addCmd("SetBackgroundColor", self.nextIndex, BACKGROUND_COLOR)
+            addCmd("Step")
+            self.root = BSTNode(value, self.nextIndex, self.startingX, STARTING_Y)
+            self.nextIndex += 1
+        else:
+            addCmd("SetText", 0, "Inserting "+value)
+            addCmd("CreateCircle", self.nextIndex, value, 100, 100)
+            addCmd("SetForegroundColor", self.nextIndex, FOREGROUND_COLOR)
+            addCmd("SetBackgroundColor", self.nextIndex, BACKGROUND_COLOR)
+            addCmd("Step")
+            insertNode = BSTNode(value, self.nextIndex, 100, 100)
+
+            self.nextIndex += 1
+            # addCmd("SetHighlight", insertNode.graphID, 1)
+            self.insertElem(insertNode, self.root)
+            self.resizeTree()
+        
+        addCmd("SetText", 0, "")
+
 
     def insertElem(self, node:BSTNode, tree:BSTNode):
         addCmd("SetHighlight", tree.graphID, 1)
@@ -456,20 +485,27 @@ class BST():
             addCmd("Step")
         
         return
-    
-    def build(self):
-        clearCmd()
-        
 
     def clear(self):
         clearCmd()
-
+        temp = self.nextIndex
         while self.nextIndex > 0:
             addCmd("Delete", self.nextIndex)
             self.nextIndex -= 1
         self.root = None
-        self.nextIndex += 1
-
+        self.nextIndex = temp
+    
+    def build(self, num=10):
+        # clearCmd()
+        self.clear()
+        build_lst = [random.randint(0, 999) for i in range(num)]
+        for val in build_lst:
+            # print(val)
+            # print(self.nextIndex)
+            self.build_insert(str(val))
+        build_lst.clear()
+        # Settext is removed in frontend
+        # Checking the answer in frontend, restart this.commands again
         
 
 # -----------------------------------------------------------
