@@ -72,6 +72,9 @@ class maxnHeap():
                                310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         self.createArray()
         self.first = True
+    
+    def reset(self):
+        pass
 
     def insert(self, value):
         if not self.first:
@@ -313,6 +316,10 @@ def create_circle():
               value + "<;>" + initX + "<;>" + initY}
     return jsonify(action)
 
+@maxH.route('/maxHeap/reset', methods=['GET'])
+def reset():
+    myHeap.reset()
+    return json.dumps(["My heap is reloaded!!", "myHeap nextIndex", myHeap.nextIndex])
 
 @maxH.route('/maxHeap/insert/<value>')
 def getInsert(value):

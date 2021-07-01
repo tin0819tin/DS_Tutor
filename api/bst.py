@@ -67,6 +67,13 @@ class BST():
         self.first_print_pos_y = CANVAS_HEGHT - 2 * PRINT_VERTICAL_GAP
         self.print_max = CANVAS_WIDTH - 10
     
+    def reset(self):
+        clearCmd()
+        self.root = None
+        self.nextIndex = 0
+        addCmd("CreateLabel", 0, "", 20, 10, 0)
+        self.nextIndex += 1
+    
     def insert(self, value):
         # TODO: Normalize value
         
@@ -537,12 +544,15 @@ def create_circle():
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@bst.route('/bst/insert/<value>' )
+@bst.route('/bst/reset', methods=['GET'] )
+def reset():
+    myTree.reset()
+    # myTree.nextIndex
+    return json.dumps(["My tree is reloaded!!", "myTree nextIndex", myTree.nextIndex])
+
+@bst.route('/bst/insert/<value>', methods=['GET'] )
 def getInsert(value):
     myTree.insert(value)
-    # session['tree'] = 'TREE'
-    # AnimationCommands.append("Try to send this command")
-    # AnimationCommands.append("Send second command")
     return json.dumps(AnimationCommands)
 
 @bst.route('/bst/find/<value>', methods=['GET'] )

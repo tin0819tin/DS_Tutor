@@ -74,6 +74,9 @@ class minHeap():
                                310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         self.createArray()
         self.first = True
+    
+    def reset(self):
+        pass
 
     def insert(self, value):
         if not self.first:
@@ -335,8 +338,12 @@ def create_circle():
               value + "<;>" + initX + "<;>" + initY}
     return jsonify(action)
 
+@minH.route('/minHeap/reset', methods=['GET'])
+def reset():
+    myHeap.reset()
+    return json.dumps(["My heap is reloaded!!", "myHeap nextIndex", myHeap.nextIndex])
 
-@minH.route('/minHeap/insert/<value>')
+@minH.route('/minHeap/insert/<value>', methods=['GET'])
 def getInsert(value):
     myHeap.insert(value)
     return json.dumps(AnimationCommands)

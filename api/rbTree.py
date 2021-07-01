@@ -95,7 +95,10 @@ class RBTree():
         self.first_print_pos_y  = h - 2 * PRINT_VERTICAL_GAP
         addCmd("CreateLabel", 0, "", EXPLANITORY_TEXT_X, EXPLANITORY_TEXT_Y, 0)
         self.first = True
-        
+    
+    def reset(self):
+        pass
+
     # Add any utility function if needed e.g. FindUncle, FindBlackLevel, SingleRotation etc.
     def insert(self, value):
         if not self.first:
@@ -843,7 +846,7 @@ class RBTree():
         self.resetHeight(A)
         self.resetHeight(B)
         
-        self.resizeTree();
+        self.resizeTree()
         return B
 
     def singleRotateRight(self, tree):
@@ -985,7 +988,12 @@ def create_circle():
     action = {"CreateCircle" : objectId + "<;>" + value + "<;>" + initX + "<;>" + initY }
     return  jsonify(action)
 
-@rbt.route('/rbTree/insert/<value>' )
+@rbt.route('/rbTree/reset', methods=['GET'] )
+def reset():
+    myRBTree.reset()
+    return json.dumps(["My RBTree is reloaded!!", "myRBTree nextIndex", myRBTree.nextIndex])
+
+@rbt.route('/rbTree/insert/<value>', methods=['GET'] )
 def getInsert(value):
     myRBTree.insert(value)
     return json.dumps(AnimationCommands)
