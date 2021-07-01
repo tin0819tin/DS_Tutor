@@ -167,6 +167,7 @@ class minHeap():
         return
 
     def clear(self):
+        clearCmd()
         while self.currentHeapSize > 0:
             addCmd("Delete", self.circleObjs[self.currentHeapSize])
             addCmd("SetText", self.arrayRects[self.currentHeapSize], "")
@@ -261,7 +262,7 @@ class minHeap():
 
     # other functions
     def createArray(self):
-        print('into create array')
+        # print('into create array')
         self.arrayData = [''] * ARRAY_SIZE
         self.arrayLabels = [''] * ARRAY_SIZE
         self.arrayRects = [''] * ARRAY_SIZE

@@ -165,6 +165,7 @@ class maxnHeap():
         return
 
     def clear(self):
+        clearCmd()
         while self.currentHeapSize > 0:
             addCmd("Delete", self.circleObjs[self.currentHeapSize])
             addCmd("SetText", self.arrayRects[self.currentHeapSize], "")
