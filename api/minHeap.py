@@ -64,9 +64,12 @@ class minHeap():
         self.HeapXPositions = [0, 450, 250, 650, 150, 350, 550, 750, 100, 200, 300, 400, 500, 600, 700, 800, 75, 125, 175, 225, 275, 325, 375, 425, 475, 525, 575, 625, 675, 725, 775, 825]
         self.HeapYPositions = [0, 100, 170, 170, 240, 240, 240, 240, 310, 310, 310, 310, 310, 310, 310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         self.createArray()
+        self.first = True
 
     def insert(self, value):
-        clearCmd()
+        if not self.first:
+            clearCmd()
+        self.first = False
         if self.currentHeapSize >= ARRAY_SIZE - 1:
             addCmd("SetText", self.descriptLabel1, "Heap Full!")
             # return self.commands
@@ -166,40 +169,40 @@ class minHeap():
             if i > 1:
                 addCmd("Connect", self.circleObjs[math.floor(i/2)], self.circleObjs[i]);
             
-        addCmd("Step");
-        self.currentHeapSize = ARRAY_SIZE - 1;
-        nextElem = self.currentHeapSize;
+        addCmd("Step")
+        self.currentHeapSize = ARRAY_SIZE - 1
+        nextElem = self.currentHeapSize
         while nextElem > 0:
-            self.pushDown(nextElem);
-            nextElem = nextElem - 1;
+            self.pushDown(nextElem)
+            nextElem = nextElem - 1
         Print(self.arrayData)
         return
 
     def swap(self, idx1, idx2):
-        addCmd("SetText", self.arrayRects[idx1], "");
-        addCmd("SetText", self.arrayRects[idx2], "");
-        addCmd("SetText", self.circleObjs[idx1], "");
-        addCmd("SetText", self.circleObjs[idx2], "");
-        addCmd("CreateLabel", self.swapLabel1, self.arrayData[idx1], self.ArrayXPositions[idx1],ARRAY_Y_POS);
-        addCmd("CreateLabel", self.swapLabel2, self.arrayData[idx2], self.ArrayXPositions[idx2],ARRAY_Y_POS);
-        addCmd("CreateLabel", self.swapLabel3, self.arrayData[idx1], self.HeapXPositions[idx1],self.HeapYPositions[idx1]);
-        addCmd("CreateLabel", self.swapLabel4, self.arrayData[idx2], self.HeapXPositions[idx2],self.HeapYPositions[idx2]);
+        addCmd("SetText", self.arrayRects[idx1], "")
+        addCmd("SetText", self.arrayRects[idx2], "")
+        addCmd("SetText", self.circleObjs[idx1], "")
+        addCmd("SetText", self.circleObjs[idx2], "")
+        addCmd("CreateLabel", self.swapLabel1, self.arrayData[idx1], self.ArrayXPositions[idx1],ARRAY_Y_POS)
+        addCmd("CreateLabel", self.swapLabel2, self.arrayData[idx2], self.ArrayXPositions[idx2],ARRAY_Y_POS)
+        addCmd("CreateLabel", self.swapLabel3, self.arrayData[idx1], self.HeapXPositions[idx1],self.HeapYPositions[idx1])
+        addCmd("CreateLabel", self.swapLabel4, self.arrayData[idx2], self.HeapXPositions[idx2],self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel1, self.ArrayXPositions[idx2],ARRAY_Y_POS)
         addCmd("Move", self.swapLabel2, self.ArrayXPositions[idx1],ARRAY_Y_POS)
         addCmd("Move", self.swapLabel3, self.HeapXPositions[idx2],self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel4, self.HeapXPositions[idx1],self.HeapYPositions[idx1])
-        tmp = self.arrayData[idx1];
-        self.arrayData[idx1] = self.arrayData[idx2];
-        self.arrayData[idx2] = tmp;
+        tmp = self.arrayData[idx1]
+        self.arrayData[idx1] = self.arrayData[idx2]
+        self.arrayData[idx2] = tmp
         addCmd("Step")
-        addCmd("SetText", self.arrayRects[idx1], self.arrayData[idx1]);
-        addCmd("SetText", self.arrayRects[idx2], self.arrayData[idx2]);
-        addCmd("SetText", self.circleObjs[idx1], self.arrayData[idx1]);
-        addCmd("SetText", self.circleObjs[idx2], self.arrayData[idx2]);
-        addCmd("Delete", self.swapLabel1);
-        addCmd("Delete", self.swapLabel2);
-        addCmd("Delete", self.swapLabel3);
-        addCmd("Delete", self.swapLabel4);
+        addCmd("SetText", self.arrayRects[idx1], self.arrayData[idx1])
+        addCmd("SetText", self.arrayRects[idx2], self.arrayData[idx2])
+        addCmd("SetText", self.circleObjs[idx1], self.arrayData[idx1])
+        addCmd("SetText", self.circleObjs[idx2], self.arrayData[idx2])
+        addCmd("Delete", self.swapLabel1)
+        addCmd("Delete", self.swapLabel2)
+        addCmd("Delete", self.swapLabel3)
+        addCmd("Delete", self.swapLabel4)
         return
 
     def pushDown(self, idx):
@@ -232,6 +235,7 @@ class minHeap():
     
     # other functions
     def createArray(self):
+        print('into create array')
         self.arrayData = [''] * ARRAY_SIZE
         self.arrayLabels =[''] * ARRAY_SIZE
         self.arrayRects = [''] * ARRAY_SIZE
@@ -240,7 +244,7 @@ class minHeap():
         self.currentHeapSize = 0
 
         for i in range(ARRAY_SIZE):
-            self.ArrayXPositions[i] = ARRAY_INITIAL_X + i *ARRAY_ELEM_WIDTH
+            self.ArrayXPositions[i] = ARRAY_INITIAL_X + i * ARRAY_ELEM_WIDTH
             self.arrayLabels[i] = self.nextIndex
             self.nextIndex += 1
             self.arrayRects[i] = self.nextIndex
@@ -265,6 +269,7 @@ class minHeap():
         self.descriptLabel2 = self.nextIndex
         self.nextIndex += 1
         addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
+        # print(AnimationCommands)
         # self.animationManager.StartNewAnimation(self.commands)
         # self.animationManager.skipForward()
         # self.animationManager.clearHistory()
