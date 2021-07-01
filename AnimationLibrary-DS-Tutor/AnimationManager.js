@@ -129,6 +129,36 @@ function AnimationManager(objectManager, document, dataStructure) {
                 this.blocksInterval + 250
               );
             }
+          } else if (
+            this.dataStructure.toUpperCase() == "MINH" ||
+            this.dataStructure.toUpperCase() == "MAXH"
+          ) {
+            // is node
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
+              true
+            ) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
+                this.animatedObjects.stage,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].node,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                  .highlightCircle,
+                this.blocksInterval + 500
+              );
+            }
+            // is rect
+            else if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isRect ==
+              true
+            ) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
+                this.animatedObjects.stage,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].rectangle,
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                  .highlightRect,
+                this.blocksInterval + 500
+              );
+            }
           }
         } else if (nextCommand[0].toUpperCase() == "MOVE") {
           //record
@@ -272,6 +302,11 @@ function AnimationManager(objectManager, document, dataStructure) {
                   parseInt(nextCommand[3]),
                   parseInt(nextCommand[4])
                 );
+              }
+              //if it's label above array (y=28), set text color black
+              if (parseInt(nextCommand[4]) == 28) {
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].textColor =
+                  "#000";
               }
               //draw
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(

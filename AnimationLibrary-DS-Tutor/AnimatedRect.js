@@ -6,6 +6,8 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   this.width = w;
   this.height = h;
   this.onScene = true; // useless, always on scene
+  this.isNode = false;
+  this.isRect = true;
 
   this.backgroundColor = "rgba(255, 255, 255, 0.5)";
   this.textColor = "#000";
@@ -37,6 +39,13 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   });
   this.text = text;
 
+  var highlightRect = new createjs.Shape();
+  highlightRect.graphics
+    .setStrokeStyle(3)
+    .beginStroke("#fdf912")
+    .drawRect(this.x, this.y, this.width, this.height);
+  this.highlightRect = highlightRect;
+
   var rectangle = new createjs.Container();
   rectangle.addChild(this.rect, this.border, this.text);
   this.rectangle = rectangle;
@@ -49,6 +58,15 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   this.draw = function (stage) {
     stage.addChildAt(this.rectangle, 0);
     stage.update();
+  };
+
+  this.highlight = function (stage, rectangle, highlightRect, ms) {
+    rectangle.addChild(highlightRect);
+    stage.update();
+    setTimeout(function () {
+      rectangle.removeChild(highlightRect);
+      stage.update();
+    }, ms);
   };
 
   this.setText = function (newText, stage) {
