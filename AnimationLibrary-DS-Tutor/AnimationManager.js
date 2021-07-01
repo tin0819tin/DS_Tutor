@@ -53,11 +53,27 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
-            this.animatedObjects.addNodeObject(
-              parseInt(nextCommand[1]),
-              parseInt(nextCommand[2])
-            );
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
+            if (
+              this.dataStructure.toUpperCase() == "RBT" &&
+              nextCommand[2] == "NULL\nLEAF"
+            ) {
+              //TODO
+              nextCommand[2] = "NULL";
+              this.animatedObjects.addNodeObject(
+                parseInt(nextCommand[1]),
+                nextCommand[2]
+              );
+            } else {
+              this.animatedObjects.addNodeObject(
+                parseInt(nextCommand[1]),
+                parseInt(nextCommand[2])
+              );
+            }
+
             if (nextCommand.length > 4) {
               this.animatedObjects.setNodePosition(
                 parseInt(nextCommand[1]),
@@ -106,7 +122,8 @@ function AnimationManager(objectManager, document, dataStructure) {
           if (
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "MINH" ||
-            this.dataStructure.toUpperCase() == "MAXH"
+            this.dataStructure.toUpperCase() == "MAXH" ||
+            this.dataStructure.toUpperCase() == "RBT"
           ) {
             this.animatedObjects.connectEdge(
               parseInt(nextCommand[1]),
@@ -119,7 +136,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           /*
           [1]: objectID
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             if (parseInt(nextCommand[2]) == 1) {
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
                 this.animatedObjects.stage,
@@ -167,7 +187,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [2]: new_x
           [3]: new_y
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             // if the target is node object
             if (
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
@@ -244,7 +267,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             // if create status rectangle
             if (parseInt(nextCommand[1]) == 0) {
               this.animatedObjects.addLabelObject(
@@ -320,7 +346,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [1]: objectID
           [2]: new text
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             // target is status line
             if (parseInt(nextCommand[1]) == 0) {
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
@@ -370,7 +399,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             this.animatedObjects.addHighlightCircle(parseInt(nextCommand[1]));
             if (nextCommand.length > 4) {
               this.animatedObjects.setCirclePosition(
@@ -388,7 +420,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           /*
           [1]: objectID
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             //if target is highlight circle
             if (
               this.animatedObjects.Nodes[parseInt(nextCommand[1])] == null ||
@@ -528,7 +563,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           [1]: fromNode
           [2]: toNode
           */
-          if (this.dataStructure.toUpperCase() == "BST") {
+          if (
+            this.dataStructure.toUpperCase() == "BST" ||
+            this.dataStructure.toUpperCase() == "RBT"
+          ) {
             //find that edge and mark toBeRemoved & remove from stage
             this.animatedObjects.BackEdges[
               parseInt(nextCommand[2])
@@ -545,11 +583,26 @@ function AnimationManager(objectManager, document, dataStructure) {
           }
         } else if (nextCommand[0].toUpperCase() == "SETBACKGROUNDCOLOR") {
           if (this.dataStructure.toUpperCase() == "RBT") {
-            //TODO
+            /*
+            [1]: objectID
+            [2]: hex color 
+            */
+            // -------- customize color (black / red) --------
+            if (nextCommand[2] == "#AAAAAA") {
+              nextCommand[2] = "#AAAAAA";
+            } else if (nextCommand[2] == "#FFAAAA") {
+              nextCommand[2] = "#ff6262";
+            }
+            //-----------------------------------------------------
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
+              nextCommand[2],
+              this.animatedObjects.stage
+            );
           }
         } else if (nextCommand[0].toUpperCase() == "SETFOREGROUNDCOLOR") {
           if (this.dataStructure.toUpperCase() == "RBT") {
             //TODO
+            // not used
           }
         } else if (nextCommand[0].toUpperCase() == "CREATERECTANGLE") {
           /*

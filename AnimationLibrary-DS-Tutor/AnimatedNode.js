@@ -47,7 +47,10 @@ AnimatedNode.prototype.setXY = function (new_x, new_y) {
   this.y = new_y;
 };
 
-AnimatedNode.prototype.setNodeColor = function (hexString) {
+AnimatedNode.prototype.setNodeColor = function (hexString, stage) {
+  //remove first
+  stage.removeChild(this.node);
+  //update
   this.nodeColor = hexString;
 
   var circle = new createjs.Shape();
@@ -57,6 +60,12 @@ AnimatedNode.prototype.setNodeColor = function (hexString) {
   var node = new createjs.Container();
   node.addChild(this.circle, this.text);
   this.node = node;
+
+  //draw
+  this.node.x = this.x;
+  this.node.y = this.y;
+  stage.addChild(this.node);
+  stage.update();
 };
 
 AnimatedNode.prototype.setTextColor = function (hexString) {
