@@ -1,0 +1,165 @@
+/* Title */
+
+#title {
+  background-color: #393e46;
+}
+
+/* Nav bar */
+
+.mynavbar {
+  background-color: #393e46;
+  padding: 1% 6%;
+}
+
+.navbar-brand {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.navbar-item {
+  padding: 0 18px;
+}
+
+.navbar-item p {
+  margin: auto 0;
+}
+
+.navbar-item p:hover {
+  color: #d65a31;
+}
+
+.nav-link {
+  font-family: "Coming Soon", cursive;
+}
+
+/* title-body */
+
+.title-body {
+  padding: 10% 15%;
+}
+
+h1 {
+  font-family: "Coming Soon", cursive;
+  font-weight: 700;
+  color: white;
+  padding-bottom: 2%;
+}
+
+.col-left {
+  margin: auto 0;
+  padding: 0 5%;
+}
+
+.btn-dark,
+.btn-dark:active,
+.btn-dark:visited {
+  background-color: #d65a31 !important;
+  border-color: #393e46 !important;
+}
+
+.btn-dark:hover {
+  background-color: #d68331 !important;
+  border-color: #393e46 !important;
+}
+
+/* whatever */
+
+.div1 {
+  background-color: #535b66;
+  width: 100%;
+  height: 60px;
+}
+
+.div2 {
+  background-color: #828b9a;
+  width: 100%;
+  height: 60px;
+}
+
+.div3 {
+  background-color: #989fab;
+  width: 100%;
+  height: 60px;
+}
+
+/* Body */
+
+#data-structures h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 900;
+  font-size: 4rem;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+  color: #fff;
+}
+
+#data-structures {
+  text-align: center;
+  background-color: #b8bdc6;
+  padding: 16% 15%;
+}
+
+.structure-icon {
+  margin: 10px;
+  width: 150px;
+  height: 150px;
+}
+
+.data-structure-heading {
+  text-decoration: none;
+  font-family: "Coming Soon", cursive;
+  color: #393e46;
+  margin-bottom: 5%;
+}
+
+.data-structure-heading:hover {
+  color: #d65a31;
+}
+
+/* Body 2 */
+
+#Test {
+  text-align: center;
+  background-color: #b8bdc6;
+  padding: 16% 15%;
+}
+
+#Test .btn-dark,
+#Test .btn-dark:active,
+#Test .btn-dark:visited {
+  background-color: #d65a31 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Test .btn-dark:hover {
+  background-color: #d68331 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Test h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 900;
+  font-size: 5rem;
+  margin-bottom: 5%;
+  color: #fff;
+}
+
+/* footer */
+#footer {
+  background-color: #393e46;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  padding: 5% 15% 8%;
+}
+
+.footer-icon {
+  padding: 0 15px;
+  color: #fff;
+}
+
+.container {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
