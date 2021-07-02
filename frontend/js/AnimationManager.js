@@ -350,45 +350,56 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "RBT"
           ) {
-            // target is status line
-            if (parseInt(nextCommand[1]) == 0) {
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-                nextCommand[2],
-                this.animatedObjects.stage
-              );
-            }
-            // target is Node
-            else {
-              if (nextCommand[2] == "") {
-                nextCommand[2] = "0";
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != undefined
+            ) {
+              // target is status line
+              if (parseInt(nextCommand[1]) == 0) {
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                  nextCommand[2],
+                  this.animatedObjects.stage
+                );
               }
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-                parseInt(nextCommand[2]),
-                this.animatedObjects.stage
-              );
+              // target is Node
+              else {
+                if (nextCommand[2] == "") {
+                  nextCommand[2] = "0";
+                }
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                  parseInt(nextCommand[2]),
+                  this.animatedObjects.stage
+                );
+              }
             }
           } else if (
             this.dataStructure.toUpperCase() == "MINH" ||
             this.dataStructure.toUpperCase() == "MAXH"
           ) {
-            //if target is status line
-            if (parseInt(nextCommand[1]) == 100) {
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
-                nextCommand[2],
-                this.animatedObjects.stage
-              );
-            }
-            // if target is Heap Rect or Heap Label
-            else {
-              if (
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])] !=
-                  undefined
-              ) {
+            if (
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != undefined
+            ) {
+              //if target is status line
+              if (parseInt(nextCommand[1]) == 100) {
                 this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
                   nextCommand[2],
                   this.animatedObjects.stage
                 );
+              }
+              // if target is Heap Rect or Heap Label
+              else {
+                if (
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])] !=
+                    null &&
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])] !=
+                    undefined
+                ) {
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])].setText(
+                    nextCommand[2],
+                    this.animatedObjects.stage
+                  );
+                }
               }
             }
           }
