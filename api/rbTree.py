@@ -89,6 +89,8 @@ class RBNode():
 class RBTree():
     
     def __init__(self, w, h):
+        self.w = w
+        self.h = h
         self.treeRoot = None
         self.nextIndex = 1
         self.startingX = w / 2
@@ -100,7 +102,16 @@ class RBTree():
         self.build_list = []
     
     def reset(self):
-        pass
+        clearCmd()
+        self.treeRoot = None
+        self.nextIndex = 1
+        self.startingX = self.w / 2
+        self.print_max  = self.w - PRINT_HORIZONTAL_GAP
+        self.first_print_pos_y  = self.h - 2 * PRINT_VERTICAL_GAP
+        addCmd("CreateLabel", 0, "", EXPLANITORY_TEXT_X, EXPLANITORY_TEXT_Y, 0)
+        self.first = True
+        self.oper_list = []
+        self.build_list = []
 
     # Add any utility function if needed e.g. FindUncle, FindBlackLevel, SingleRotation etc.
     def insert(self, value, build=False):
@@ -1047,6 +1058,6 @@ def getPrint():
     return json.dumps(AnimationCommands)
     
 @rbt.route('/rbTree/build', methods=['GET'] )
-def getPrint(steps=10, Random=True):
+def getBuild(steps=10, Random=True):
     myRBTree.build(steps, Random)
     return json.dumps(AnimationCommands)

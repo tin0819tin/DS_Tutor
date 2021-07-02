@@ -76,7 +76,11 @@ class maxnHeap():
         self.oper_list = []
     
     def reset(self):
-        pass
+        self.size = ARRAY_SIZE
+        self.nextIndex = 0
+        self.createArray()
+        self.first = True
+        self.oper_list = []
 
     def insert(self, value, build=False):
         if not (self.first or build):

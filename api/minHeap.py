@@ -78,6 +78,11 @@ class minHeap():
         self.oper_list = []
     
     def reset(self):
+        self.size = ARRAY_SIZE  # fixed array size
+        self.nextIndex = 0
+        self.createArray()
+        self.first = True
+        self.oper_list = []
         pass
 
     def insert(self, value, build=False):
