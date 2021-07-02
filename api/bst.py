@@ -504,7 +504,8 @@ class BST():
     
     def build(self, num=10):
         # clearCmd()
-        self.clear()
+        if self.nextIndex > 1:
+            self.clear()
         build_lst = [random.randint(0, 999) for i in range(num)]
         for val in build_lst:
             # print(val)
