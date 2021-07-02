@@ -55,8 +55,33 @@
       </nav>
     </div>
 
-    <div>
-      <canvas id="canvas" width="1000" height="500"></canvas>
+    <!-- Body -->
+    <div class="row">
+      <!-- canvas -->
+      <div class="col">
+        <canvas id="canvas" width="1000" height="500"></canvas>
+      </div>
+      <!-- options -->
+      <div class="col">
+        <!-- Question  -->
+        <div class="question">
+          <!-- use javascript to set the number of question by change innerHTML-->
+          <!-- ex: Question 1-->
+          <p id="question-index">Question-</p>
+          <p>Choose the right data structure</p>
+        </div>
+        <!-- 4 options -->
+        <div class="options">
+          <a id="option-bst" href=""> <h1>A. Binary Search Tree</h1></a>
+          <a id="option-maxh" href=""><h1>B. Max Heap</h1></a>
+          <a id="option-minh" href=""><h1>C. Min Heap</h1></a>
+          <a if="option-rbt" href=""><h1>D. Red Black Tree</h1></a>
+        </div>
+        <div class="replay">
+          <p>Replay?</p>
+          <a class="replay-btn" href="#"><i class="fas fa-redo fa-1x"></i></a>
+        </div>
+      </div>
     </div>
 
     <!-- Jquery -->

@@ -45,6 +45,78 @@ div {
   text-align: center;
 }
 
+/* options (only in tutor) */
+
+.col {
+  margin: 2% 2%;
+  padding: 5 auto;
+}
+
+.question {
+  margin-top: 15%;
+}
+
+.question p {
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  font-size: 2.1rem;
+}
+
+#question-index {
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+.options {
+  padding: 8% 0;
+  text-align: left;
+}
+
+.options h1 {
+  font-family: "Coming Soon", cursive;
+  font-size: 1.6rem;
+  color: #393e46;
+  margin: 10% 0;
+}
+
+.options a {
+  text-decoration: none;
+}
+
+.options h1:hover {
+  text-decoration: none;
+  color: #d65a31;
+}
+
+.replay {
+  text-align: left;
+}
+
+.replay p {
+  font-family: "Open Sans", sans-serif;
+  display: inline-block;
+  color: #555555;
+  padding-right: 1%;
+}
+
+.replay-btn {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: #555555;
+}
+
+.replay-btn i {
+  text-align: center;
+  margin: auto auto;
+}
+
+.replay-btn:hover {
+  color: #d65a31;
+}
+
 /* buttoms */
 
 .btn-dark,
