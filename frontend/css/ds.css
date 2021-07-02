@@ -41,15 +41,14 @@ body {
 }
 
 div {
-  margin: 0 auto;
+  margin: 0 0;
   text-align: center;
 }
 
 /* options (only in tutor) */
 
 .col {
-  margin: 2% 2%;
-  padding: 5 auto;
+  margin: 2% 0;
 }
 
 .question {
@@ -57,10 +56,10 @@ div {
 }
 
 .question p {
-  text-align: left;
+  text-align: center;
   font-family: "Open Sans", sans-serif;
   font-weight: 800;
-  font-size: 2.1rem;
+  font-size: 1.5rem;
 }
 
 #question-index {
@@ -68,16 +67,21 @@ div {
   font-size: 1.3rem;
 }
 
+#option {
+  text-align: center;
+  padding-right: 2%;
+}
+
 .options {
   padding: 8% 0;
-  text-align: left;
+  text-align: center;
 }
 
 .option-btn {
   display: block;
   width: 200px;
   text-align: left;
-  margin-bottom: 20px;
+  margin: 0 auto 5%;
 }
 
 #option .btn-dark,
@@ -93,7 +97,8 @@ div {
 }
 
 .replay {
-  text-align: left;
+  margin-top: 5%;
+  text-align: center;
 }
 
 .replay p {
@@ -104,11 +109,13 @@ div {
 }
 
 .replay-btn {
-  display: inline-block;
+  display: inline;
+  position: relative;
   width: 24px;
   height: 24px;
   border-radius: 50%;
   color: #555555;
+  text-decoration: none;
 }
 
 .replay-btn i {
@@ -117,7 +124,7 @@ div {
 }
 
 .replay-btn:hover {
-  color: #d65a31;
+  color: #ff4d4d;
 }
 
 /* buttoms */
@@ -130,7 +137,7 @@ div {
 }
 
 .btn-dark:hover {
-  background-color: #ff4d4d !important;
+  background-color: #d68331 !important;
   border-color: #b8bdc6 !important;
 }
 

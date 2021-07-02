@@ -68,7 +68,7 @@
         <button
           id="start"
           style="display: block"
-          onclick="showCanvas()"
+          onClick="showCanvas()"
           class="btn btn-dark"
         >
           Start!
@@ -79,28 +79,56 @@
     <!-- Body -->
     <div class="row">
       <!-- canvas -->
-      <div class="col" id="hide" style="display: none">
+      <div class="col-lg-9" id="hide" style="display: none">
         <canvas id="canvas" width="1000" height="500"></canvas>
       </div>
+
       <!-- options -->
-      <div class="col" id="option" style="display: none">
+      <div class="col-lg-3" id="option" style="display: none">
         <!-- Question  -->
         <div class="question">
           <!-- use javascript to set the number of question by change innerHTML-->
           <!-- ex: Question 1-->
-          <p id="question-index">Question-</p>
+          <p id="question-index"></p>
           <p>Choose the right data structure</p>
         </div>
         <!-- 4 options -->
         <div class="options">
-          <button class="btn btn-dark option-btn">A. Binary Search Tree</button>
-          <button class="btn btn-dark option-btn">B. Max Heap</button>
-          <button class="btn btn-dark option-btn">C. Min Heap</button>
-          <button class="btn btn-dark option-btn">D. Red Black Tree</button>
+          <button
+            id="bst"
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
+            A. Binary Search Tree
+          </button>
+          <button
+            id="minHeap"
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
+            B. Max Heap
+          </button>
+          <button
+            id="maxHeap"
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
+            C. Min Heap
+          </button>
+          <button
+            id="rbTree"
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
+            D. Red Black Tree
+          </button>
         </div>
-        <div class="replay">
-          <p>Replay?</p>
-          <a class="replay-btn" href="#"><i class="fas fa-redo fa-1x"></i></a>
+        <div id="replay" class="replay">
+          <!-- <p>Replay?</p> -->
+          <a class="replay-btn" href="#"
+            ><p>Replay?</p>
+            <i class="fas fa-redo fa-1x"></i
+          ></a>
         </div>
       </div>
     </div>
