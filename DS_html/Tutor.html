@@ -18,7 +18,7 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
         crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="../frontend/css/styles.css" />
+        <link rel="stylesheet" href="../frontend/css/ds.css" />
 
         <!-- Font awesome -->
         <script
@@ -27,6 +27,54 @@
         ></script>
     </head>
     <body>
-        <h1>This is where question show</h1>
+        <div class="mynavbar">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+              <h1 class="navbar-brand" href="">Test your knowledge</h1>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+      
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav ms-auto">
+                  <li class="navbar-item">
+                    <a class="nav-link" href="/"><p>Home Page</p></a>
+                  </li>
+                  <li class="navbar-item">
+                    <a class="nav-link" href="#"><p>Test</p></a>
+                  </li>
+                  <li class="navbar-item">
+                    <a class="nav-link" href="#"><p>Demo</p></a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+        </div>
+
+        <div>
+            <canvas id="canvas" width="1000" height="500"></canvas>
+        </div>
+
+        <!-- Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- Easel.js + Tween.js-->
+        <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+        <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+
+        <script src="../frontend/js/AnimatedNode.js"></script>
+        <script src="../frontend/js/Line.js"></script>
+        <script src="../frontend/js/AnimatedLabel.js"></script>
+        <script src="../frontend/js/AnimatedHighlightCircle.js"></script>
+        <script src="../frontend/js/ObjectManager.js"></script>
+        <script src="../frontend/js/AnimationManager.js"></script>
+        <script src="../frontend/js/Tutor.js"></script>
+
     </body>
 </html>
