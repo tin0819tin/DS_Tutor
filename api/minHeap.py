@@ -6,6 +6,7 @@ from datetime import timedelta
 import os
 import json
 import math
+import random
 
 
 # -----------------------------------------------------------
@@ -74,12 +75,15 @@ class minHeap():
                                310, 310, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         self.createArray()
         self.first = True
+        self.oper_list = []
     
     def reset(self):
         pass
 
-    def insert(self, value):
-        if not self.first:
+    def insert(self, value, build=False):
+        if value == "":
+            return
+        if not (self.first or build):
             clearCmd()
         self.first = False
         if self.currentHeapSize >= ARRAY_SIZE - 1:
@@ -134,8 +138,10 @@ class minHeap():
         Print(self.arrayData)
         return
 
-    def removeMin(self):
-        clearCmd()
+    def removeMin(self, build=False):
+        if not (self.first or build):
+            clearCmd()
+        self.first = False
         addCmd("SetText", self.descriptLabel1, "")
 
         if self.currentHeapSize == 0:
@@ -179,25 +185,42 @@ class minHeap():
         Print(self.arrayData)
         return
 
-    def buildHeap(self):    # TODO: self.normalizeNumber
-        clearCmd()
-        self.clear()
-        for i in range(1, ARRAY_SIZE):
-            # self.arrayData[i] = self.normalizeNumber(String(ARRAY_SIZE - i), 4);
-            addCmd("CreateCircle", self.circleObjs[i], self.arrayData[i],
-                   self.HeapXPositions[i], self.HeapYPositions[i])
-            addCmd("SetText", self.arrayRects[i], self.arrayData[i])
-            if i > 1:
-                addCmd("Connect", self.circleObjs[math.floor(
-                    i/2)], self.circleObjs[i])
+    def buildHeap(self, steps, Random):    # TODO: self.normalizeNumber
+        if Random:
+            operation = ['insert', 'removeMin']
+            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
 
-        addCmd("Step")
-        self.currentHeapSize = ARRAY_SIZE - 1
-        nextElem = self.currentHeapSize
-        while nextElem > 0:
-            self.pushDown(nextElem)
-            nextElem = nextElem - 1
-        Print(self.arrayData)
+        current_stpes = 0
+        for oper in self.oper_list:
+            if oper == 'insert':
+                self.insert(str(random.randrange(999)), build=True)
+                current_stpes += 1
+
+            if oper == 'removeMin' and self.currentHeapSize > 0:
+                self.removeMin(build=True)
+                current_stpes += 1
+
+            addCmd("Step")
+            if current_stpes >= steps:
+                break
+        # clearCmd()
+        # self.clear()
+        # for i in range(1, ARRAY_SIZE):
+        #     # self.arrayData[i] = self.normalizeNumber(String(ARRAY_SIZE - i), 4);
+        #     addCmd("CreateCircle", self.circleObjs[i], self.arrayData[i],
+        #            self.HeapXPositions[i], self.HeapYPositions[i])
+        #     addCmd("SetText", self.arrayRects[i], self.arrayData[i])
+        #     if i > 1:
+        #         addCmd("Connect", self.circleObjs[math.floor(
+        #             i/2)], self.circleObjs[i])
+        # 
+        # addCmd("Step")
+        # self.currentHeapSize = ARRAY_SIZE - 1
+        # nextElem = self.currentHeapSize
+        # while nextElem > 0:
+        #     self.pushDown(nextElem)
+        #     nextElem = nextElem - 1
+        # Print(self.arrayData)
         return
 
     def swap(self, idx1, idx2):
@@ -364,6 +387,6 @@ def getClear():
 
 
 @minH.route('/minHeap/build', methods=['GET'])
-def getBuild():
-    myHeap.buildHeap()
+def getBuild(steps=10, Random=True):
+    myHeap.buildHeap(steps, Random)
     return json.dumps(AnimationCommands)

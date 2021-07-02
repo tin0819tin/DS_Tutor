@@ -3,6 +3,7 @@ from flask_cors import CORS
 from datetime import timedelta
 import os, json
 import math
+import random
 
 
 # -----------------------------------------------------------
@@ -95,13 +96,17 @@ class RBTree():
         self.first_print_pos_y  = h - 2 * PRINT_VERTICAL_GAP
         addCmd("CreateLabel", 0, "", EXPLANITORY_TEXT_X, EXPLANITORY_TEXT_Y, 0)
         self.first = True
+        self.oper_list = []
+        self.build_list = []
     
     def reset(self):
         pass
 
     # Add any utility function if needed e.g. FindUncle, FindBlackLevel, SingleRotation etc.
-    def insert(self, value):
-        if not self.first:
+    def insert(self, value, build=False):
+        if value == "":
+            return
+        if not (self.first or build):
             clearCmd()
         self.first = False
         addCmd("SetText", 0, " Inserting "+value)
@@ -143,8 +148,12 @@ class RBTree():
         self.findRecursive(self.treeRoot, value)
         return
 
-    def delete(self, value):
-        clearCmd()
+    def delete(self, value, build=False):
+        if value == "":
+            return
+        if not (self.first or build):
+            clearCmd()
+        self.first = False
         addCmd("SetText", 0, "Deleting "+value)
         addCmd("Step")
         addCmd("SetText", 0, " ")
@@ -171,6 +180,30 @@ class RBTree():
             self.nextIndex = self.highlightID  # Reuse objects.  Not necessary.
         return
     
+    def build(self, steps, Random):
+        if Random:
+            operation = ['insert', 'delete']
+            self.build_list = []
+            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
+
+        current_stpes = 0
+        for oper in self.oper_list:
+            if oper == 'insert':
+                insert_value = str(random.randrange(999))
+                self.build_list.append(insert_value)
+                self.insert(insert_value, build=True)
+                current_stpes += 1
+
+            if oper == 'delete' and self.treeRoot != None:
+                delete_value = random.choice(self.build_list)
+                self.build_list.remove(delete_value)
+                self.delete(delete_value, build=True)
+                current_stpes += 1
+
+            addCmd("Step")
+            if current_stpes >= steps:
+                break
+        pass
     # utility functions
 
     def printTreeRecursive(self, tree):
@@ -1011,4 +1044,9 @@ def getDelete(value):
 @rbt.route('/rbTree/print', methods=['GET'] )
 def getPrint():
     myRBTree.print()
+    return json.dumps(AnimationCommands)
+    
+@rbt.route('/rbTree/build', methods=['GET'] )
+def getPrint(steps=10, Random=True):
+    myRBTree.build(steps, Random)
     return json.dumps(AnimationCommands)
