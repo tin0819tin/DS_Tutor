@@ -8,6 +8,9 @@ function AnimationManager(objectManager, document, dataStructure) {
   this.dataStructure = dataStructure;
   this.DIYMode = false;
 
+  //node color when test mode
+  this.testModeNodeColor = "#ff4d4d";
+
   //use for Print btns in BST, RBT
   this.printMode = false;
   this.printNullList = [];
@@ -593,20 +596,29 @@ function AnimationManager(objectManager, document, dataStructure) {
           */
           }
         } else if (nextCommand[0].toUpperCase() == "SETBACKGROUNDCOLOR") {
-          if (this.dataStructure.toUpperCase() == "RBT") {
-            /*
+          if (this.DIYMode == true) {
+            if (this.dataStructure.toUpperCase() == "RBT") {
+              /*
             [1]: objectID
             [2]: hex color 
             */
-            // -------- customize color (black / red) --------
-            if (nextCommand[2] == "#AAAAAA") {
-              nextCommand[2] = "#555555";
-            } else if (nextCommand[2] == "#FFAAAA") {
-              nextCommand[2] = "#ff6262";
+              // -------- customize color (black / red) --------
+              if (nextCommand[2] == "#AAAAAA") {
+                nextCommand[2] = "#555555";
+              } else if (nextCommand[2] == "#FFAAAA") {
+                nextCommand[2] = "#ff6262";
+              }
+              //-----------------------------------------------------
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
+                nextCommand[2],
+                this.animatedObjects.stage
+              );
             }
-            //-----------------------------------------------------
+          }
+          // test mode, set all node same color
+          else if (this.DIYMode == false) {
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
-              nextCommand[2],
+              this.testModeNodeColor,
               this.animatedObjects.stage
             );
           }
