@@ -57,7 +57,7 @@ div {
 }
 
 .question p {
-  text-align: left;
+  text-align: center;
   font-family: "Open Sans", sans-serif;
   font-weight: 800;
   font-size: 2.1rem;
@@ -70,14 +70,14 @@ div {
 
 .options {
   padding: 8% 0;
-  text-align: left;
+  text-align: center;
 }
 
 .option-btn {
   display: block;
   width: 200px;
   text-align: left;
-  margin-bottom: 20px;
+  margin: 0 auto 5%;
 }
 
 #option .btn-dark,
@@ -93,7 +93,8 @@ div {
 }
 
 .replay {
-  text-align: left;
+  margin-top: 5%;
+  text-align: center;
 }
 
 .replay p {
