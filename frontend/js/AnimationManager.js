@@ -276,15 +276,23 @@ function AnimationManager(objectManager, document, dataStructure) {
           ) {
             // if create status rectangle
             if (parseInt(nextCommand[1]) == 0) {
-              this.animatedObjects.addLabelObject(
-                parseInt(nextCommand[1]),
-                nextCommand[2]
-              );
-              //draw
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-                this.animatedObjects.stage
-              );
+              //DIY mode
+              if (this.DIYMode == true) {
+                this.animatedObjects.addLabelObject(
+                  parseInt(nextCommand[1]),
+                  nextCommand[2]
+                );
+                //draw
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                  this.animatedObjects.stage
+                );
+              }
+              //test mode
+              else if (this.DIYMode == false) {
+                //do nothing
+              }
             }
+
             // else do same thing as create node
             else {
               this.animatedObjects.addNodeObject(
@@ -307,19 +315,28 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.dataStructure.toUpperCase() == "MINH" ||
             this.dataStructure.toUpperCase() == "MAXH"
           ) {
+            //target is status
             if (parseInt(nextCommand[1]) == 100) {
-              //status line
-              //record
-              this.animatedObjects.addLabelObject(
-                parseInt(nextCommand[1]),
-                nextCommand[2]
-              );
-              //draw
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
-                this.animatedObjects.stage
-              );
-            } else {
-              // heap label
+              //DIY mode
+              if (this.DIYMode == true) {
+                //record
+                this.animatedObjects.addLabelObject(
+                  parseInt(nextCommand[1]),
+                  nextCommand[2]
+                );
+                //draw
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
+                  this.animatedObjects.stage
+                );
+              }
+              //test mode
+              else if (this.DIYMode == false) {
+                //do nothing
+              }
+            }
+
+            // target is heap label
+            else {
               //record
               this.animatedObjects.addHeapLabelObject(
                 parseInt(nextCommand[1]),
