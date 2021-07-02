@@ -73,20 +73,23 @@ div {
   text-align: left;
 }
 
-.options h1 {
-  font-family: "Coming Soon", cursive;
-  font-size: 1.6rem;
-  color: #393e46;
-  margin: 10% 0;
+.option-btn {
+  display: block;
+  width: 200px;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-.options a {
-  text-decoration: none;
+#option .btn-dark,
+.btn-dark:active,
+.btn-dark:visited {
+  background-color: #9d9d9d !important;
+  border-color: #b8bdc6 !important;
 }
 
-.options h1:hover {
-  text-decoration: none;
-  color: #d65a31;
+#option .btn-dark:hover {
+  background-color: #ff4d4d !important;
+  border-color: #b8bdc6 !important;
 }
 
 .replay {
@@ -127,7 +130,7 @@ div {
 }
 
 .btn-dark:hover {
-  background-color: #d68331 !important;
+  background-color: #ff4d4d !important;
   border-color: #b8bdc6 !important;
 }
 
@@ -175,4 +178,16 @@ span {
   /* font-family: "Coming Soon", cursive; */
   font-weight: bold;
   font-size: 2rem;
+}
+
+#Init .btn-dark,
+.btn-dark:active,
+.btn-dark:visited {
+  background-color: #ff7373 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Init .btn-dark:hover {
+  background-color: #ff4d4d !important;
+  border-color: #b8bdc6 !important;
 }
