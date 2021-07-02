@@ -150,3 +150,29 @@ span {
   position: relative;
   bottom: 30px;
 }
+
+/* tutor start introduction */
+
+.start-test-btn {
+  display: inline-block;
+  text-align: center;
+  margin-top: 5%;
+}
+
+#start {
+  width: 160px;
+  height: 96px;
+  font-size: 3rem;
+  border-radius: 7%;
+}
+
+.test-intro {
+  margin-top: 8%;
+}
+
+#Init p {
+  font-family: "Open Sans", sans-serif;
+  /* font-family: "Coming Soon", cursive; */
+  font-weight: bold;
+  font-size: 2rem;
+}
