@@ -68,7 +68,7 @@
         <button
           id="start"
           style="display: block"
-          onclick="showCanvas()"
+          onClick="showCanvas()"
           class="btn btn-dark"
         >
           Start!
@@ -93,16 +93,32 @@
         </div>
         <!-- 4 options -->
         <div class="options">
-          <button id="bst" class="btn btn-dark option-btn">
+          <button 
+            id="bst" 
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
             A. Binary Search Tree
           </button>
-          <button id="minHeap" class="btn btn-dark option-btn">
+          <button 
+            id="minHeap" 
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
             B. Max Heap
           </button>
-          <button id="maxHeap" class="btn btn-dark option-btn">
+          <button 
+            id="maxHeap" 
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
             C. Min Heap
           </button>
-          <button id="rbTree" class="btn btn-dark option-btn">
+          <button 
+            id="rbTree" 
+            class="btn btn-dark option-btn"
+            onClick="reply_click(this.id)"
+          >
             D. Red Black Tree
           </button>
         </div>
