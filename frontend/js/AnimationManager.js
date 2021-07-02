@@ -349,11 +349,10 @@ function AnimationManager(objectManager, document, dataStructure) {
                   parseInt(nextCommand[4])
                 );
               }
-              //if it's label above array (y=28), set text color black
-              if (parseInt(nextCommand[4]) == 28) {
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])].textColor =
-                  "#000";
-              }
+              //(set #d9dce0 = disapper array)
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].textColor =
+                "#d9dce0";
+
               //draw
               this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
                 this.animatedObjects.stage

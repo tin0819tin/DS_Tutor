@@ -9,8 +9,11 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   this.isNode = false;
   this.isRect = true;
 
-  this.backgroundColor = "rgba(255, 255, 255, 0.5)";
-  this.textColor = "#000";
+  // set to "#d9dce0" to disapper
+  // this.backgroundColor = "rgba(255, 255, 255, 0.5)";
+  this.backgroundColor = "#d9dce0";
+  // this.textColor = "#000";
+  this.textColor = "#d9dce0";
 
   //create text & rectangle
   var rect = new createjs.Shape();
@@ -22,7 +25,7 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   var border = new createjs.Shape();
   border.graphics
     .setStrokeStyle(2)
-    .beginStroke("#000")
+    .beginStroke("#d9dce0")
     .drawRect(this.x, this.y, this.width, this.height);
   this.border = border;
 
@@ -42,7 +45,7 @@ function AnimatedRect(objectID, val, w, h, x, y) {
   var highlightRect = new createjs.Shape();
   highlightRect.graphics
     .setStrokeStyle(3)
-    .beginStroke("#fdf912")
+    .beginStroke("#d9dce0")
     .drawRect(this.x, this.y, this.width, this.height);
   this.highlightRect = highlightRect;
 
