@@ -8,15 +8,16 @@ if (window.performance) {
 }
 console.info(performance.navigation.type);
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-  console.info( "This page is reloaded" );
-  fetch('/rbTree/reset').then(function(response) {
-			return response.json();
-		  })
-		  .then(function(myJson) {
-			console.log(myJson);
-		  });
+  console.info("This page is reloaded");
+  fetch("/rbTree/reset")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      console.log(myJson);
+    });
 } else {
-  console.info( "This page is not reloaded");
+  console.info("This page is not reloaded");
 }
 
 // ---- insert buttom event listener ----

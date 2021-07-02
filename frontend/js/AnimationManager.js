@@ -20,7 +20,7 @@ function AnimationManager(objectManager, document, dataStructure) {
 
   //interval between blocks
   //Tweenjs animation time
-  this.blocksInterval = 250;
+  this.blocksInterval = 500;
   this.tweenjsAnimationTime = 500;
 
   //set NULL list
@@ -782,6 +782,12 @@ function AnimationManager(objectManager, document, dataStructure) {
       else {
         commands.splice(0, 0, "SetText<;>100<;>");
       }
+    }
+
+    // if dataStructure is RBTree, set interval larger
+    // bcz the SETTEXT is more complex
+    if (this.dataStructure.toUpperCase() == "RBT") {
+      this.blocksInterval = 1500;
     }
 
     //parse commands, separated by "STEP<;>"
