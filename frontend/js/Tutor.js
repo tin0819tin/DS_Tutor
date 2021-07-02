@@ -1,5 +1,7 @@
 // Initialization
-let DS = [];
+const DS = ['BST', 'RBT', 'MINH', 'MAXH', 'BST', 'RBT', 'MINH', 'MAXH']
+
+let probl_DS = [];
 const OM = new ObjectManager();
 const AM = new AnimationManager(OM, document, "BST");
 AM.DIYMode = false;
