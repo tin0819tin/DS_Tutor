@@ -55,14 +55,25 @@
       </nav>
     </div>
 
+    <div id="Init">
+      <button
+        id="start"
+        style="display: block"
+        onclick="showCanvas()"
+        class="btn btn-dark"
+      >
+        Start!
+      </button>
+    </div>
+
     <!-- Body -->
     <div class="row">
       <!-- canvas -->
-      <div class="col">
+      <div class="col" id="hide" style="display: none">
         <canvas id="canvas" width="1000" height="500"></canvas>
       </div>
       <!-- options -->
-      <div class="col">
+      <div class="col" id="option" style="display: none">
         <!-- Question  -->
         <div class="question">
           <!-- use javascript to set the number of question by change innerHTML-->
@@ -90,12 +101,27 @@
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 
-    <script src="../frontend/js/AnimatedNode.js"></script>
-    <script src="../frontend/js/Line.js"></script>
-    <script src="../frontend/js/AnimatedLabel.js"></script>
-    <script src="../frontend/js/AnimatedHighlightCircle.js"></script>
-    <script src="../frontend/js/ObjectManager.js"></script>
-    <script src="../frontend/js/AnimationManager.js"></script>
-    <script src="../frontend/js/Tutor.js"></script>
+    <script
+      type="text/javascript"
+      src="../frontend/js/AnimatedNode.js"
+    ></script>
+    <script type="text/javascript" src="../frontend/js/Line.js"></script>
+    <script
+      type="text/javascript"
+      src="../frontend/js/AnimatedLabel.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../frontend/js/AnimatedHighlightCircle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../frontend/js/ObjectManager.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../frontend/js/AnimationManager.js"
+    ></script>
+    <script type="text/javascript" src="../frontend/js/Tutor.js"></script>
   </body>
 </html>
