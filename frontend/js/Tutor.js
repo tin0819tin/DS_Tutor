@@ -20,15 +20,27 @@ const shuffle = (array) => {
 }
 
 const reply_click = (id) => {
-    if (DS_Map[DS_Prob[cur_prob]] === id && cur_prob<DS_Prob.length){
-        console.log("Correct");
+    if (DS_Map[DS_Prob[cur_prob]] === id && cur_prob<DS_Prob.length-1){
+        console.log("Correct", cur_prob);
         cur_prob += 1
         cur_commands = "";
         renderClear();
         renderProb(cur_prob);
     }
-    else if(cur_prob == 8){
+    else if(cur_prob == 7){
         console.log("Finish");
+        let finish = document.getElementById("Finish");
+        let x = document.getElementById("hide");
+        let z = document.getElementById("option");
+        if (x.style.display == "block") {
+            x.style.display = "none";
+          }
+          if (z.style.display == "block") {
+            z.style.display = "none";
+          }
+          if (finish.style.display == "none") {
+            finish.style.display = "block";
+          }
     }
 }
 

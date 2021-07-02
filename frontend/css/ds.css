@@ -176,6 +176,13 @@ span {
   border-radius: 7%;
 }
 
+#finish {
+  width: 160px;
+  height: 96px;
+  font-size: 3rem;
+  border-radius: 7%;
+}
+
 .test-intro {
   margin-top: 8%;
 }
@@ -195,6 +202,25 @@ span {
 }
 
 #Init .btn-dark:hover {
+  background-color: #ff4d4d !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Finish p {
+  font-family: "Open Sans", sans-serif;
+  /* font-family: "Coming Soon", cursive; */
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#Finish .btn-dark,
+.btn-dark:active,
+.btn-dark:visited {
+  background-color: #ff7373 !important;
+  border-color: #b8bdc6 !important;
+}
+
+#Finish .btn-dark:hover {
   background-color: #ff4d4d !important;
   border-color: #b8bdc6 !important;
 }
