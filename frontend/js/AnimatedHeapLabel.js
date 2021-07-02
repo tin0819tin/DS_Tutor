@@ -6,7 +6,9 @@ function AnimatedHeapLabel(objectID, objectLabel) {
   this.y = 0;
   this.onScene = false;
 
-  this.textColor = "#fff";
+  // set to "#d9dce0" to disapper
+  // this.textColor = "#fff";
+  this.textColor = "##d9dce0";
 
   var text = new createjs.Text(
     this.label.toString(),
