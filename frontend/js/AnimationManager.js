@@ -589,7 +589,7 @@ function AnimationManager(objectManager, document, dataStructure) {
             */
             // -------- customize color (black / red) --------
             if (nextCommand[2] == "#AAAAAA") {
-              nextCommand[2] = "#AAAAAA";
+              nextCommand[2] = "#555555";
             } else if (nextCommand[2] == "#FFAAAA") {
               nextCommand[2] = "#ff6262";
             }
