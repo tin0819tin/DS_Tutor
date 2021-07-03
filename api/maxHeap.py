@@ -77,6 +77,8 @@ class maxnHeap():
     
     def reset(self):
         self.clear()
+        self.createArray()
+        self.first = True
 
     def insert(self, value, build=False):
         if not (self.first or build):
