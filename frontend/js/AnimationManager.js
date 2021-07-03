@@ -119,11 +119,13 @@ function AnimationManager(objectManager, document, dataStructure) {
                 parseInt(nextCommand[4])
               );
             }
-            // set heap node circle color
-            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
-              this.testModeNodeColor,
-              this.animatedObjects.stage
-            );
+            // set heap node circle color if test time
+            if (this.DIYMode == false) {
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
+                this.testModeNodeColor,
+                this.animatedObjects.stage
+              );
+            }
 
             //draw
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
