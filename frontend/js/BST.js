@@ -7,7 +7,7 @@ if (window.performance) {
   console.info("window.performance works fine on this browser");
 }
 console.info(performance.navigation.type);
-if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD || performance.navigation.type == performance.navigation.TYPE_NAVIGATE) {
   console.info( "This page is reloaded" );
   fetch('/bst/reset').then(function(response) {
 			return response.json();
@@ -15,7 +15,11 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
 		  .then(function(myJson) {
 			console.log(myJson);
 		  });
-} else {
+}
+else if(performance.navigation.type == performance.navigation.TYPE_BACK_FORWARD){
+  window.location.reload();
+}
+else {
   console.info( "This page is not reloaded");
 }
 
