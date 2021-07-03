@@ -76,11 +76,7 @@ class maxnHeap():
         self.oper_list = []
     
     def reset(self):
-        self.size = ARRAY_SIZE
-        self.nextIndex += 1
-        self.createArray()
-        self.first = True
-        self.oper_list = []
+        self.clear()
 
     def insert(self, value, build=False):
         if not (self.first or build):
@@ -196,7 +192,7 @@ class maxnHeap():
                 self.insert(str(random.randrange(999)), build=True)
                 current_stpes += 1
 
-            if oper == 'removeMin' and self.currentHeapSize > 0:
+            elif oper == 'removeMin' and self.currentHeapSize > 0:
                 self.removeMax(build=True)
                 current_stpes += 1
 
