@@ -77,10 +77,10 @@ class maxnHeap():
     
     def reset(self):
         self.clear()
-        self.createArray()
-        self.first = True
 
     def insert(self, value, build=False):
+        if value == "":
+            return
         if not (self.first or build):
             clearCmd()
         self.first = False
@@ -96,7 +96,7 @@ class maxnHeap():
         self.currentHeapSize += 1
         self.arrayData[self.currentHeapSize] = value
         addCmd("CreateCircle", self.circleObjs[self.currentHeapSize], "",
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("CreateLabel", self.descriptLabel2, value, 600, 460,  1)
         if self.currentHeapSize > 1:
             addCmd("Connect", self.circleObjs[math.floor(
@@ -185,8 +185,9 @@ class maxnHeap():
 
     def buildHeap(self, steps=10, Random=True):    # TODO: self.normalizeNumber
         operation = ['insert', 'removeMin']
+        self.oper_list = ['insert'] * 3
         if Random:
-            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
+            self.oper_list += random.choices(operation, weights = [5, 2], k = 40)
 
         current_stpes = 0
         for oper in self.oper_list:

@@ -79,8 +79,6 @@ class minHeap():
     
     def reset(self):
         self.clear()
-        self.createArray()
-        self.first = True
 
     def insert(self, value, build=False):
         if value == "":
@@ -94,13 +92,14 @@ class minHeap():
             Print(self.arrayData)
             return
 
+        # print("descriptLabel1:", self.descriptLabel1)
         addCmd("SetText", self.descriptLabel1, "Inserting Element: " + value)
         addCmd("Step")
-        addCmd("SetText", self.descriptLabel1, "Inserting Element: ")
+        addCmd("SetText", self.descriptLabel1, "Inserting Element: " + value)
         self.currentHeapSize += 1
         self.arrayData[self.currentHeapSize] = value
         addCmd("CreateCircle", self.circleObjs[self.currentHeapSize], "",
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("CreateLabel", self.descriptLabel2, value, 600, 460,  1)
         if self.currentHeapSize > 1:
             addCmd("Connect", self.circleObjs[math.floor(
@@ -137,7 +136,8 @@ class minHeap():
 
         addCmd("SetText", self.descriptLabel1, "")
         # return self.commands;
-        Print(self.arrayData)
+        # for x in AnimationCommands:
+        #     print(x)
         return
 
     def removeMin(self, build=False):
@@ -184,13 +184,13 @@ class minHeap():
             addCmd("SetText", self.arrayRects[self.currentHeapSize], "")
             self.arrayData[self.currentHeapSize] = ''   # modified
             self.currentHeapSize -= 1
-        Print(self.arrayData)
         return
 
     def buildHeap(self, steps, Random):    # TODO: self.normalizeNumber
         operation = ['insert', 'removeMin']
+        self.oper_list = ['insert'] * 3
         if Random:
-            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
+            self.oper_list += random.choices(operation, weights = [5, 2], k = 40)
 
         current_stpes = 0
         for oper in self.oper_list:

@@ -201,10 +201,11 @@ class RBTree():
     
     def build(self, steps, Random):
         self.reset()
+        self.oper_list = ['insert'] * 3
         if Random:
             operation = ['insert', 'delete']
             self.build_list = []
-            self.oper_list = random.choices(operation, weights = [4, 1], k = 40)
+            self.oper_list += random.choices(operation, weights = [4, 1], k = 40)
         ## for test only##
         # self.oper_list = ['insert', 'insert', 'delete']
         ##################
