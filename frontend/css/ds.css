@@ -96,12 +96,12 @@ div {
   border-color: #b8bdc6 !important;
 }
 
-.replay {
+.replay-div {
   margin-top: 5%;
   text-align: center;
 }
 
-.replay p {
+.replay-div p {
   font-family: "Open Sans", sans-serif;
   display: inline-block;
   color: #555555;
@@ -111,11 +111,16 @@ div {
 .replay-btn {
   display: inline;
   position: relative;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  color: #555555;
+  width: 100px;
+  height: auto;
+  border-radius: 10%;
+  color: #ffffff;
+  background-color: #9d9d9d !important;
+  border-color: #b8bdc6 !important;
   text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+  display: inline-block;
+  padding-right: 1%;
 }
 
 .replay-btn i {
