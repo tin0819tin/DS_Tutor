@@ -286,6 +286,16 @@ class BST():
         self.treeDelete(self.root, value)
         addCmd("SetText", 0, "")
     
+    def build_delete(self, value):
+
+        addCmd("SetText", 0, "Deleting "+value)
+        addCmd("Step")
+        addCmd("SetText", 0, "")
+        self.highlightID = self.nextIndex
+        self.nextIndex += 1
+        self.treeDelete(self.root, value)
+        addCmd("SetText", 0, "")
+    
     def treeDelete(self, tree:BSTNode, value):
         
         leftchild = False
@@ -506,11 +516,24 @@ class BST():
         # clearCmd()
         if self.nextIndex > 1:
             self.clear()
-        build_lst = [random.randint(0, 999) for i in range(num)]
-        for val in build_lst:
-            # print(val)
-            # print(self.nextIndex)
-            self.build_insert(str(val))
+        
+        operations = ['insert', 'delete']
+        oper_lst = ['insert']
+        oper_lst += random.choices(operations, weights=[4, 1], k=num-1)
+        print(oper_lst)
+        build_lst = []
+
+        for oper in oper_lst:
+            if oper == 'insert':
+                insert_val = random.randint(0, 999)
+                build_lst.append(insert_val)
+                self.build_insert(str(insert_val))
+            
+            elif oper == 'delete':
+                delete_val = random.choice(build_lst)
+                build_lst.remove(delete_val)
+                self.build_delete(str(delete_val))
+
         build_lst.clear()
         # Settext is removed in frontend
         # Checking the answer in frontend, restart this.commands again
