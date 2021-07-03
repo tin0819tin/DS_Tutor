@@ -149,7 +149,14 @@ class RBTree():
             self.insert_recursive(insertElem, self.treeRoot)
             # resizeTree();				
         
-        addCmd("SetText", 0, " ");				
+        addCmd("SetText", 0, " ");
+
+        ##for debug##
+        # if not build:
+        #     print("insert:")
+        #     for x in AnimationCommands:
+        #         print(x)	
+        #####################################		
         return
         
     def find(self, value):
@@ -175,28 +182,32 @@ class RBTree():
         return 
 
     def print(self):
-        clearCmd()
-        if self.treeRoot != None:
-            self.highlightID = self.nextIndex
-            self.nextIndex += 1
-            firstLabel = self.nextIndex
-            addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, self.treeRoot.x, self.treeRoot.y)
-            self.xPosOfNextLabel = FIRST_PRINT_POS_X
-            self.yPosOfNextLabel = self.first_print_pos_y
-            self.printTreeRecursive(self.treeRoot)
-            addCmd("Delete",self.highlightID)
-            addCmd("Step")
-            for i in range(firstLabel, self.nextIndex):
-                addCmd("Delete", i)
-            self.nextIndex = self.highlightID  # Reuse objects.  Not necessary.
+        self.build(steps=10, Random=True)
+        # clearCmd()
+        # if self.treeRoot != None:
+        #     self.highlightID = self.nextIndex
+        #     self.nextIndex += 1
+        #     firstLabel = self.nextIndex
+        #     addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, self.treeRoot.x, self.treeRoot.y)
+        #     self.xPosOfNextLabel = FIRST_PRINT_POS_X
+        #     self.yPosOfNextLabel = self.first_print_pos_y
+        #     self.printTreeRecursive(self.treeRoot)
+        #     addCmd("Delete",self.highlightID)
+        #     addCmd("Step")
+        #     for i in range(firstLabel, self.nextIndex):
+        #         addCmd("Delete", i)
+        #     self.nextIndex = self.highlightID  # Reuse objects.  Not necessary.
         return
     
     def build(self, steps, Random):
+        self.reset()
         if Random:
             operation = ['insert', 'delete']
             self.build_list = []
-            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
-
+            self.oper_list = random.choices(operation, weights = [4, 1], k = 40)
+        ## for test only##
+        # self.oper_list = ['insert', 'insert', 'delete']
+        ##################
         current_stpes = 0
         for oper in self.oper_list:
             if oper == 'insert':
@@ -211,9 +222,11 @@ class RBTree():
                 self.delete(delete_value, build=True)
                 current_stpes += 1
 
-            addCmd("Step")
             if current_stpes >= steps:
                 break
+        # print('build:')
+        # for x in AnimationCommands:
+        #     print(x)
         pass
     # utility functions
 
