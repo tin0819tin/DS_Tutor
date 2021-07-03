@@ -56,6 +56,14 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
+
+          // ------------
+          // if test mode, scale x position by 0.9
+          if (this.DIYMode == false) {
+            nextCommand[3] = parseInt(nextCommand[3]) * 0.9;
+          }
+          // ------------
+
           if (
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "RBT"
@@ -111,6 +119,12 @@ function AnimationManager(objectManager, document, dataStructure) {
                 parseInt(nextCommand[4])
               );
             }
+            // set heap node circle color
+            this.animatedObjects.Nodes[parseInt(nextCommand[1])].setNodeColor(
+              this.testModeNodeColor,
+              this.animatedObjects.stage
+            );
+
             //draw
             this.animatedObjects.Nodes[parseInt(nextCommand[1])].draw(
               this.animatedObjects.stage
@@ -190,6 +204,14 @@ function AnimationManager(objectManager, document, dataStructure) {
           [2]: new_x
           [3]: new_y
           */
+
+          // ------------
+          // if test mode, scale x position by 0.9
+          if (this.DIYMode == false) {
+            nextCommand[2] = parseInt(nextCommand[2]) * 0.9;
+          }
+          // ------------
+
           if (
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "RBT"
@@ -270,6 +292,14 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
+
+          // ------------
+          // if test mode, scale x position by 0.9
+          if (this.DIYMode == false) {
+            nextCommand[3] = parseInt(nextCommand[3]) * 0.9;
+          }
+          // ------------
+
           if (
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "RBT"
@@ -429,6 +459,14 @@ function AnimationManager(objectManager, document, dataStructure) {
           [3]: x
           [4]: y
           */
+
+          // ------------
+          // if test mode, scale x position by 0.9
+          if (this.DIYMode == false) {
+            nextCommand[3] = parseInt(nextCommand[3]) * 0.9;
+          }
+          // ------------
+
           if (
             this.dataStructure.toUpperCase() == "BST" ||
             this.dataStructure.toUpperCase() == "RBT"
@@ -652,6 +690,14 @@ function AnimationManager(objectManager, document, dataStructure) {
           [5]: x
           [6]: y
           */
+
+          // ------------
+          // if test mode, scale x position by 0.9
+          if (this.DIYMode == false) {
+            nextCommand[5] = parseInt(nextCommand[5]) * 0.9;
+          }
+          // ------------
+
           if (
             this.dataStructure.toUpperCase() == "MINH" ||
             this.dataStructure.toUpperCase() == "MAXH"
@@ -823,7 +869,7 @@ function AnimationManager(objectManager, document, dataStructure) {
     }
     // if test mode
     else {
-      this.blocksInterval = 500;
+      this.blocksInterval = 400;
     }
 
     //parse commands, separated by "STEP<;>"
