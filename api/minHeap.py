@@ -79,6 +79,8 @@ class minHeap():
     
     def reset(self):
         self.clear()
+        self.nextIndex = 0
+        # addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
         self.createArray()
         self.first = True
 
@@ -94,20 +96,21 @@ class minHeap():
             Print(self.arrayData)
             return
 
+        # print("descriptLabel1:", self.descriptLabel1)
         addCmd("SetText", self.descriptLabel1, "Inserting Element: " + value)
         addCmd("Step")
-        addCmd("SetText", self.descriptLabel1, "Inserting Element: ")
+        addCmd("SetText", self.descriptLabel1, "Inserting Element: " + value)
         self.currentHeapSize += 1
         self.arrayData[self.currentHeapSize] = value
         addCmd("CreateCircle", self.circleObjs[self.currentHeapSize], "",
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("CreateLabel", self.descriptLabel2, value, 600, 460,  1)
         if self.currentHeapSize > 1:
             addCmd("Connect", self.circleObjs[math.floor(
                 self.currentHeapSize / 2)], self.circleObjs[self.currentHeapSize])
 
         addCmd("Move", self.descriptLabel2,
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("Step")
         addCmd("SetText", self.circleObjs[self.currentHeapSize], value)
         addCmd("delete", self.descriptLabel2)
@@ -137,7 +140,8 @@ class minHeap():
 
         addCmd("SetText", self.descriptLabel1, "")
         # return self.commands;
-        Print(self.arrayData)
+        # for x in AnimationCommands:
+        #     print(x)
         return
 
     def removeMin(self, build=False):
@@ -184,13 +188,13 @@ class minHeap():
             addCmd("SetText", self.arrayRects[self.currentHeapSize], "")
             self.arrayData[self.currentHeapSize] = ''   # modified
             self.currentHeapSize -= 1
-        Print(self.arrayData)
         return
 
     def buildHeap(self, steps, Random):    # TODO: self.normalizeNumber
         operation = ['insert', 'removeMin']
+        self.oper_list = ['insert'] * 3
         if Random:
-            self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
+            self.oper_list += random.choices(operation, weights = [5, 2], k = 40)
 
         current_stpes = 0
         for oper in self.oper_list:
@@ -235,17 +239,17 @@ class minHeap():
         addCmd("CreateLabel", self.swapLabel2,
                self.arrayData[idx2], self.ArrayXPositions[idx2], ARRAY_Y_POS)
         addCmd("CreateLabel", self.swapLabel3,
-               self.arrayData[idx1], self.HeapXPositions[idx1], self.HeapYPositions[idx1])
+               self.arrayData[idx1], self.HeapXPositions[idx1] / 0.9, self.HeapYPositions[idx1])
         addCmd("CreateLabel", self.swapLabel4,
-               self.arrayData[idx2], self.HeapXPositions[idx2], self.HeapYPositions[idx2])
+               self.arrayData[idx2], self.HeapXPositions[idx2] / 0.9, self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel1,
                self.ArrayXPositions[idx2], ARRAY_Y_POS)
         addCmd("Move", self.swapLabel2,
                self.ArrayXPositions[idx1], ARRAY_Y_POS)
         addCmd("Move", self.swapLabel3,
-               self.HeapXPositions[idx2], self.HeapYPositions[idx2])
+               self.HeapXPositions[idx2] / 0.9, self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel4,
-               self.HeapXPositions[idx1], self.HeapYPositions[idx1])
+               self.HeapXPositions[idx1] / 0.9, self.HeapYPositions[idx1])
         tmp = self.arrayData[idx1]
         self.arrayData[idx1] = self.arrayData[idx2]
         self.arrayData[idx2] = tmp
