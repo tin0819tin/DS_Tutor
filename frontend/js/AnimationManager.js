@@ -812,10 +812,18 @@ function AnimationManager(objectManager, document, dataStructure) {
       }
     }
 
-    // if dataStructure is RBTree, set interval larger
-    // bcz the SETTEXT is more complex
-    if (this.dataStructure.toUpperCase() == "RBT") {
-      this.blocksInterval = 1500;
+    // animation speed setting
+    // if DIY mode
+    if (this.DIYMode == true) {
+      // if dataStructure is RBTree and its DIYMode, set interval larger
+      // bcz the SETTEXT is more complex
+      if (this.dataStructure.toUpperCase() == "RBT") {
+        this.blocksInterval = 1500;
+      }
+    }
+    // if test mode
+    else {
+      this.blocksInterval = 500;
     }
 
     //parse commands, separated by "STEP<;>"
@@ -864,8 +872,7 @@ function AnimationManager(objectManager, document, dataStructure) {
     if (this.DIYMode == true) {
       //enable back btns bar
       this.enableBtns();
-    }
-    else{
+    } else {
       this.enableTutorBtn();
       console.log("Button has been enabled!");
     }
@@ -895,11 +902,11 @@ function AnimationManager(objectManager, document, dataStructure) {
     rbTreeButton.disabled = false;
     replayButton.disabled = false;
 
-    bstButton.classList.add('option-btn-dark-hover');
-    minHeapButton.classList.add('option-btn-dark-hover');
-    maxHeapButton.classList.add('option-btn-dark-hover');
-    rbTreeButton.classList.add('option-btn-dark-hover');
-    replayButton.classList.remove('tutor-btns-disable');
-    replayButton.classList.add('replay-btn-hover');
-  }
+    bstButton.classList.add("option-btn-dark-hover");
+    minHeapButton.classList.add("option-btn-dark-hover");
+    maxHeapButton.classList.add("option-btn-dark-hover");
+    rbTreeButton.classList.add("option-btn-dark-hover");
+    replayButton.classList.remove("tutor-btns-disable");
+    replayButton.classList.add("replay-btn-hover");
+  };
 }
