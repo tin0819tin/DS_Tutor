@@ -865,6 +865,10 @@ function AnimationManager(objectManager, document, dataStructure) {
       //enable back btns bar
       this.enableBtns();
     }
+    else{
+      this.enableTutorBtn();
+      console.log("Button has been enabled!");
+    }
   };
 
   this.disableBtns = function () {
@@ -878,4 +882,24 @@ function AnimationManager(objectManager, document, dataStructure) {
     document.getElementById("animation-text").innerHTML = "";
     document.getElementById("hidden-text").classList.add("text-disable");
   };
+  this.enableTutorBtn = () => {
+    const bstButton = document.getElementById("bst");
+    const minHeapButton = document.getElementById("minHeap");
+    const maxHeapButton = document.getElementById("maxHeap");
+    const rbTreeButton = document.getElementById("rbTree");
+    const replayButton = document.getElementById("replay");
+
+    bstButton.disabled = false;
+    minHeapButton.disabled = false;
+    maxHeapButton.disabled = false;
+    rbTreeButton.disabled = false;
+    replayButton.disabled = false;
+
+    bstButton.classList.add('option-btn-dark-hover');
+    minHeapButton.classList.add('option-btn-dark-hover');
+    maxHeapButton.classList.add('option-btn-dark-hover');
+    rbTreeButton.classList.add('option-btn-dark-hover');
+    replayButton.classList.remove('tutor-btns-disable');
+    replayButton.classList.add('replay-btn-hover');
+  }
 }

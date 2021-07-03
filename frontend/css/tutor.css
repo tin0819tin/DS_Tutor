@@ -1,0 +1,240 @@
+body {
+    background-color: #b8bdc6;
+  }
+  
+  /* navbar */
+  
+  .mynavbar {
+    background-color: #393e46;
+    padding: 1% 6%;
+  }
+  
+  .navbar-brand {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+  }
+  
+  .navbar-item {
+    padding: 0 18px;
+  }
+  
+  .navbar-item p {
+    margin: auto 0;
+  }
+  
+  .navbar-item p:hover {
+    color: #d65a31;
+  }
+  
+  .nav-link {
+    font-family: "Coming Soon", cursive;
+  }
+  
+  /* canvas */
+  
+  #canvas {
+    background-color: #d9dce0;
+    border: 3px solid black;
+    text-align: center;
+    margin-top: 4%;
+  }
+  
+  div {
+    margin: 0 0;
+    text-align: center;
+  }
+  
+  /* options (only in tutor) */
+  
+  .col {
+    margin: 2% 0;
+  }
+  
+  .question {
+    margin-top: 15%;
+  }
+  
+  .question p {
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
+  
+  #question-index {
+    font-weight: 400;
+    font-size: 1.3rem;
+  }
+  
+  #option {
+    text-align: center;
+    padding-right: 2%;
+  }
+  
+  .options {
+    padding: 8% 0;
+    text-align: center;
+  }
+  
+  .option-btn {
+    display: block;
+    width: 200px;
+    text-align: left;
+    margin: 0 auto 5%;
+  }
+  
+  #option .btn-dark,
+  .btn-dark:active,
+  .btn-dark:visited {
+    background-color: #9d9d9d !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  #option .option-btn-dark-hover:hover {
+    background-color: #ff4d4d !important;
+    border-color: #b8bdc6 !important;
+  }
+
+  .btn-dark:disabled {
+    color:#555555;
+  }
+  
+  .replay-div {
+    margin-top: 5%;
+    text-align: center;
+  }
+  
+  .replay-div p {
+    font-family: "Open Sans", sans-serif;
+    display: inline-block;
+    color: #555555;
+    padding-right: 1%;
+  }
+  
+  .replay-btn {
+    display: inline;
+    position: relative;
+    width: 100px;
+    height: auto;
+    border-radius: 10%;
+    color: #ffffff;
+    background-color: #9d9d9d !important;
+    border-color: #b8bdc6 !important;
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    display: inline-block;
+    padding-right: 1%;
+  }
+  
+  .replay-btn i {
+    text-align: center;
+    margin: auto auto;
+  }
+  
+  .replay-btn-hover:hover {
+    color: #ff4d4d;
+  }
+  
+  .tutor-btns-disable {
+    color:#555555;
+  }
+  
+  /* buttoms */
+  
+  .btn-dark,
+  .btn-dark:active,
+  .btn-dark:visited {
+    background-color: #d65a31 !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  .btn-dark:hover {
+    background-color: #d68331 !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  /* btns when animation */
+  .btns-disable {
+    visibility: hidden;
+  }
+  
+  /* text when animation */
+  .text-disable {
+    visibility: hidden;
+  }
+  .hidden-text-bar {
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+  }
+  
+  span {
+    position: relative;
+    bottom: 30px;
+  }
+  
+  /* tutor start introduction */
+  
+  .start-test-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 5%;
+  }
+  
+  #start {
+    width: 160px;
+    height: 96px;
+    font-size: 3rem;
+    border-radius: 7%;
+  }
+  
+  #finish {
+    width: 160px;
+    height: 96px;
+    font-size: 3rem;
+    border-radius: 7%;
+  }
+  
+  .test-intro {
+    margin-top: 8%;
+  }
+  
+  #Init p {
+    font-family: "Open Sans", sans-serif;
+    /* font-family: "Coming Soon", cursive; */
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
+  #Init .btn-dark,
+  .btn-dark:active,
+  .btn-dark:visited {
+    background-color: #ff7373 !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  #Init .btn-dark:hover {
+    background-color: #ff4d4d !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  #Finish p {
+    font-family: "Open Sans", sans-serif;
+    /* font-family: "Coming Soon", cursive; */
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
+  #Finish .btn-dark,
+  .btn-dark:active,
+  .btn-dark:visited {
+    background-color: #ff7373 !important;
+    border-color: #b8bdc6 !important;
+  }
+  
+  #Finish .btn-dark:hover {
+    background-color: #ff4d4d !important;
+    border-color: #b8bdc6 !important;
+  }
+  
