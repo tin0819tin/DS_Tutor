@@ -79,8 +79,9 @@ class minHeap():
     
     def reset(self):
         self.clear()
-        self.descriptLabel1 = 100
-        addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
+        self.nextIndex = 0
+        # addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
+        self.createArray()
 
     def insert(self, value, build=False):
         if value == "":
@@ -108,7 +109,7 @@ class minHeap():
                 self.currentHeapSize / 2)], self.circleObjs[self.currentHeapSize])
 
         addCmd("Move", self.descriptLabel2,
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("Step")
         addCmd("SetText", self.circleObjs[self.currentHeapSize], value)
         addCmd("delete", self.descriptLabel2)
