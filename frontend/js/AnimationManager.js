@@ -656,7 +656,10 @@ function AnimationManager(objectManager, document, dataStructure) {
           */
           }
         } else if (nextCommand[0].toUpperCase() == "SETBACKGROUNDCOLOR") {
-          if (this.DIYMode == true) {
+          if (
+            this.DIYMode == true ||
+            (this.DIYMode == false && this.dataStructure.toUpperCase() == "RBT")
+          ) {
             if (this.dataStructure.toUpperCase() == "RBT") {
               /*
             [1]: objectID
@@ -870,12 +873,12 @@ function AnimationManager(objectManager, document, dataStructure) {
       // if dataStructure is RBTree and its DIYMode, set interval larger
       // bcz the SETTEXT is more complex
       if (this.dataStructure.toUpperCase() == "RBT") {
-        this.blocksInterval = 1500;
+        this.blocksInterval = 1300;
       }
     }
     // if test mode
     else {
-      this.blocksInterval = 400;
+      this.blocksInterval = 100;
     }
 
     //parse commands, separated by "STEP<;>"
