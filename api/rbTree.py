@@ -217,12 +217,12 @@ class RBTree():
                 self.insert(insert_value, build=True)
                 current_stpes += 1
 
-            if oper == 'delete' and self.treeRoot != None:
+            elif oper == 'delete' and self.treeRoot != None:
                 delete_value = random.choice(self.build_list)
                 self.build_list.remove(delete_value)
                 self.delete(delete_value, build=True)
                 current_stpes += 1
-
+            
             if current_stpes >= steps:
                 break
         # print('build:')

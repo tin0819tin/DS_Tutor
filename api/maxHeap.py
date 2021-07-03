@@ -106,7 +106,7 @@ class maxnHeap():
                 self.currentHeapSize / 2)], self.circleObjs[self.currentHeapSize])
 
         addCmd("Move", self.descriptLabel2,
-               self.HeapXPositions[self.currentHeapSize], self.HeapYPositions[self.currentHeapSize])
+               self.HeapXPositions[self.currentHeapSize] / 0.9, self.HeapYPositions[self.currentHeapSize])
         addCmd("Step")
         addCmd("SetText", self.circleObjs[self.currentHeapSize], value)
         addCmd("delete", self.descriptLabel2)
@@ -213,17 +213,17 @@ class maxnHeap():
         addCmd("SetText", self.circleObjs[idx1], "")
         addCmd("SetText", self.circleObjs[idx2], "")
         addCmd("CreateLabel", self.swapLabel1,
-               self.arrayData[idx1], self.ArrayXPositions[idx1], ARRAY_Y_POS)
+               self.arrayData[idx1], self.ArrayXPositions[idx1] / 0.9, ARRAY_Y_POS)
         addCmd("CreateLabel", self.swapLabel2,
-               self.arrayData[idx2], self.ArrayXPositions[idx2], ARRAY_Y_POS)
+               self.arrayData[idx2], self.ArrayXPositions[idx2] / 0.9, ARRAY_Y_POS)
         addCmd("CreateLabel", self.swapLabel3,
                self.arrayData[idx1], self.HeapXPositions[idx1] / 0.9, self.HeapYPositions[idx1])
         addCmd("CreateLabel", self.swapLabel4,
                self.arrayData[idx2], self.HeapXPositions[idx2] / 0.9, self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel1,
-               self.ArrayXPositions[idx2], ARRAY_Y_POS)
+               self.ArrayXPositions[idx2] / 0.9, ARRAY_Y_POS)
         addCmd("Move", self.swapLabel2,
-               self.ArrayXPositions[idx1], ARRAY_Y_POS)
+               self.ArrayXPositions[idx1] / 0.9, ARRAY_Y_POS)
         addCmd("Move", self.swapLabel3,
                self.HeapXPositions[idx2] / 0.9, self.HeapYPositions[idx2])
         addCmd("Move", self.swapLabel4,
