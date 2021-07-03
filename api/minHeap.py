@@ -83,7 +83,7 @@ class minHeap():
         self.createArray()
         self.first = True
         self.oper_list = []
-        pass
+        
 
     def insert(self, value, build=False):
         if value == "":
