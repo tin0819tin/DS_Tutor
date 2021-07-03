@@ -79,6 +79,8 @@ class minHeap():
     
     def reset(self):
         self.clear()
+        self.descriptLabel1 = 100
+        addCmd("CreateLabel", self.descriptLabel1, "", 20, 10,  0)
 
     def insert(self, value, build=False):
         if value == "":
