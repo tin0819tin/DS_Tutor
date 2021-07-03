@@ -79,6 +79,8 @@ class minHeap():
     
     def reset(self):
         self.clear()
+        self.createArray()
+        self.first = True
 
     def insert(self, value, build=False):
         if value == "":
