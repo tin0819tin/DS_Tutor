@@ -78,12 +78,7 @@ class minHeap():
         self.oper_list = []
     
     def reset(self):
-        self.size = ARRAY_SIZE  # fixed array size
-        self.nextIndex = 0
-        self.createArray()
-        self.first = True
-        self.oper_list = []
-        
+        self.clear()
 
     def insert(self, value, build=False):
         if value == "":
@@ -191,8 +186,8 @@ class minHeap():
         return
 
     def buildHeap(self, steps, Random):    # TODO: self.normalizeNumber
+        operation = ['insert', 'removeMin']
         if Random:
-            operation = ['insert', 'removeMin']
             self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
 
         current_stpes = 0
@@ -201,7 +196,7 @@ class minHeap():
                 self.insert(str(random.randrange(999)), build=True)
                 current_stpes += 1
 
-            if oper == 'removeMin' and self.currentHeapSize > 0:
+            elif oper == 'removeMin' and self.currentHeapSize > 0:
                 self.removeMin(build=True)
                 current_stpes += 1
 
