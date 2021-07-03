@@ -170,31 +170,37 @@ function AnimationManager(objectManager, document, dataStructure) {
             this.dataStructure.toUpperCase() == "MINH" ||
             this.dataStructure.toUpperCase() == "MAXH"
           ) {
-            // is node
             if (
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
-              true
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != null &&
+              this.animatedObjects.Nodes[parseInt(nextCommand[1])] != undefined
             ) {
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
-                this.animatedObjects.stage,
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])].node,
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])]
-                  .highlightCircle,
-                this.blocksInterval + 500
-              );
-            }
-            // is rect
-            else if (
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].isRect ==
-              true
-            ) {
-              this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
-                this.animatedObjects.stage,
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])].rectangle,
-                this.animatedObjects.Nodes[parseInt(nextCommand[1])]
-                  .highlightRect,
-                this.blocksInterval + 500
-              );
+              // is node
+              if (
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].isNode ==
+                true
+              ) {
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
+                  this.animatedObjects.stage,
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])].node,
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                    .highlightCircle,
+                  this.blocksInterval + 500
+                );
+              }
+              // is rect
+              else if (
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].isRect ==
+                true
+              ) {
+                this.animatedObjects.Nodes[parseInt(nextCommand[1])].highlight(
+                  this.animatedObjects.stage,
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                    .rectangle,
+                  this.animatedObjects.Nodes[parseInt(nextCommand[1])]
+                    .highlightRect,
+                  this.blocksInterval + 500
+                );
+              }
             }
           }
         } else if (nextCommand[0].toUpperCase() == "MOVE") {
