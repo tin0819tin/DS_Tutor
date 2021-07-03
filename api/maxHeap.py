@@ -77,7 +77,7 @@ class maxnHeap():
     
     def reset(self):
         self.size = ARRAY_SIZE
-        self.nextIndex = 0
+        self.nextIndex += 1
         self.createArray()
         self.first = True
         self.oper_list = []
@@ -186,8 +186,8 @@ class maxnHeap():
         return
 
     def buildHeap(self, steps=10, Random=True):    # TODO: self.normalizeNumber
+        operation = ['insert', 'removeMin']
         if Random:
-            operation = ['insert', 'removeMin']
             self.oper_list = random.choices(operation, weights = [5, 2], k = 40)
 
         current_stpes = 0
