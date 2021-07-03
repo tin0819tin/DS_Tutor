@@ -518,8 +518,8 @@ class BST():
             self.clear()
         
         operations = ['insert', 'delete']
-        oper_lst = ['insert']
-        oper_lst += random.choices(operations, weights=[4, 1], k=num-1)
+        oper_lst = ['insert', 'insert', 'insert']
+        oper_lst += random.choices(operations, weights=[4, 1], k=num-3)
         print(oper_lst)
         build_lst = []
 
