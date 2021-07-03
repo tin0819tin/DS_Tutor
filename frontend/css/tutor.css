@@ -91,9 +91,13 @@ body {
     border-color: #b8bdc6 !important;
   }
   
-  .option-btn-dark-hover:hover {
+  #option .option-btn-dark-hover:hover {
     background-color: #ff4d4d !important;
     border-color: #b8bdc6 !important;
+  }
+
+  .btn-dark:disabled {
+    color:#555555;
   }
   
   .replay-div {
@@ -132,7 +136,7 @@ body {
     color: #ff4d4d;
   }
   
-  .btns-disable {
+  .tutor-btns-disable {
     color:#555555;
   }
   

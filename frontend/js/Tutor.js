@@ -9,7 +9,6 @@ const rbTreeButton = document.getElementById("rbTree");
 const replayButton = document.getElementById("replay");
 let cur_prob = 0;
 let cur_commands = "";
-// let 
 
 // Fisher-Yates Shuffle
 const shuffle = (array) => {
@@ -19,13 +18,17 @@ const shuffle = (array) => {
     }
 }
 
+// Decide whether the click is the right answer
 const reply_click = (id) => {
     if (DS_Map[DS_Prob[cur_prob]] === id && cur_prob<DS_Prob.length-1){
         console.log("Correct", cur_prob);
         cur_prob += 1
         cur_commands = "";
         renderClear();
+        disableBtn();
+        console.log("Button has been disabled!")
         renderProb(cur_prob);
+        // Enable in AM
     }
     else if(cur_prob == 7){
         console.log("Finish");
@@ -44,28 +47,72 @@ const reply_click = (id) => {
     }
 }
 
-// Random the DS question and check the answer
+// Disable the button when rendering
+const disableBtn = () => {
+    bstButton.disabled = true;
+    minHeapButton.disabled = true;
+    maxHeapButton.disabled = true;
+    rbTreeButton.disabled = true;
+    replayButton.disabled = true;
+
+    // bstButton.classList.add('btns-disable');
+    bstButton.classList.remove('option-btn-dark-hover');
+    // minHeapButton.classList.add('tutor-btns-disable');
+    minHeapButton.classList.remove('option-btn-dark-hover');
+    // maxHeapButton.classList.add('tutor-btns-disable');
+    maxHeapButton.classList.remove('option-btn-dark-hover');
+    // rbTreeButton.classList.add('tutor-btns-disable');
+    rbTreeButton.classList.remove('option-btn-dark-hover');
+    replayButton.classList.add('tutor-btns-disable');
+    replayButton.classList.remove('replay-btn-hover');
+}
+
+const enableBtn = () => {
+    bstButton.disabled = false;
+    minHeapButton.disabled = false;
+    maxHeapButton.disabled = false;
+    rbTreeButton.disabled = false;
+    replayButton.disabled = false;
+
+    bstButton.classList.add('option-btn-dark-hover');
+    minHeapButton.classList.add('option-btn-dark-hover');
+    maxHeapButton.classList.add('option-btn-dark-hover');
+    rbTreeButton.classList.add('option-btn-dark-hover');
+    replayButton.classList.remove('tutor-btns-disable');
+    replayButton.classList.add('replay-btn-hover');
+}
+
+// Random the DS question and start the first question
 const startProblem = () => {
 
     // Shuffle the Data Structure Questions
     shuffle(DS_Prob);
     console.log(DS_Prob);
+    disableBtn();
+    console.log("Button has been disabled!")
     renderProb(cur_prob);
+    // Enable in AM
 };
 
+
+// Render the replayed Data Structure
 const replay = () => {
-    renderReplay(cur_prob);
+    disableBtn();
+    console.log("Button has been disabled!")
+    renderProb(cur_prob);
+    // Enable in AM
 }
 
+// Render the replayed Data Structure
 const renderReplay = (ind) => {
     renderClear();
     const OM = new ObjectManager();
-    // const AM = new AnimationManager(OM, document, DS_Prob[ind]);
-    const AM = new AnimationManager(OM, document, "BST");
+    const AM = new AnimationManager(OM, document, DS_Prob[ind]);
+    // const AM = new AnimationManager(OM, document, "BST");
     AM.DIYMode = false;
 
-    // let cur = "/" + DS_Map[DS_Prob[ind]];
-    let cur = "/" +  "bst";
+    let cur = "/" + DS_Map[DS_Prob[ind]];
+    // let cur = "/" +  "bst";
     console.log(cur);
     // Reset Everytime
     fetch( cur + "/reset")
@@ -78,15 +125,17 @@ const renderReplay = (ind) => {
     AM.StartNewAnimation(cur_commands);
 }
 
+
+// Render the Data Structure
 const renderProb = (ind) => {
     renderNum(ind);
     const OM = new ObjectManager();
-    // const AM = new AnimationManager(OM, document, DS_Prob[ind]);
-    const AM = new AnimationManager(OM, document, "BST");
+    const AM = new AnimationManager(OM, document, DS_Prob[ind]);
+    // const AM = new AnimationManager(OM, document, "BST");
     AM.DIYMode = false;
 
-    // let cur = "/" + DS_Map[DS_Prob[ind]];
-    let cur = "/" +  "bst";
+    let cur = "/" + DS_Map[DS_Prob[ind]];
+    // let cur = "/" +  "bst";
     console.log(cur);
     // Reset Everytime
     fetch( cur + "/reset")
@@ -110,12 +159,14 @@ const renderProb = (ind) => {
     });
 }
 
+// Clear the Canvas
 const renderClear = () => {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+// Render Question index
 const renderNum = (ind) => {
     let rendernum = "Question: " + (ind+1).toString() + "/8";
     document.getElementById("question-index").innerHTML = rendernum;
@@ -137,6 +188,7 @@ const showCanvas = () => {
       y.style.display = "none";
     }
     startProblem();
-  };
+};
 
-  replayButton.addEventListener("click", replay);
+// Replay Event Listener
+replayButton.addEventListener("click", replay);
