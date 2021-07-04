@@ -35,7 +35,7 @@ export FLASK_APP=main.py
 ```shell
 flask run --reload --debugger
 ```
-**It will open server on http://127.0.0.1:5000/**
+**It will open DS_Tutor on http://127.0.0.1:5000/**
 
 4. Unable virtual environment
 ```shell
