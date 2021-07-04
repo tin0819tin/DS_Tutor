@@ -56,16 +56,17 @@ For **developer**, if you are just using DS_Tutor, you could skip this table.
 | --- | --- | --- | --- | --- | --- |
 | The page showing the Data Structure | `root api` | `/bst` | `/minHeap` | `/maxHeap` | `/rbTree` |
 | Insert the node with <value>| `/<DS>/insert/<value>` | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Delete the node with <value>| `/<DS>/delete/<value>` | :white_check_mark: | :negative_squared_cross_mark: | :negative_squared_cross_mark: | :white_check_mark: |
-| Find the node with <value>| `/<DS>/find/<value>` | :white_check_mark: | :negative_squared_cross_mark: | :negative_squared_cross_mark: | :white_check_mark: |
-| Print the DS inorderly | `/<DS>/print` | :white_check_mark: | :negative_squared_cross_mark: |:negative_squared_cross_mark: | :white_check_mark: |
-| Remove minimum node| `/<DS>/rMin` | :negative_squared_cross_mark: | :white_check_mark: | :negative_squared_cross_mark: | :negative_squared_cross_mark: |
-| Remove maximum node| `/<DS>/rMax` | :negative_squared_cross_mark: | :negative_squared_cross_mark: | :white_check_mark: | :negative_squared_cross_mark: |
+| Delete the node with <value>| `/<DS>/delete/<value>` | :white_check_mark: | :x: | :x: | :white_check_mark: |
+| Find the node with <value>| `/<DS>/find/<value>` | :white_check_mark: | :x: | :x: | :white_check_mark: |
+| Print the DS inorderly | `/<DS>/print` | :white_check_mark: | :x: |:x: | :white_check_mark: |
+| Remove minimum node| `/<DS>/rMin` | :x: | :white_check_mark: | :x: | :x: |
+| Remove maximum node| `/<DS>/rMax` | :x: | :x: | :white_check_mark: | :x: |
 | Clear the DS | `/<DS>/clear` | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 
 ### :crayon: DIY mode
 Check the DIT page on `/bst`, `minHeap`, `maxHeap` and `rbTree`.
+
 
 ### :page_facing_up: Test your knowledge mode
 Check the test your knowledge page on `/tutor`.
