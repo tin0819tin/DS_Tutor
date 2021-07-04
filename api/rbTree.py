@@ -182,21 +182,20 @@ class RBTree():
         return 
 
     def print(self):
-        self.build(steps=10, Random=True)
-        # clearCmd()
-        # if self.treeRoot != None:
-        #     self.highlightID = self.nextIndex
-        #     self.nextIndex += 1
-        #     firstLabel = self.nextIndex
-        #     addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, self.treeRoot.x, self.treeRoot.y)
-        #     self.xPosOfNextLabel = FIRST_PRINT_POS_X
-        #     self.yPosOfNextLabel = self.first_print_pos_y
-        #     self.printTreeRecursive(self.treeRoot)
-        #     addCmd("Delete",self.highlightID)
-        #     addCmd("Step")
-        #     for i in range(firstLabel, self.nextIndex):
-        #         addCmd("Delete", i)
-        #     self.nextIndex = self.highlightID  # Reuse objects.  Not necessary.
+        clearCmd()
+        if self.treeRoot != None:
+            self.highlightID = self.nextIndex
+            self.nextIndex += 1
+            firstLabel = self.nextIndex
+            addCmd("CreateHighlightCircle", self.highlightID, HIGHLIGHT_COLOR, self.treeRoot.x, self.treeRoot.y)
+            self.xPosOfNextLabel = FIRST_PRINT_POS_X
+            self.yPosOfNextLabel = self.first_print_pos_y
+            self.printTreeRecursive(self.treeRoot)
+            addCmd("Delete",self.highlightID)
+            addCmd("Step")
+            for i in range(firstLabel, self.nextIndex):
+                addCmd("Delete", i)
+            self.nextIndex = self.highlightID  # Reuse objects.  Not necessary.
         return
     
     def build(self, steps, Random):
