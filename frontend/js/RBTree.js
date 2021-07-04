@@ -7,7 +7,10 @@ if (window.performance) {
   console.info("window.performance works fine on this browser");
 }
 console.info(performance.navigation.type);
-if (performance.navigation.type == performance.navigation.TYPE_RELOAD || performance.navigation.type == performance.navigation.TYPE_NAVIGATE) {
+if (
+  performance.navigation.type == performance.navigation.TYPE_RELOAD ||
+  performance.navigation.type == performance.navigation.TYPE_NAVIGATE
+) {
   console.info("This page is reloaded");
   fetch("/rbTree/reset")
     .then(function (response) {
@@ -16,11 +19,11 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD || perform
     .then(function (myJson) {
       console.log(myJson);
     });
-}
-else if(performance.navigation.type == performance.navigation.TYPE_BACK_FORWARD){
+} else if (
+  performance.navigation.type == performance.navigation.TYPE_BACK_FORWARD
+) {
   window.location.reload();
-}
-else {
+} else {
   console.info("This page is not reloaded");
 }
 
@@ -86,6 +89,22 @@ $(function () {
       //console.log(data);
       var commands = JSON.parse(data);
       AM.printMode = true;
+      AM.StartNewAnimation(commands);
+    });
+  });
+});
+
+// ---- clear buttom event listener ----
+$(function () {
+  $("#clear").click(function () {
+    var appdir = "/rbTree/clear";
+    $.ajax({
+      type: "GET",
+      url: appdir,
+    }).done(function (data) {
+      //console.log(data);
+      var commands = JSON.parse(data);
+      AM.clearMode = true;
       AM.StartNewAnimation(commands);
     });
   });
