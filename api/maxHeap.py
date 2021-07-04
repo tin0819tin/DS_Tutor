@@ -247,7 +247,7 @@ class maxnHeap():
             if idx*2 > self.currentHeapSize:
                 return
 
-            smallestIndex = 2*idx
+            biggestIndex = 2*idx
 
             if idx*2 + 1 <= self.currentHeapSize:
                 self.setIndexHighlight(2*idx, 1)
@@ -255,18 +255,18 @@ class maxnHeap():
                 addCmd("Step")
                 self.setIndexHighlight(2*idx, 0)
                 self.setIndexHighlight(2*idx + 1, 0)
-                if float(self.arrayData[2*idx + 1]) < float(self.arrayData[2*idx]):
-                    smallestIndex = 2*idx + 1
+                if float(self.arrayData[2*idx + 1]) > float(self.arrayData[2*idx]):
+                    biggestIndex = 2*idx + 1
 
             self.setIndexHighlight(idx, 1)
-            self.setIndexHighlight(smallestIndex, 1)
+            self.setIndexHighlight(biggestIndex, 1)
             addCmd("Step")
             self.setIndexHighlight(idx, 0)
-            self.setIndexHighlight(smallestIndex, 0)
+            self.setIndexHighlight(biggestIndex, 0)
 
-            if float(self.arrayData[smallestIndex]) > float(self.arrayData[idx]):
-                self.swap(smallestIndex, idx)
-                idx = smallestIndex
+            if float(self.arrayData[biggestIndex]) > float(self.arrayData[idx]):
+                self.swap(biggestIndex, idx)
+                idx = biggestIndex
             else:
                 return
 

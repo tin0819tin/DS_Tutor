@@ -206,9 +206,6 @@ class RBTree():
             operation = ['insert', 'delete']
             self.build_list = []
             self.oper_list += random.choices(operation, weights = [4, 1], k = 40)
-        ## for test only##
-        # self.oper_list = ['insert', 'insert', 'delete']
-        ##################
         current_stpes = 0
         for oper in self.oper_list:
             if oper == 'insert':
@@ -222,12 +219,9 @@ class RBTree():
                 self.build_list.remove(delete_value)
                 self.delete(delete_value, build=True)
                 current_stpes += 1
-            
+
             if current_stpes >= steps:
                 break
-        # print('build:')
-        # for x in AnimationCommands:
-        #     print(x)
         pass
     # utility functions
 
