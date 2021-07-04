@@ -519,8 +519,8 @@ class BST():
         
         operations = ['insert', 'delete']
         oper_lst = ['insert', 'insert', 'insert']
-        oper_lst += random.choices(operations, weights=[4, 1], k=num-3)
-        print(oper_lst)
+        oper_lst += random.choices(operations, weights=[7, 3], k=num-3)
+        # print(oper_lst)
         build_lst = []
 
         for oper in oper_lst:
