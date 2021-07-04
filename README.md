@@ -41,3 +41,7 @@ flask run --reload --debugger
 ```shell
 deactivate
 ```
+
+## :gear: Deployed Version
+**We have also deployed our project on heroku, however since our budget is limited, our plan can't serve large traffic.
+As a result, _we currently don't open the deployment link to public._**
