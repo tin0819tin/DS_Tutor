@@ -37,7 +37,7 @@ const reply_click = (id) => {
             card.classList.add('card-hidden');
         }, 1250);
     }
-    else if(cur_prob == 7){
+    else if(DS_Map[DS_Prob[cur_prob]] === id && cur_prob == 7){
         console.log("Finish");
         let finish = document.getElementById("Finish");
         let x = document.getElementById("hide");
