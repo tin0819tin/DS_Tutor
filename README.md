@@ -67,6 +67,9 @@ For **developer**, if you are just using DS_Tutor, you could skip this table.
 ### :crayon: DIY mode
 Check the DIT page on `/bst`, `minHeap`, `maxHeap` and `rbTree`.
 
+<p align=center><img src="./public/DIY.gif" width="1000"/></p>
 
 ### :page_facing_up: Test your knowledge mode
 Check the test your knowledge page on `/tutor`.
+
+<p align=center><img src="./public/TYK.gif" width="1000"/></p>
