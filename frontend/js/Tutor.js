@@ -8,7 +8,7 @@ const maxHeapButton = document.getElementById("maxHeap");
 const rbTreeButton = document.getElementById("rbTree");
 const replayButton = document.getElementById("replay");
 const card = document.getElementById("card");
-let cur_prob = 0;
+let cur_prob = 7;
 let cur_commands = "";
 
 // Fisher-Yates Shuffle
@@ -31,7 +31,7 @@ const reply_click = (id) => {
         renderProb(cur_prob);
         // Enable in AM
     }
-    else if(DS_Map[DS_Prob[cur_prob]] !== id && cur_prob<DS_Prob.length-1){
+    else if(DS_Map[DS_Prob[cur_prob]] !== id){
         card.classList.remove('card-hidden');
         setTimeout(function() {
             card.classList.add('card-hidden');
