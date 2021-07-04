@@ -8,7 +8,7 @@ const maxHeapButton = document.getElementById("maxHeap");
 const rbTreeButton = document.getElementById("rbTree");
 const replayButton = document.getElementById("replay");
 const card = document.getElementById("card");
-let cur_prob = 7;
+let cur_prob = 0;
 let cur_commands = "";
 
 // Fisher-Yates Shuffle
