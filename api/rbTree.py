@@ -100,6 +100,7 @@ class RBTree():
         self.first = True
         self.oper_list = []
         self.build_list = []
+        self.firstnodeID = 1
     
     def reset(self):
         clearCmd()
@@ -222,6 +223,14 @@ class RBTree():
             if current_stpes >= steps:
                 break
         pass
+    
+    def clear(self):
+        clearCmd()
+        if self.treeRoot != None:
+            self.clearTreeRecursive(self.treeRoot)
+        addCmd("Step")
+        return
+    
     # utility functions
 
     def printTreeRecursive(self, tree):
@@ -249,7 +258,18 @@ class RBTree():
             self.printTreeRecursive(tree.right)
             addCmd("Move", self.highlightID, tree.x, tree.y);
             addCmd("Step")
+        return
 
+    def clearTreeRecursive(self, tree):
+        if tree.left != None:
+            self.clearTreeRecursive(tree.left)
+            addCmd("Delete", tree.graphicID)
+            
+        if tree.right != None:
+            self.clearTreeRecursive(tree.right)
+            addCmd("Delete", tree.graphicID)
+
+        addCmd("Delete", tree.graphicID)
         return
 
     def findRecursive(self, tree, value):
@@ -1067,4 +1087,9 @@ def getPrint():
 @rbt.route('/rbTree/build', methods=['GET'] )
 def getBuild(steps=10, Random=True):
     myRBTree.build(steps, Random)
+    return json.dumps(AnimationCommands)
+    
+@rbt.route('/rbTree/clear', methods=['GET'])
+def getClear():
+    myRBTree.clear()
     return json.dumps(AnimationCommands)
