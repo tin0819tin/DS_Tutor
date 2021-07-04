@@ -228,8 +228,6 @@ class RBTree():
         clearCmd()
         if self.treeRoot != None:
             self.clearTreeRecursive(self.treeRoot)
-        self.treeRoot = None
-        self.nextIndex = 1
         addCmd("Step")
         return
     
