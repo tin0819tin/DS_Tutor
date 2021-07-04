@@ -7,24 +7,37 @@
 </p>
 
 ***
-> :A better web app for data structure visualization and tutoring.
+> :ok_man: A better web app for data structure visualization and tutoring.
 ***
- 
 
-# Flask api
-**Usage**
-```bash
-# Enable backend venv
+## :checkered_flag: Getting start
+**To learn more about this project please check this** [demo video]() and [slide](https://drive.google.com/file/d/1jeG6qTT1gPgXMh3XyxMr-YSsxXVh7_EL/view?usp=sharing).
+
+
+## :hammer: Build from source
+First clone the project to local.
+```shell
+$ git clone git@github.com:tin0819tin/DS_Tutor.git
+```
+
+### Setup Flask Server
+1. Enable backend virtual environment
+```shell
 source api/bin/activate 
+```
 
-# Set Flask variables
+2. Set Flask variables
+```shell
 export FLASK_APP=main.py
+```
 
-# Run Flask Backend
+3. Run DS_Tutor
+```shell
 flask run --reload --debugger
+```
+**It will open server on http://127.0.0.1:5000/**
 
-# --- It will open server on http://127.0.0.1:5000/ ----
-
-#Unable venv
+4. Unable virtual environment
+```shell
 deactivate
 ```
