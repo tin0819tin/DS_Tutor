@@ -11,7 +11,7 @@
 ***
 
 ## :checkered_flag: Getting start
-**To learn more about this project please check this** [demo video](https://drive.google.com/file/d/1OoRhyeYP_Mw9_UDvZGIxbCY6F2WD0pVC/view?usp=sharing) and [slide](https://drive.google.com/file/d/1jeG6qTT1gPgXMh3XyxMr-YSsxXVh7_EL/view?usp=sharing).
+**To learn more about this project please check this** [demo video](https://www.youtube.com/watch?v=6u08c0Z-o8I) and [slide](https://drive.google.com/file/d/1jeG6qTT1gPgXMh3XyxMr-YSsxXVh7_EL/view?usp=sharing).
 
 
 ## :hammer: Build from source
